@@ -195,14 +195,7 @@ export default function DesktopNavigation() {
               </nav>
               <div className="border-t border-border-blue pt-5 mb-5">
                 <span className="text-navy-sub font-sans text-[10px] font-semibold tracking-widest uppercase block mb-3">Categories</span>
-                <div className="space-y-1">
-                  {categories.map((cat) => (
-                    <Link key={cat.id} to={`/category/${cat.slug}`} className="flex items-center justify-between px-3 py-2 text-sm text-navy-sub hover:bg-navy-light hover:text-navy-deep rounded-lg transition-colors" onClick={() => setMobileNavOpen(false)}>
-                      {cat.name}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                    </Link>
-                  ))}
-                </div>
+                <MobileCategoryTree categories={categories} setMobileNavOpen={setMobileNavOpen} />
               </div>
               <Link to="/contact" className="btn-primary w-full" onClick={() => setMobileNavOpen(false)}>
                 Inquiry
@@ -298,6 +291,89 @@ function CategoryTreeDropdown() {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function MobileCategoryTree({ categories, setMobileNavOpen }: { categories: any[]; setMobileNavOpen: (open: boolean) => void }) {
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  const toggle = (id: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const isExpanded = (id: string) => expanded.has(id);
+
+  const renderCategory = (cat: any, level: number) => {
+    const hasChildren = cat.children && cat.children.length > 0;
+    const pad = level * 4;
+
+    return (
+      <div key={cat.id} className="mb-1">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            if (hasChildren) toggle(cat.id);
+          }}
+          className={`w-full flex items-center justify-between pl-${pad} pr-3 py-2.5 text-left text-sm text-navy-sub hover:bg-navy-light hover:text-navy-deep rounded-lg transition-colors ${hasChildren ? 'cursor-pointer' : ''}`}
+        >
+          <span className="flex-1 truncate">{cat.name}</span>
+          {hasChildren && (
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isExpanded(cat.id) ? 'rotate-180' : ''}`}>
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          )}
+        </button>
+        {hasChildren && isExpanded(cat.id) && (
+          <div className={`ml-${pad + 2} border-l border-border-blue space-y-0.5`}>
+            {cat.children.map((child: any) => {
+              const childHasChildren = child.children && child.children.length > 0;
+              return (
+                <div key={child.id}>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (childHasChildren) toggle(child.id);
+                    }}
+                    className={`w-full flex items-center justify-between pl-${pad + 2} pr-3 py-2 text-left text-xs text-navy-sub hover:bg-navy-light hover:text-navy-deep rounded-md transition-colors ${childHasChildren ? 'cursor-pointer' : ''}`}
+                  >
+                    <span className="flex-1 truncate">{child.name}</span>
+                    {childHasChildren && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isExpanded(child.id) ? 'rotate-180' : ''}`}>
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    )}
+                  </button>
+                  {childHasChildren && isExpanded(child.id) && (
+                    <div className={`ml-${pad + 4} border-l border-border-blue space-y-0.5`}>
+                      {child.children.map((subChild: any) => (
+                        <Link
+                          key={subChild.id}
+                          to={`/products?category=${cat.slug}&sub=${child.slug}&subsub=${subChild.slug}`}
+                          onClick={() => setMobileNavOpen(false)}
+                          className={`pl-${pad + 4} pr-3 py-2 block text-[10px] text-navy-deep hover:bg-navy-light rounded-md transition-colors`}
+                        >
+                          {subChild.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-1">
+      {categories.map((cat) => renderCategory(cat, 0))}
     </div>
   );
 }
