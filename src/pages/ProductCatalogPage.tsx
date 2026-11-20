@@ -514,8 +514,6 @@ function FilterPanel({
           })}
         </div>
       </FilterAccordion>
-
-      <button className="btn-primary w-full py-2.5 text-sm">Apply Filters</button>
     </div>
   );
 }
