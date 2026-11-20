@@ -10,11 +10,9 @@ export type Category = {
 };
 
 export const categories: Category[] = [
-  // ===== METALS =====
   {
     id: 'metals', name: 'Metals', slug: 'metals', level: 1, sortOrder: 1, status: 'active',
     children: [
-      // ===== COPPER =====
       {
         id: 'copper', name: 'Copper', slug: 'copper', parentId: 'metals', level: 2, sortOrder: 1, status: 'active',
         children: [
@@ -47,7 +45,6 @@ export const categories: Category[] = [
           },
         ],
       },
-      // ===== ALUMINUM =====
       {
         id: 'aluminum', name: 'Aluminum', slug: 'aluminum', parentId: 'metals', level: 2, sortOrder: 2, status: 'active',
         children: [
@@ -76,7 +73,6 @@ export const categories: Category[] = [
           },
         ],
       },
-      // ===== IRON & STEEL =====
       {
         id: 'iron-steel', name: 'Iron & Steel', slug: 'iron-steel', parentId: 'metals', level: 2, sortOrder: 3, status: 'active',
         children: [
@@ -166,7 +162,6 @@ export const categories: Category[] = [
               { id: 'armor-wire', name: 'ARMOR Wire', slug: 'armor-wire', parentId: 'steel-cable', level: 4, sortOrder: 1, status: 'active' },
             ],
           },
-          // Planned empty categories
           {
             id: 'steel-semi', name: 'Semi-Finished Steel Products', slug: 'semi-finished-steel', parentId: 'iron-steel', level: 3, sortOrder: 5, status: 'planned_empty',
             children: [

@@ -58,19 +58,15 @@ export default function DesktopNavigation() {
 
   return (
     <>
-      {/* Desktop Header */}
       <header
         className={`hidden md:block sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b transition-transform duration-300 ${
           hidden ? '-translate-y-full' : 'translate-y-0'
         } ${scrolled ? 'border-border-blue shadow-md' : 'border-transparent shadow-sm'}`}
       >
         <div className="container flex items-center justify-between h-[72px]">
-          {/* Logo */}
           <BrandLogo />
 
-          {/* Navigation */}
           <nav className="flex items-center gap-0.5">
-            {/* Home - Always first */}
             <Link
               to="/"
               className={`px-3 py-2 text-sm font-medium rounded-button transition-colors hover:text-navy-deep ${location.pathname === '/' ? 'text-navy-deep' : 'text-navy-sub'}`}
@@ -78,7 +74,6 @@ export default function DesktopNavigation() {
               Home
             </Link>
 
-            {/* Categories Dropdown - Right of Home */}
             <div className="relative" ref={productsRef}>
               <button
                 onClick={() => setProductsOpen(!productsOpen)}
@@ -103,7 +98,6 @@ export default function DesktopNavigation() {
               )}
             </div>
 
-            {/* Other nav links */}
             {mainNavLinks.filter(l => l.to !== '/').map((link) => (
               <Link key={link.label} to={link.to} className={`px-3 py-2 text-sm font-medium rounded-button transition-colors hover:text-navy-deep ${location.pathname === link.to ? 'text-navy-deep' : 'text-navy-sub'}`}>
                 {link.label}
@@ -111,9 +105,7 @@ export default function DesktopNavigation() {
             ))}
           </nav>
 
-          {/* Right Actions */}
           <div className="flex items-center gap-2">
-            {/* Search */}
             <div className="relative" ref={searchRef}>
               <button onClick={() => setSearchOpen(!searchOpen)} className="w-9 h-9 rounded-button flex items-center justify-center text-navy-sub hover:bg-navy-light hover:text-navy-deep transition-colors" aria-label="Search">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
@@ -132,12 +124,10 @@ export default function DesktopNavigation() {
               )}
             </div>
 
-            {/* User / Login */}
             <Link to="/login" className="w-9 h-9 rounded-button flex items-center justify-center text-navy-sub hover:bg-navy-light hover:text-navy-deep transition-colors" aria-label="User Account">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </Link>
 
-            {/* Inquiry Button */}
             <Link to="/contact" className="btn-primary ml-2">
               Inquiry
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
@@ -146,7 +136,6 @@ export default function DesktopNavigation() {
         </div>
       </header>
 
-      {/* Mobile Header */}
       <header className={`md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled ? 'border-border-blue shadow-md' : 'border-transparent shadow-sm'}`}>
         <div className="container flex items-center justify-between h-[64px]">
           <BrandLogo small />
@@ -158,7 +147,6 @@ export default function DesktopNavigation() {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
       {mobileNavOpen && (
         <>
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 md:hidden" onClick={() => setMobileNavOpen(false)} />

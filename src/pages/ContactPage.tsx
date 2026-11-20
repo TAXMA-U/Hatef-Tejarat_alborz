@@ -77,14 +77,12 @@ export default function ContactPage() {
     setStatusMessage('');
 
     try {
-      // In development, simulate API call
       if (import.meta.env.DEV) {
         await new Promise((resolve) => setTimeout(resolve, 1500));
         setStatus('success');
         setStatusMessage('Message sent successfully! We will get back to you soon.');
         setForm({ fullName: '', email: '', phone: '', subject: '', productService: '', message: '' });
       } else {
-        // Production: call real API
         const response = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -103,7 +101,6 @@ export default function ContactPage() {
 
   return (
     <div className="relative min-h-screen">
-      {/* ===== HERO ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px]">
           <img
@@ -132,17 +129,14 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ===== MAIN CONTENT ===== */}
       <section className="py-10 md:py-16">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* Contact Info - Left */}
             <div className="lg:col-span-5">
               <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-6">
                 Contact Information
               </h2>
               <div className="space-y-3">
-                {/* Phone */}
                 <div className="card p-4 flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
@@ -160,7 +154,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Email */}
                 <div className="card p-4 flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
@@ -185,7 +178,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Address */}
                 <div className="card p-4 flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
@@ -201,7 +193,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Business Hours */}
                 <div className="card p-4 flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
@@ -222,14 +213,12 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Form - Right */}
             <div className="lg:col-span-7">
               <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-6">
                 Send Us a Message
               </h2>
               <div className="card p-4 md:p-6">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                  {/* Full Name & Email Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
@@ -263,7 +252,6 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Phone & Subject Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
@@ -297,7 +285,6 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Product/Service */}
                   <div>
                     <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                       Product / Service
@@ -322,7 +309,6 @@ export default function ContactPage() {
                     </select>
                   </div>
 
-                  {/* Message */}
                   <div>
                     <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                       Message <span className="text-red-500">*</span>
@@ -339,7 +325,6 @@ export default function ContactPage() {
                     )}
                   </div>
 
-                  {/* Status Message */}
                   {status !== 'idle' && (
                     <div
                       className={`p-3 rounded-lg text-sm ${
@@ -370,7 +355,6 @@ export default function ContactPage() {
                     </div>
                   )}
 
-                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={status === 'loading'}

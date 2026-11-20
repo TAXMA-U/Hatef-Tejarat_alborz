@@ -46,7 +46,6 @@ const values = [
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen">
-      {/* ===== HERO ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[240px]">
           <img
@@ -72,11 +71,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== COMPANY INTRO ===== */}
       <section className="py-12 md:py-20">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Image */}
             <div className="lg:col-span-6">
               <div className="aspect-[4/3] rounded-card overflow-hidden border border-border-blue">
                 <img
@@ -87,7 +84,6 @@ export default function AboutPage() {
                 />
               </div>
             </div>
-            {/* Text */}
             <div className="lg:col-span-6">
               <SectionBadge className="mb-3">ABOUT US</SectionBadge>
               <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-4">
@@ -117,7 +113,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== STATS ===== */}
       <section className="py-8 md:py-12 bg-white">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0">
@@ -151,7 +146,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== MISSION & VISION ===== */}
       <section className="py-12 md:py-20">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
@@ -188,7 +182,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== VALUES / ADVANTAGES ===== */}
       <section className="py-12 md:py-20 bg-white">
         <div className="container">
           <div className="text-center mb-10">
@@ -221,7 +214,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== FINAL CTA ===== */}
       <section className="py-12 md:py-16">
         <div className="container">
           <div className="navy-gradient rounded-[20px] p-8 md:p-12 text-center relative overflow-hidden">

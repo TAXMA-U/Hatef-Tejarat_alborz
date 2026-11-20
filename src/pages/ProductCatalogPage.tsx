@@ -5,6 +5,7 @@ import { products } from '@/data/products';
 import { categories } from '@/data/categories';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import SectionBadge from '@/components/common/SectionBadge';
+import ProductCardSkeleton from '@/components/common/ProductCardSkeleton';
 
 type CatalogContext = {
   title: string;
@@ -49,6 +50,7 @@ function FilterAccordion({ title, icon, children, defaultOpen = true }: Accordio
 
 function ExploreProductCard({ product }: { product: typeof products[number] }) {
   const [loaded, setLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const badge = product.materialFamily || product.productType || '';
 
@@ -66,10 +68,18 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
   return (
     <div ref={ref} className={`transition-all duration-500 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} ${sizeClass}`}>
       <Link to={`/products/${product.slug}`} className="group relative block w-full h-full rounded-card overflow-hidden bg-white">
-        {/* Mobile: stacked layout - image on top, info below */}
         <div className="md:hidden">
           <div className="aspect-[4/3] relative overflow-hidden">
-            <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-border-blue animate-pulse" />
+            )}
+            <img
+              src={product.heroImage}
+              alt={product.name}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+            />
             <div className="absolute top-2 left-2 z-10">
               <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm border border-white/30 rounded-full text-[8px] font-semibold text-navy-deep uppercase tracking-wider">{badge}</span>
             </div>
@@ -87,9 +97,17 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
           </div>
         </div>
 
-        {/* Desktop: overlay on bottom half only */}
         <div className="hidden md:block relative aspect-[4/5]">
-          <img src={product.heroImage} alt={product.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-border-blue animate-pulse" />
+          )}
+          <img
+            src={product.heroImage}
+            alt={product.name}
+            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04] transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+          />
           <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-navy-darkest via-navy-darkest/60 to-transparent" />
           <div className="absolute top-3 left-3 z-10">
             <span className="inline-block px-2.5 py-0.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-[9px] font-semibold text-white uppercase tracking-wider">{badge}</span>
@@ -112,10 +130,14 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
 
 function ProductListCard({ product }: { product: typeof products[number] }) {
   const badge = product.materialFamily || product.productType || '';
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Link to={`/products/${product.slug}`} className="group flex items-center gap-4 p-3 md:p-4 rounded-card border border-border-blue bg-white hover:border-navy-deep hover:shadow-md transition-all duration-300">
       <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden shrink-0">
-        <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-border-blue animate-pulse rounded-lg" />
+        )}
+        <img src={product.heroImage} alt={product.name} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`} loading="lazy" onLoad={() => setImageLoaded(true)} />
       </div>
       <div className="flex-1 min-w-0">
         <span className="inline-block px-2 py-0.5 bg-navy-light text-navy-deep text-[9px] font-semibold uppercase tracking-wider rounded-full mb-1.5">{badge}</span>
@@ -149,19 +171,18 @@ export default function ProductCatalogPage() {
     toggleMaterial, toggleWorkCategory, toggleCertification,
     sortBy, setSortBy,
     viewMode, setViewMode,
-    currentPage, setCurrentPage,
-    totalPages,
-    paginatedProducts,
+    visibleProducts,
     filteredProducts,
+    hasMore,
+    isLoadingMore,
     hasActiveFilters,
     clearAllFilters,
     resultCount,
-    itemsPerPage,
+    loadMoreRef,
   } = useProductFilters(products, { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' });
 
   return (
     <div className="relative min-h-screen">
-      {/* ===== HERO BANNER ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px] lg:h-[240px]">
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
@@ -176,11 +197,9 @@ export default function ProductCatalogPage() {
         </div>
       </section>
 
-      {/* ===== MAIN CONTENT ===== */}
       <section className="py-6 md:py-10">
         <div className="container">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
-            {/* ===== SIDEBAR (Desktop) / Drawer (Mobile) ===== */}
             <aside className="hidden lg:block w-[260px] shrink-0">
               <div className="sticky top-[88px]">
                 <FilterPanel
@@ -198,9 +217,7 @@ export default function ProductCatalogPage() {
               </div>
             </aside>
 
-            {/* ===== RESULTS ===== */}
             <div className="flex-1 min-w-0">
-              {/* Results Bar */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
                 <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
                 <div className="flex items-center gap-2">
@@ -242,7 +259,6 @@ export default function ProductCatalogPage() {
                 </div>
               </div>
 
-              {/* Mobile Search */}
               <div className="lg:hidden mb-5">
                 <div className="relative">
                   <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search products..." className="w-full px-4 py-2.5 pr-10 bg-white border border-border-blue rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent" />
@@ -252,55 +268,44 @@ export default function ProductCatalogPage() {
                 </div>
               </div>
 
-              {/* Products Grid - Instagram Explore Style */}
-              {paginatedProducts.length > 0 ? (
-                viewMode === 'grid' ? (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {paginatedProducts.map((product) => (
-                      <ExploreProductCard key={product.id} product={product} />
-                    ))}
+{visibleProducts.length === 0 ? (
+                  <div className="text-center py-16">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-light flex items-center justify-center">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-navy-sub">
+                        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                    </div>
+                    <h3 className="font-serif text-xl text-navy-deep mb-2">No products found</h3>
+                    <p className="text-slate-gray text-sm mb-4">Try adjusting your filters or search terms.</p>
+                    <button onClick={clearAllFilters} className="btn-primary">Clear Filters</button>
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-3">
-                    {paginatedProducts.map((product) => (
-                      <ProductListCard key={product.id} product={product} />
-                    ))}
-                  </div>
-                )
-              ) : (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-light flex items-center justify-center">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-navy-sub">
-                      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-xl text-navy-deep mb-2">No products found</h3>
-                  <p className="text-slate-gray text-sm mb-4">Try adjusting your filters or search terms.</p>
-                  <button onClick={clearAllFilters} className="btn-primary">Clear Filters</button>
-                </div>
-              )}
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
-                  <p className="text-xs text-slate-gray">
-                    Showing {((currentPage - 1) * itemsPerPage) + 1}–{Math.min(currentPage * itemsPerPage, resultCount)} of {resultCount} products
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} className="w-9 h-9 rounded-lg border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light disabled:opacity-40 disabled:cursor-not-allowed transition-colors" aria-label="Previous page">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-                    </button>
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                      <button key={page} onClick={() => setCurrentPage(page)} className={`w-9 h-9 rounded-full text-sm font-medium transition-colors ${currentPage === page ? 'bg-navy-deep text-white' : 'border border-border-blue text-navy-deep hover:bg-navy-light'}`}>
-                        {page}
-                      </button>
-                    ))}
-                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages} className="w-9 h-9 rounded-lg border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light disabled:opacity-40 disabled:cursor-not-allowed transition-colors" aria-label="Next page">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-                    </button>
-                  </div>
-                </div>
-              )}
+                  <>
+                    {viewMode === 'grid' ? (
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {visibleProducts.map((product) => (
+                          <ExploreProductCard key={product.id} product={product} />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-3">
+                        {visibleProducts.map((product) => (
+                          <ProductListCard key={product.id} product={product} />
+                        ))}
+                      </div>
+                    )}
+                    {hasMore && !isLoadingMore && (
+                      <div ref={loadMoreRef} className="my-8 flex justify-center">
+                        <div className="flex items-center gap-2 animate-pulse">
+                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                          <span className="text-xs text-slate-gray">Loading more products...</span>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
             </div>
           </div>
         </div>
@@ -413,7 +418,6 @@ function FilterPanel({
                   </div>
                   <span className="text-[9px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{catCount}</span>
                 </div>
-                {/* Subcategories */}
                 {hasChildren && (
                   <div className="ml-6 border-l border-border-blue">
                     {cat.children!.map((child) => {
@@ -428,7 +432,6 @@ function FilterPanel({
                             </div>
                             <span className="text-[8px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{childCount}</span>
                           </label>
-                          {/* Sub-subcategories */}
                           {child.children && child.children.length > 0 && (
                             <div className="ml-4 border-l border-border-blue">
                               {child.children.map((subChild) => {

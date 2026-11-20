@@ -38,7 +38,6 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen">
-      {/* ===== HERO ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[640px] md:h-[520px] lg:h-[560px]">
           <img   src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with large rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
@@ -60,7 +59,6 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          {/* Stats bar */}
           <div className="absolute bottom-0 left-0 right-0 z-10">
             <div className="container">
               <div className="bg-white/95 backdrop-blur-sm rounded-t-[20px] px-4 md:px-8 py-3 md:py-4">
@@ -84,11 +82,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== THE STEEL VAULT - Wider with more padding ===== */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Text - order 2 on mobile, order 1 on desktop */}
             <div className="lg:col-span-4 order-2 lg:order-1">
               <SectionBadge className="mb-3">{siteContent.steelVault.badge}</SectionBadge>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-[44px] text-navy-deep mb-4">{siteContent.steelVault.title}</h2>
@@ -98,9 +94,7 @@ export default function HomePage() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
               </Link>
             </div>
-            {/* Products - order 1 on mobile, order 2 on desktop */}
             <div className="lg:col-span-8 order-1 lg:order-2">
-              {/* Horizontal scrollable products with nav buttons */}
               <div className="relative">
                 <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth" ref={scrollRef1}>
                   {steelProducts.map((product) => (
@@ -109,7 +103,6 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                {/* Scroll buttons */}
                 <div className="flex justify-end gap-2 mt-3">
                   <button
                     onClick={() => scrollRef1.current?.scrollBy({ left: -280, behavior: 'smooth' })}
@@ -136,7 +129,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== PRODUCT CATALOG BANNER ===== */}
       <section className="py-8 md:py-12">
         <div className="container">
           <div className="relative h-[220px] md:h-[240px] rounded-[20px] overflow-hidden">
@@ -157,7 +149,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== STATS BAR ===== */}
       <section className="py-8 md:py-12">
         <div className="container">
           <div className="card px-4 md:px-8 py-6 md:py-8">
@@ -180,10 +171,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== CATEGORY 1: STEEL - Horizontal Scroll List ===== */}
       <section className="py-12 md:py-20 bg-white">
         <div className="container">
-          {/* Category Slider Header */}
           <CategorySlider
             title="Steel Products"
             description="High-strength steel and stainless steel alloys for structural and industrial use."
@@ -192,7 +181,6 @@ export default function HomePage() {
             productCount={steelProducts.length}
             viewAll="/category/steel"
           />
-          {/* Products - horizontal scroll list with nav buttons */}
           <div className="relative mt-8">
             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth" ref={scrollRef2}>
               {steelProducts.map((product) => (
@@ -201,7 +189,6 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            {/* Scroll buttons */}
             <div className="flex justify-end gap-2 mt-3">
               <button
                 onClick={() => scrollRef2.current?.scrollBy({ left: -280, behavior: 'smooth' })}
@@ -226,10 +213,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== CATEGORY 2: ALUMINUM - Slider + List Pattern ===== */}
       <section className="py-12 md:py-20">
         <div className="container">
-          {/* Category Slider Header */}
           <CategorySlider
             title="Aluminum Products"
             description="Lightweight, corrosion-resistant aluminum alloys for aerospace, automotive, and construction applications."
@@ -238,7 +223,6 @@ export default function HomePage() {
             productCount={aluminumProducts.length}
             viewAll="/category/aluminum"
           />
-          {/* Products List - Pattern 2: Horizontal cards with image left */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
             {aluminumProducts.map((product) => (
               <ProductListCard key={product.id} product={product} />
@@ -284,12 +268,21 @@ function CategorySlider({ title, description, image, badge, productCount, viewAl
 
 function ProductShowcaseCard({ product }: { product: Product }) {
   const badge = product.materialFamily || product.productType || '';
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Link to={`/products/${product.slug}`} className="group relative block rounded-card overflow-hidden bg-white">
-      {/* Mobile: stacked layout - image on top, info below */}
       <div className="md:hidden">
         <div className="aspect-[4/3] relative overflow-hidden">
-          <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-border-blue animate-pulse" />
+          )}
+          <img
+            src={product.heroImage}
+            alt={product.name}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+          />
           <div className="absolute top-2 left-2 z-10">
             <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm border border-white/30 rounded-full text-[8px] font-semibold text-navy-deep uppercase tracking-wider">{badge}</span>
           </div>
@@ -307,19 +300,24 @@ function ProductShowcaseCard({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* Desktop: overlay on bottom half only */}
       <div className="hidden md:block relative aspect-[4/5]">
-        <img src={product.heroImage} alt={product.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy" />
-        {/* Bottom gradient overlay - covers bottom ~50% */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-border-blue animate-pulse" />
+        )}
+        <img
+          src={product.heroImage}
+          alt={product.name}
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04] transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+        />
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-navy-darkest via-navy-darkest/60 to-transparent" />
-        {/* Badge - top left */}
         <div className="absolute top-3 left-3 z-10">
           <span className="inline-block px-2.5 py-0.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-[9px] font-semibold text-white uppercase tracking-wider">{badge}</span>
         </div>
-        {/* Info overlay - bottom half, visible on hover */}
-<div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end text-white">
-            <h3 className="font-serif text-white text-base md:text-lg font-medium leading-tight mb-2">{product.name}</h3>
-            <p className="text-white/80 text-xs md:text-sm line-clamp-2 mb-4">{product.shortDescription}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end text-white">
+          <h3 className="font-serif text-white text-base md:text-lg font-medium leading-tight mb-2">{product.name}</h3>
+          <p className="text-white/80 text-xs md:text-sm line-clamp-2 mb-4">{product.shortDescription}</p>
           <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-navy-deep transition-all duration-300">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white group-hover:text-navy-deep group-hover:translate-x-0.5 transition-all duration-300">
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -334,10 +332,14 @@ function ProductShowcaseCard({ product }: { product: Product }) {
 
 function ProductListCard({ product }: { product: Product }) {
   const badge = product.materialFamily || product.productType || '';
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Link to={`/products/${product.slug}`} className="group flex items-center gap-3 p-3 rounded-card border border-border-blue bg-white hover:border-navy-deep hover:shadow-md transition-all duration-300">
-      <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
-        <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+      <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0 relative">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-border-blue animate-pulse rounded-lg" />
+        )}
+        <img src={product.heroImage} alt={product.name} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`} loading="lazy" onLoad={() => setImageLoaded(true)} />
       </div>
       <div className="flex-1 min-w-0">
         <span className="inline-block px-2 py-0.5 bg-navy-light text-navy-deep text-[9px] font-semibold uppercase tracking-wider rounded-full mb-1">{badge}</span>
@@ -374,7 +376,6 @@ function FadeInGrid({ products: items }: { products: Product[] }) {
       if (ref) observer.observe(ref);
     });
 
-    // Fallback: make all visible after 1 second
     const timeout = setTimeout(() => {
       setVisibleItems(new Set(items.map((_, i) => i)));
     }, 1000);

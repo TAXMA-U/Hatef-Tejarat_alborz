@@ -118,15 +118,11 @@ function SpecsBlock({ block }: BlockRendererProps) {
 
 function formatChemicalValue(value: string | number): string {
   const str = String(value).trim();
-  // Strip '<' or '<=' prefix
   const cleaned = str.replace(/^<\s*=?\s*/, '');
-  // Try to parse as number
   const num = parseFloat(cleaned);
   if (!isNaN(num)) {
-    // Show as raw number without percentage
     return String(num);
   }
-  // Non-numeric values like 'Pending Review', 'Balance' - show as-is
   return str;
 }
 

@@ -85,7 +85,6 @@ export default function ProductDetailPage() {
 
   return (
     <div className="relative min-h-screen">
-      {/* ===== HERO BANNER ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[160px] md:h-[180px]">
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel pipes" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
@@ -114,7 +113,6 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* Floating Back to Top - shows on scroll down, hides on scroll up */}
       {showBackToTop && scrollDirection === 'down' && (
         <button
           onClick={handleBackToTop}
@@ -127,11 +125,9 @@ export default function ProductDetailPage() {
         </button>
       )}
 
-      {/* ===== PRODUCT OVERVIEW ===== */}
       <section className="py-6 md:py-10">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            {/* Product Image - Left (desktop) / Top (mobile) - stretches to fill info height */}
             <div className="lg:col-span-7">
               <div className="relative w-full h-full min-h-[320px] sm:min-h-[440px] rounded-card overflow-hidden border border-border-blue bg-navy-darkest">
                 <img
@@ -176,9 +172,7 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Product Info - Right (desktop) / Bottom (mobile) */}
             <div className="lg:col-span-5 flex flex-col">
-              {/* Title & Badges */}
               <div className="mb-4">
                 <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">
                   {productDetail.name}
@@ -201,7 +195,6 @@ export default function ProductDetailPage() {
                 </p>
               </div>
 
-              {/* Variant Selector */}
               {productDetail.variants && productDetail.variants.length > 0 && (
                 <VariantSelector
                   variants={productDetail.variants}
@@ -210,7 +203,6 @@ export default function ProductDetailPage() {
                 />
               )}
 
-              {/* Highlights (primary) or Key Specs (fallback) to fill the column */}
               {highlightItems.length > 0 ? (
                 <div className="card p-4 mb-4">
                   <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
@@ -249,7 +241,6 @@ export default function ProductDetailPage() {
                 </div>
               ) : null}
 
-              {/* Quick Info Grid */}
               <div className="card p-4 mb-4">
                 <div className="grid grid-cols-2 gap-3">
                   {quickFacts.map((fact) => (
@@ -261,7 +252,6 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* CTA - pushed to bottom to align with image */}
               <div className="mt-auto pt-2">
                 <button
                   onClick={handleInquire}
@@ -279,21 +269,17 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* ===== CONTENT BLOCKS ===== */}
       <section className="pb-8 md:pb-12">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Main Content - Left (desktop) / Full width (mobile) */}
             <div className="lg:col-span-8">
               {detailBlocks.map((block) => (
                 <BlockRenderer key={block.id} block={block} />
               ))}
             </div>
 
-            {/* Sidebar - Right (desktop) / Hidden on mobile (info is in hero) */}
             <div className="hidden lg:block lg:col-span-4">
               <div className="sticky top-24 space-y-4">
-                {/* Key Highlights Card */}
                 {highlightItems.length > 0 && (
                   <div className="card p-4">
                     <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
@@ -318,7 +304,6 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                {/* Availability Card */}
                 <div className="card p-4">
                   <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
                     <div className="w-1 h-4 bg-navy-deep rounded-full" />
@@ -342,7 +327,6 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
 
-                {/* Industry Labels */}
                 {productDetail.industryLabels && productDetail.industryLabels.length > 0 && (
                   <div className="card p-4">
                     <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
@@ -362,7 +346,6 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                {/* CTA Card */}
                 <div className="navy-gradient rounded-[20px] p-5 text-center">
                   <h3 className="font-serif text-lg text-white mb-2">Need More Info?</h3>
                   <p className="text-white/60 text-xs mb-4">Contact our team for technical specifications and quotes.</p>
@@ -383,7 +366,6 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* ===== RELATED PRODUCTS ===== */}
       {relatedProducts.length > 0 && (
         <section className="pb-12 md:pb-16">
           <div className="container">
@@ -393,7 +375,6 @@ export default function ProductDetailPage() {
               <p className="text-slate-gray text-sm mb-2">Explore similar grades and alloys within the same category for your engineering needs.</p>
               <span className="inline-block px-2.5 py-1 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">{relatedProducts.length} Products Found</span>
             </div>
-            {/* Horizontal scrollable - Mobile: swipe, Desktop: scroll */}
             <div className="relative">
               <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 snap-x touch-pan-x related-scroll">
                 {relatedProducts.map((product) => (
@@ -418,7 +399,6 @@ export default function ProductDetailPage() {
                   </div>
                 ))}
               </div>
-              {/* Scroll buttons for mobile */}
               <div className="flex justify-end gap-2 mt-2 md:hidden">
                 <button
                   onClick={() => {

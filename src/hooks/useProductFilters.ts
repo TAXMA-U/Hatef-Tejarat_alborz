@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import type { Product } from '@/data/products';
 import { findCategoryBySlug } from '@/data/categories';
 
@@ -43,12 +43,16 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
 
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(9);
+  const [visibleCount, setVisibleCount] = useState(12);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const ITEMS_PER_LOAD = 12;
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const setSearch = useCallback((query: string) => {
     setState((prev) => ({ ...prev, search: query }));
-    setCurrentPage(1);
+    setVisibleCount(12);
   }, []);
 
   const toggleMaterial = useCallback((material: string) => {
@@ -58,7 +62,7 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
         : [...prev.selectedMaterials, material];
       return { ...prev, selectedMaterials: next };
     });
-    setCurrentPage(1);
+    setVisibleCount(12);
   }, []);
 
   const toggleWorkCategory = useCallback((category: string) => {
@@ -68,7 +72,7 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
         : [...prev.selectedWorkCategories, category];
       return { ...prev, selectedWorkCategories: next };
     });
-    setCurrentPage(1);
+    setVisibleCount(12);
   }, []);
 
   const toggleCertification = useCallback((cert: string) => {
@@ -78,12 +82,12 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
         : [...prev.selectedCertifications, cert];
       return { ...prev, selectedCertifications: next };
     });
-    setCurrentPage(1);
+    setVisibleCount(12);
   }, []);
 
   const clearAllFilters = useCallback(() => {
     setState({ search: '', selectedMaterials: [], selectedWorkCategories: [], selectedCertifications: [] });
-    setCurrentPage(1);
+    setVisibleCount(12);
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -145,11 +149,35 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
     return result;
   }, [products, state, sortBy]);
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const loadMore = useCallback(() => {
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
+      setIsLoadingMore(false);
+    }, 400);
+  }, [isLoadingMore]);
+
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
+    observerRef.current = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && visibleCount < filteredProducts.length && !isLoadingMore) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+    if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
 
   const hasActiveFilters =
     state.selectedMaterials.length > 0 ||
@@ -170,14 +198,13 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
     setSortBy,
     viewMode,
     setViewMode,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    paginatedProducts,
+    visibleProducts,
     filteredProducts,
+    hasMore,
+    isLoadingMore,
     hasActiveFilters,
     clearAllFilters,
     resultCount: filteredProducts.length,
-    itemsPerPage,
+    loadMoreRef,
   };
 }

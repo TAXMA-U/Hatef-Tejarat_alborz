@@ -21,7 +21,6 @@ export default function SiteFooter() {
 
   return (
     <footer className="relative z-10 bg-navy-darkest text-white overflow-hidden">
-      {/* Subtle network dots pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <svg className="w-full h-full" aria-hidden="true">
           <defs>
@@ -35,7 +34,6 @@ export default function SiteFooter() {
 
       <div className="relative container pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-          {/* Column 1: Company Info & Social */}
           <div className="lg:col-span-1">
             <BrandLogo small />
             <p className="mt-4 text-sm text-white/70 leading-relaxed max-w-xs">
@@ -76,7 +74,6 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
           <div className="mt-8">
             <h3 className="text-sm font-sans font-semibold !text-white tracking-wider uppercase mb-4">
               Quick Links
@@ -101,7 +98,6 @@ export default function SiteFooter() {
             </ul>
           </div>
 
-          {/* Column 3: Our Products */}
           <div className="mt-8">
             <h3 className="text-sm font-sans font-semibold !text-white tracking-wider uppercase mb-4">
               Our Products
@@ -120,7 +116,6 @@ export default function SiteFooter() {
             </ul>
           </div>
 
-          {/* Column 4: Contact Us */}
           <div className="mt-8">
             <h3 className="text-sm font-sans font-semibold !text-white tracking-wider uppercase mb-4">
               Contact Us
@@ -171,7 +166,6 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-white/60">
             © {new Date().getFullYear()} Hatef Tejarat Alborz. All rights reserved.
@@ -187,7 +181,6 @@ export default function SiteFooter() {
         </div>
       </div>
 
-      {/* Back to Top Button */}
       {showBackToTop && (
         <button
           onClick={scrollToTop}

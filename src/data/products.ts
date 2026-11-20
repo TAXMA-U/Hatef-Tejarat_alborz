@@ -5,7 +5,6 @@ export type Product = ProductDetail;
 const defaultImage = `${import.meta.env.BASE_URL}images/products/a.png`;
 
 export const products: ProductDetail[] = [
-  // ===== COPPER PRODUCTS =====
   {
     id: 'hta-copper-busbar',
     slug: 'copper-busbar',
@@ -330,7 +329,6 @@ export const products: ProductDetail[] = [
     ],
     relatedProductIds: ['hta-copper-clamps'],
   },
-  // ===== ALUMINUM =====
   {
     id: 'hta-aluminum-ingot',
     slug: 'aluminum-ingot-iralco',
@@ -402,7 +400,6 @@ export const products: ProductDetail[] = [
     ],
     relatedProductIds: [],
   },
-  // ===== IRON & STEEL WIRE =====
   {
     id: 'hta-iron-wire',
     slug: 'iron-wire',
@@ -670,7 +667,6 @@ export const products: ProductDetail[] = [
     ],
     relatedProductIds: ['hta-annealed-wire', 'hta-iron-wire'],
   },
-  // ===== MESH & FENCING =====
   {
     id: 'hta-hexagonal-mesh',
     slug: 'hexagonal-wire-mesh',
@@ -860,7 +856,6 @@ export const products: ProductDetail[] = [
     ],
     relatedProductIds: ['hta-hexagonal-mesh', 'hta-chicken-mesh'],
   },
-  // ===== BARbed WIRE FAMILY =====
   {
     id: 'hta-barbed-wire',
     slug: 'barbed-wire-family',
@@ -895,7 +890,6 @@ export const products: ProductDetail[] = [
     ],
     relatedProductIds: ['hta-galvanized-wire'],
   },
-  // ===== ARMOR WIRE =====
   {
     id: 'hta-armor-wire',
     slug: 'armor-wire',

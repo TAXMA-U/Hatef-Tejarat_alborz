@@ -99,7 +99,6 @@ export default function RegisterPage() {
     try {
       if (import.meta.env.DEV) {
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        // Mock success in dev
         navigate('/login', { state: { message: 'Account created successfully! Please sign in.' } });
       } else {
         const response = await fetch('/api/auth/register', {
@@ -120,7 +119,6 @@ export default function RegisterPage() {
           setLoading(false);
           return;
         }
-        // Success - redirect based on backend response
         const data = await response.json();
         if (data.requiresEmailVerification) {
           navigate('/login', { state: { message: 'Please check your email to verify your account.' } });
@@ -141,14 +139,11 @@ export default function RegisterPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-8">
           <BrandLogo />
         </div>
 
-        {/* Form Card */}
         <div className="card p-6 md:p-8">
-          {/* Title */}
           <div className="text-center mb-6">
             <h1 className="font-serif text-2xl md:text-3xl text-navy-deep mb-1.5">
               Create Your Account
@@ -159,7 +154,6 @@ export default function RegisterPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            {/* Account Type Toggle */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Account Type
@@ -190,7 +184,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Full Name */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Full Name <span className="text-red-500">*</span>
@@ -208,7 +201,6 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Company Name (conditional) */}
             {form.accountType === 'company' && (
               <div>
                 <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
@@ -228,7 +220,6 @@ export default function RegisterPage() {
               </div>
             )}
 
-            {/* Email & Phone Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
@@ -264,7 +255,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Password <span className="text-red-500">*</span>
@@ -300,7 +290,6 @@ export default function RegisterPage() {
               {errors.password && (
                 <p className="text-red-500 text-[10px] mt-1">{errors.password}</p>
               )}
-              {/* Password Requirements */}
               <div className="mt-2 space-y-1">
                 {passwordRequirements.map((req) => {
                   const met = form.password.length > 0 && req.test(form.password);
@@ -318,7 +307,6 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Confirm Password */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Confirm Password <span className="text-red-500">*</span>
@@ -356,7 +344,6 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Terms */}
             <div>
               <label className="flex items-start gap-2 text-xs text-slate-gray cursor-pointer">
                 <input
@@ -381,7 +368,6 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Submit Error */}
             {submitError && (
               <div className="p-3 rounded-lg bg-red-50 text-red-700 border border-red-200 text-sm">
                 {submitError}
@@ -389,7 +375,6 @@ export default function RegisterPage() {
             )}
           </form>
 
-          {/* Submit Button */}
           <button
             onClick={handleSubmit}
             disabled={loading}
@@ -420,7 +405,6 @@ export default function RegisterPage() {
             )}
           </button>
 
-          {/* Sign In Link */}
           <p className="mt-5 text-center text-xs text-slate-gray">
             Already have an account?{' '}
             <Link
@@ -432,7 +416,6 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {/* Back to Site */}
         <div className="text-center mt-5">
           <Link
             to="/"

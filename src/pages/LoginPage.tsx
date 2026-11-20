@@ -35,7 +35,6 @@ export default function LoginPage() {
     try {
       if (import.meta.env.DEV) {
         await new Promise((resolve) => setTimeout(resolve, 1200));
-        // Mock: always succeed in dev
         navigate('/products');
       } else {
         const response = await fetch('/api/auth/login', {
@@ -49,7 +48,6 @@ export default function LoginPage() {
           return;
         }
         const data = await response.json();
-        // Store token in httpOnly cookie (handled by backend) or sessionStorage for session-based auth
         if (data.token && !rememberMe) {
           sessionStorage.setItem('auth_token', data.token);
         }
@@ -65,14 +63,11 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="text-center mb-8">
           <BrandLogo />
         </div>
 
-        {/* Form Card */}
         <div className="card p-6 md:p-8">
-          {/* Title */}
           <div className="text-center mb-6">
             <h1 className="font-serif text-2xl md:text-3xl text-navy-deep mb-1.5">
               Welcome Back
@@ -83,7 +78,6 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            {/* Email */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Email Address
@@ -105,7 +99,6 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-1.5">
                 Password
@@ -147,7 +140,6 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Remember & Forgot */}
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 text-xs text-slate-gray cursor-pointer">
                 <input
@@ -166,7 +158,6 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {/* Error Message */}
             {error && (
               <div className="p-3 rounded-lg bg-red-50 text-red-700 border border-red-200 text-sm">
                 {error}
@@ -174,7 +165,6 @@ export default function LoginPage() {
             )}
           </form>
 
-          {/* Submit Button */}
           <button
             onClick={handleSubmit}
             disabled={loading}
@@ -205,7 +195,6 @@ export default function LoginPage() {
             )}
           </button>
 
-          {/* Register Link */}
           <p className="mt-5 text-center text-xs text-slate-gray">
             Don't have an account?{' '}
             <Link
@@ -217,7 +206,6 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Back to Site */}
         <div className="text-center mt-5">
           <Link
             to="/"
