@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProductBySlug, getRelatedProducts } from '@/data/products';
-import type { ProductDetail, ProductVariant } from '@/data/contentBlocks';
+import type { ProductDetail, ProductVariant, ContentBlock } from '@/data/contentBlocks';
 import BlockRenderer from '@/components/product/BlockRenderer';
 import VariantSelector from '@/components/product/VariantSelector';
 import Lightbox from '@/components/common/Lightbox';
@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
   return (
     <div className="relative min-h-screen">
       <section className="relative w-full overflow-hidden">
-        <div className="relative h-[160px] md:h-[180px]">
+        <div className="relative h-[640px] md:h-[720px] lg:h-[800px]">
           <img
             src={productDetail.heroImage}
             alt={productDetail.name}
@@ -112,39 +112,77 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      <section className="py-4 md:py-6">
-        <div className="container">
-          <div className="flex justify-center">
-            <div className="w-full max-w-[600px] aspect-square rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
-              <img
-                src={productDetail.heroImage}
-                alt={productDetail.name}
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {showBackToTop && (
-        <button
-          onClick={handleBackToTop}
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-navy-deep text-white flex items-center justify-center shadow-lg hover:bg-navy-mid transition-all duration-300 animate-fade-in-up"
-          aria-label="Back to top"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="18 15 12 9 6 15" />
-          </svg>
-        </button>
-      )}
-
+      {/* Product Hero - Two Column: Image Left (~58%), Info Right (~42%) */}
       <section className="py-8 md:py-12">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             <div className="lg:col-span-7">
               <Reveal variant="fade-up" delay={100} duration={800}>
-                <div className="space-y-8">
+                <div className="relative w-full aspect-square min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[640px] rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
+                  <img
+                    src={selectedVariant?.images?.[0] || productDetail.heroImage}
+                    alt={selectedVariant ? `${productDetail.name} - ${selectedVariant.name}` : productDetail.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  {productDetail.inStock && (
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-status/90 backdrop-blur-sm rounded-full text-[10px] font-semibold text-white uppercase tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        In Stock
+                      </span>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => setLightboxOpen(true)}
+                    className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-navy-deep transition-all duration-300"
+                    aria-label="Enlarge image"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </button>
+                  {selectedVariant?.images && selectedVariant.images.length > 1 && (
+                    <div className="absolute bottom-3 left-3 flex gap-2">
+                      {selectedVariant.images.slice(1, 4).map((src, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setLightboxOpen(true)}
+                          className="w-12 h-12 rounded-lg overflow-hidden border border-white/30 hover:border-white transition-colors"
+                        >
+                          <img src={src} alt={`Thumbnail ${i + 2}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Reveal>
+            </div>
+
+            <div className="lg:col-span-5 flex flex-col gap-5">
+              <Reveal variant="fade-up" delay={150} duration={800}>
+                <div className="space-y-5">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="inline-block px-2.5 py-0.5 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">
+                      {productDetail.materialFamily}
+                    </span>
+                    <span className="inline-block px-2.5 py-0.5 bg-pale-blue-gray text-navy-sub text-[10px] font-medium rounded-full">
+                      {productDetail.productType}
+                    </span>
+                    {productDetail.productCode && (
+                      <span className="text-[10px] text-navy-sub uppercase tracking-wider">
+                        ID: {productDetail.productCode}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-slate-gray text-sm leading-relaxed">
+                    {productDetail.description || productDetail.shortDescription}
+                  </p>
+
                   {productDetail.variants && productDetail.variants.length > 0 && (
                     <VariantSelector
                       variants={productDetail.variants}
@@ -153,6 +191,48 @@ export default function ProductDetailPage() {
                     />
                   )}
 
+                  {validQuickFacts.length > 0 && (
+                    <div className="card p-5 md:p-6">
+                      <div className="grid grid-cols-2 gap-3">
+                        {validQuickFacts.map((fact) => (
+                          <div key={fact.label}>
+                            <span className="text-[10px] text-navy-sub uppercase tracking-wider block mb-0.5">
+                              {fact.label}
+                            </span>
+                            <span className="text-sm font-medium text-navy-deep leading-tight">
+                              {fact.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={handleInquire}
+                    className="btn-primary w-full py-3 text-sm font-semibold"
+                  >
+                    {productDetail.ctaText || 'INQUIRE FOR SPECIFICATIONS'}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content + Sidebar - Two Column */}
+      <section className="py-8 md:py-12">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            {/* Main Content Column */}
+            <div className="lg:col-span-7">
+              <Reveal variant="fade-up" delay={100} duration={800}>
+                <div className="space-y-8">
                   {mainBlocks.length > 0 && (
                     <>
                       {mainBlocks.map((block) => (
@@ -164,6 +244,7 @@ export default function ProductDetailPage() {
               </Reveal>
             </div>
 
+            {/* Sidebar Column */}
             <div className="lg:col-span-5 lg:sticky lg:top-24">
               <Reveal variant="fade-up" delay={150} duration={800}>
                 <div className="space-y-6">
@@ -191,20 +272,22 @@ export default function ProductDetailPage() {
                     </div>
                   )}
 
-                  <div className="card p-5 md:p-6">
-                    <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-4">
-                      <div className="w-1 h-4 bg-navy-deep rounded-full" />
-                      Availability
-                    </h3>
-                    <div className="space-y-2.5">
-                      {validQuickFacts.map((fact) => (
-                        <div key={fact.label} className="flex justify-between items-start">
-                          <span className="text-[10px] text-navy-sub uppercase tracking-wider">{fact.label}</span>
-                          <span className="text-sm font-medium text-navy-deep leading-tight">{fact.value}</span>
-                        </div>
-                      ))}
+                  {validQuickFacts.length > 0 && (
+                    <div className="card p-5 md:p-6">
+                      <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-4">
+                        <div className="w-1 h-4 bg-navy-deep rounded-full" />
+                        Availability
+                      </h3>
+                      <div className="space-y-2.5">
+                        {validQuickFacts.map((fact) => (
+                          <div key={fact.label} className="flex justify-between items-start">
+                            <span className="text-[10px] text-navy-sub uppercase tracking-wider">{fact.label}</span>
+                            <span className="text-sm font-medium text-navy-deep leading-tight">{fact.value}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {productDetail.industryLabels && productDetail.industryLabels.length > 0 && (
                     <div className="card p-5 md:p-6">
@@ -289,6 +372,18 @@ export default function ProductDetailPage() {
             </Reveal>
           </div>
         </section>
+      )}
+
+      {showBackToTop && (
+        <button
+          onClick={handleBackToTop}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-navy-deep text-white flex items-center justify-center shadow-lg hover:bg-navy-mid transition-all duration-300 animate-fade-in-up"
+          aria-label="Back to top"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </button>
       )}
 
       <Lightbox isOpen={lightboxOpen} image={productDetail.heroImage} alt={productDetail.name} onClose={() => setLightboxOpen(false)} />
