@@ -42,7 +42,6 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
   });
 
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [visibleCount, setVisibleCount] = useState(12);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const ITEMS_PER_LOAD = 12;
@@ -196,8 +195,6 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
     toggleCertification,
     sortBy,
     setSortBy,
-    viewMode,
-    setViewMode,
     visibleProducts,
     filteredProducts,
     hasMore,

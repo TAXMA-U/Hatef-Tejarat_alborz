@@ -200,7 +200,7 @@ export default function ProductCatalogPage() {
         <div className="container">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
             <aside className="hidden lg:block w-[260px] shrink-0">
-              <div className="sticky top-[88px] max-h-[calc(100vh-104px)] overflow-y-auto">
+              <div className="sticky top-[88px]">
                 <FilterPanel
                   selectedMaterials={selectedMaterials}
                   selectedWorkCategories={selectedWorkCategories}
@@ -460,7 +460,7 @@ function FilterPanel({
         </div>
       </FilterAccordion>
 
-      {/* <FilterAccordion title="Chemical Certifications" icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6l2 4H7l2-4z" /><path d="M7 7h10l1 14H6L7 7z" /><line x1="10" y1="11" x2="14" y2="11" /><line x1="10" y1="15" x2="14" y2="15" /></svg>} defaultOpen={false}>
+      <FilterAccordion title="Chemical Certifications" icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6l2 4H7l2-4z" /><path d="M7 7h10l1 14H6L7 7z" /><line x1="10" y1="11" x2="14" y2="11" /><line x1="10" y1="15" x2="14" y2="15" /></svg>} defaultOpen={false}>
         <div className="space-y-0.5">
           {certifications.map((cert) => {
             const isChecked = selectedCertifications.includes(cert.id);
@@ -474,7 +474,7 @@ function FilterPanel({
             );
           })}
         </div>
-      </FilterAccordion> */}
+      </FilterAccordion>
 
       <button className="btn-primary w-full mt-3 text-xs py-2">Apply Filters</button>
     </div>
