@@ -85,4 +85,5 @@ export type ProductDetail = {
   inStock?: boolean;
   ctaText?: string;
   ctaInquiryType?: 'specifications' | 'analysis' | 'datasheet' | 'price' | 'availability';
+  hasImage?: boolean;
 };

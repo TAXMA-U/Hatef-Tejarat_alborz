@@ -57,12 +57,12 @@ export default function DesktopNavigation() {
   }, [location.pathname]);
 
   const headerClasses = [
-    'hidden md:block sticky top-0 z-40 backdrop-blur-md border-b',
+    'hidden md:block sticky top-0 z-40 backdrop-blur-lg border-b',
     'transition-transform duration-300',
     hidden ? '-translate-y-full' : 'translate-y-0',
     scrolled
-      ? 'bg-white/95 shadow-lg border-navy-deep/25'
-      : 'bg-white/60 shadow-sm border-border-blue/40',
+      ? 'bg-white/90 shadow-xl border-navy-deep/30'
+      : 'bg-white/70 shadow-lg border-border-blue/50',
   ].join(' ');
 
   const navLinkClasses = (isActive: boolean) =>
@@ -148,7 +148,7 @@ export default function DesktopNavigation() {
         </div>
       </header>
 
-      <header className={`md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled ? 'border-navy-deep/25 shadow-lg' : 'border-transparent shadow-sm'}`}>
+      <header className={`md:hidden sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled ? 'border-navy-deep/30 shadow-xl' : 'border-transparent shadow-lg'}`}>
         <div className="container flex items-center justify-between h-[64px]">
           <BrandLogo small />
           <button onClick={() => setMobileNavOpen(!mobileNavOpen)} className="w-10 h-10 rounded-button flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors" aria-label="Toggle menu">

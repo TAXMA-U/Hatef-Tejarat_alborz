@@ -226,11 +226,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Inquiry Form + Quick Contact side by side */}
+      {/* Inquiry Form */}
       <section id="inquiry" className="py-10 md:py-16">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-12">
               <Reveal variant="fade-up" delay={100} duration={700}>
                 <div className="mb-8">
                   <SectionBadge className="mb-3">INQUIRY REQUEST</SectionBadge>
@@ -255,7 +255,7 @@ export default function ContactPage() {
                       { name: 'requestType', label: 'Request Type', type: 'select', options: REQUEST_TYPES, required: true },
                       { name: 'quantity', label: 'Quantity', type: 'text', placeholder: 'e.g. 25', required: true },
                       { name: 'quantityUnit', label: 'Quantity Unit', type: 'select', options: QUANTITY_UNITS, required: true },
-                      { name: 'destination', label: 'Destination / Delivery Location', type: 'text', placeholder: 'Jebel Ali Port, Dubai', required: true },
+                      { name: 'destination', label: 'Destination / Delivery Location', type: 'text', placeholder: 'Bandar Abbas Port, Iran', required: true },
                       { name: 'incoterms', label: 'Trade Terms (Incoterms)', type: 'select', options: INCOTERMS, required: true },
                     ].map((field) => (
                       <div key={field.name} className="flex flex-col gap-1.5">
@@ -375,50 +375,6 @@ export default function ContactPage() {
                     </div>
                   )}
                 </form>
-              </Reveal>
-            </div>
-
-            <div className="lg:col-span-5">
-              <Reveal variant="fade-up" delay={100} duration={700}>
-                <div className="card p-5 md:p-6 h-full flex flex-col">
-                  <h3 className="font-serif text-xl md:text-2xl text-navy-deep mb-4">Quick Contact</h3>
-                  <div className="space-y-4 flex-grow">
-                    <div className="flex items-start gap-3">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                      </svg>
-                      <div>
-                        <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Phone / WhatsApp</span>
-                        <a href="tel:+989123238106" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                          +98 912 323 8106
-                        </a>
-                        <a href="https://wa.me/989123238106" target="_blank" rel="noopener noreferrer" className="text-[10px] text-green-status hover:underline mt-0.5 block">
-                          Chat on WhatsApp
-                        </a>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                      </svg>
-                      <div>
-                        <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Email</span>
-                        <a href="mailto:trading@hateftejaratalborz.info" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                          trading@hateftejaratalborz.info
-                        </a>
-                        <a href="mailto:hatef.tejarat.alborz@gmail.com" className="text-[10px] text-navy-sub hover:text-navy-deep transition-colors mt-0.5 block">
-                          hatef.tejarat.alborz@gmail.com
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-auto pt-4 border-t border-border-blue">
-                    <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-2">Office</span>
-                    <p className="text-sm text-slate-gray leading-relaxed">
-                      Tehran Province, Shemiranat County, Tajrish City, Hekmat, Dr. Ali Shariati Street, Shahid Mohammad Taghi Rafat Street, No. 7, 5th Floor, Northern Unit
-                    </p>
-                  </div>
-                </div>
               </Reveal>
             </div>
           </div>

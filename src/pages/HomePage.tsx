@@ -160,6 +160,53 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="py-12 md:py-20 bg-white">
+        <div className="container">
+          <Reveal variant="fade-up" delay={150} duration={700}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <div className="lg:order-2">
+                <div className="relative h-[300px] md:h-[400px] rounded-[20px] overflow-hidden">
+                  <img
+                    src={`${import.meta.env.BASE_URL}images/catalog-banner.jpg`}
+                    alt="About Hatef Tejarat Alborz"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/40 to-transparent" />
+                </div>
+              </div>
+              <div className="lg:order-1">
+                <SectionBadge className="mb-3">ABOUT US</SectionBadge>
+                <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-4">
+                  Who We Are
+                </h2>
+                <p className="text-slate-gray text-sm md:text-base leading-relaxed mb-6">
+                  {siteContent.brand.description}
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <span className="shrink-0 mt-1 text-navy-deep">●</span>
+                    <span className="text-slate-gray text-sm">Established September 11, 2023 — Registration No. 618179</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="shrink-0 mt-1 text-navy-deep">●</span>
+                    <span className="text-slate-gray text-sm">Leading importer, exporter, and distributor of alloy steel, industrial sheets, and standard pipes</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <span className="shrink-0 mt-1 text-navy-deep">●</span>
+                    <span className="text-slate-gray text-sm">Trusted supplier for construction, oil & gas, and automotive industries</span>
+                  </div>
+                </div>
+                <Link to="/about" className="inline-flex items-center gap-2 text-navy-deep text-sm font-semibold hover:gap-3 transition-all duration-200 mt-4">
+                  Learn More About Us
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="py-12 md:py-20">
         <div className="container">
           <Reveal variant="fade-up" delay={200} duration={700}>

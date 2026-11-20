@@ -69,18 +69,18 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
   return (
     <div ref={ref} className={`transition-all duration-500 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} ${sizeClass}`}>
       <Link to={`/products/${product.slug}`} className="group relative block w-full h-full rounded-card overflow-hidden bg-white">
-        <div className="md:hidden">
-          <div className="aspect-[4/3] relative overflow-hidden">
-            {!imageLoaded && (
-              <div className="absolute inset-0 bg-border-blue animate-pulse" />
-            )}
-            <img
-              src={product.heroImage}
-              alt={product.name}
-              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-              loading="lazy"
-              onLoad={() => setImageLoaded(true)}
-            />
+          <div className="md:hidden">
+            <div className="aspect-[4/3] relative overflow-hidden">
+              {!imageLoaded && (
+                <div className="absolute inset-0 skeleton-img" />
+              )}
+              <img
+                src={product.heroImage}
+                alt={product.name}
+                className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                loading="lazy"
+                onLoad={() => setImageLoaded(true)}
+              />
             <div className="absolute top-2 left-2 z-10">
               <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm border border-white/30 rounded-full text-[8px] font-semibold text-navy-deep uppercase tracking-wider">{badge}</span>
             </div>
@@ -100,7 +100,7 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
 
         <div className="hidden md:block relative aspect-[4/5]">
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-border-blue animate-pulse" />
+            <div className="absolute inset-0 skeleton-img" />
           )}
           <img
             src={product.heroImage}
@@ -166,21 +166,7 @@ export default function ProductCatalogPage() {
   const config = catalogConfigs[slug || ''] ?? catalogConfigs[''];
   const [filterOpen, setFilterOpen] = useState(false);
 
-  const heroRef = useRef<HTMLDivElement>(null);
   const productsContainerRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number | null>(null);
-
-  useEffect(() => {
-    const update = () => {
-      const hero = heroRef.current;
-      const vh = window.innerHeight;
-      const heroH = hero ? hero.offsetHeight : 240;
-      setContentHeight(Math.max(300, vh - heroH - 16));
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
 
   const {
     search, setSearch,
@@ -196,14 +182,14 @@ export default function ProductCatalogPage() {
     resultCount,
     loadMoreRef,
   } = useProductFilters(
-    products,
+    products.filter((p) => p.hasImage),
     { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' },
     productsContainerRef,
   );
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <section ref={heroRef} className="relative w-full overflow-hidden">
+      <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px] lg:h-[240px]">
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/30" />
@@ -219,8 +205,9 @@ export default function ProductCatalogPage() {
         </div>
       </section>
 
-      <div className="flex flex-col lg:flex-row gap-5 lg:gap-7" style={{ height: contentHeight ?? 'calc(100vh - 240px)', overflow: 'hidden' }}>
-        <aside className="hidden lg:block lg:fixed lg:left-0 lg:top-[240px] lg:w-[260px] shrink-0 z-20 lg:h-full overflow-y-auto pb-8">
+      <div className="mx-4 md:mx-6 mt-4 md:mt-6 mb-4 md:mb-6">
+        <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
+          <aside className="hidden lg:block lg:w-[260px] shrink-0">
           <FilterPanel
             selectedMaterials={selectedMaterials}
             selectedWorkCategories={selectedWorkCategories}
@@ -235,10 +222,10 @@ export default function ProductCatalogPage() {
           />
         </aside>
 
-        <div ref={productsContainerRef} className="flex-1 min-w-0 lg:pl-[280px] overflow-y-auto h-full">
+          <div ref={productsContainerRef} className="flex-1 min-w-0 bg-white rounded-panel shadow-lg p-4 md:p-6 overflow-y-auto h-[calc(100vh-320px)]">
           <Reveal variant="fade-up" delay={150} duration={700}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-              <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
+                <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
               <div className="flex items-center gap-2">
                 <button onClick={() => setFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-3 py-2 border border-border-blue rounded-button text-sm text-navy-deep hover:bg-navy-light transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -308,6 +295,7 @@ export default function ProductCatalogPage() {
             </>
           )}
         </div>
+      </div>
       </div>
 
       {/* ===== MOBILE FILTER DRAWER ===== */}
