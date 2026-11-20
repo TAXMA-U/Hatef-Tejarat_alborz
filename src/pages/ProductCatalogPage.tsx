@@ -170,7 +170,6 @@ export default function ProductCatalogPage() {
     selectedMaterials, selectedWorkCategories, selectedCertifications,
     toggleMaterial, toggleWorkCategory, toggleCertification,
     sortBy, setSortBy,
-    viewMode, setViewMode,
     visibleProducts,
     filteredProducts,
     hasMore,
@@ -243,19 +242,6 @@ export default function ProductCatalogPage() {
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </div>
-                  <div className="flex items-center border border-border-blue rounded-button overflow-hidden">
-                    <button onClick={() => setViewMode('grid')} className={`w-9 h-9 flex items-center justify-center transition-colors ${viewMode === 'grid' ? 'bg-navy-deep text-white' : 'bg-white text-navy-sub hover:bg-navy-light'}`} aria-label="Grid view">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
-                      </svg>
-                    </button>
-                    <button onClick={() => setViewMode('list')} className={`w-9 h-9 flex items-center justify-center transition-colors ${viewMode === 'list' ? 'bg-navy-deep text-white' : 'bg-white text-navy-sub hover:bg-navy-light'}`} aria-label="List view">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
-                        <line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" />
-                      </svg>
-                    </button>
-                  </div>
                 </div>
               </div>
 
@@ -281,19 +267,11 @@ export default function ProductCatalogPage() {
                   </div>
                 ) : (
                   <>
-                    {viewMode === 'grid' ? (
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                        {visibleProducts.map((product) => (
-                          <ExploreProductCard key={product.id} product={product} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-col gap-3">
-                        {visibleProducts.map((product) => (
-                          <ProductListCard key={product.id} product={product} />
-                        ))}
-                      </div>
-                    )}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                      {visibleProducts.map((product) => (
+                        <ExploreProductCard key={product.id} product={product} />
+                      ))}
+                    </div>
                     {hasMore && !isLoadingMore && (
                       <div ref={loadMoreRef} className="my-8 flex justify-center">
                         <div className="flex items-center gap-2 animate-pulse">
