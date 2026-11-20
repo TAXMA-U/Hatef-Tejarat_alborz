@@ -57,7 +57,7 @@ export default function DesktopNavigation() {
   }, [location.pathname]);
 
   const headerClasses = [
-    'hidden md:block sticky top-0 z-40 backdrop-blur-lg border-b',
+    'hidden md:block fixed top-0 left-0 right-0 z-40 backdrop-blur-lg border-b',
     'transition-transform duration-300',
     hidden ? '-translate-y-full' : 'translate-y-0',
     scrolled

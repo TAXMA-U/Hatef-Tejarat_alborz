@@ -11,7 +11,7 @@ export default function AppLayout() {
       <Preloader />
       <NetworkBackground />
       <DesktopNavigation />
-      <main className="relative z-10">
+      <main className="relative z-10 pt-[72px] md:pt-[72px]">
         <Outlet />
       </main>
       <SiteFooter />
