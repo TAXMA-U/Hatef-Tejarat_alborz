@@ -56,20 +56,34 @@ export default function DesktopNavigation() {
     setMobileNavOpen(false);
   }, [location.pathname]);
 
+  const headerClasses = [
+    'hidden md:block sticky top-0 z-40 backdrop-blur-md border-b',
+    'transition-transform duration-300',
+    hidden ? '-translate-y-full' : 'translate-y-0',
+    scrolled
+      ? 'bg-white/95 shadow-lg border-navy-deep/25'
+      : 'bg-white/60 shadow-sm border-border-blue/40',
+  ].join(' ');
+
+  const navLinkClasses = (isActive: boolean) =>
+    `nav-link px-3 py-2 text-sm font-medium rounded-button transition-colors ${isActive ? 'text-navy-deep active' : 'text-navy-sub'}`;
+
+  const navLinkUnderline = (isActive: boolean) =>
+    `relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-green-status after:transition-transform after:origin-center after:scale-x-0 ${isActive ? 'after:scale-x-100' : 'hover:after:scale-x-100'}`;
+
+  const buttonClasses = (isActive: boolean) =>
+    `flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-button transition-colors ${isActive ? 'text-navy-deep' : 'text-navy-sub'}`;
+
   return (
     <>
-      <header
-        className={`hidden md:block sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b transition-transform duration-300 ${
-          hidden ? '-translate-y-full' : 'translate-y-0'
-        } ${scrolled ? 'border-border-blue shadow-md' : 'border-transparent shadow-sm'}`}
-      >
+      <header className={headerClasses}>
         <div className="container flex items-center justify-between h-[72px]">
           <BrandLogo />
 
           <nav className="flex items-center gap-0.5">
             <Link
               to="/"
-              className={`px-3 py-2 text-sm font-medium rounded-button transition-colors hover:text-navy-deep ${location.pathname === '/' ? 'text-navy-deep' : 'text-navy-sub'}`}
+              className={`nav-link ${navLinkClasses(location.pathname === '/')}`}
             >
               Home
             </Link>
@@ -77,11 +91,9 @@ export default function DesktopNavigation() {
             <div className="relative" ref={productsRef}>
               <button
                 onClick={() => setProductsOpen(!productsOpen)}
-                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-button transition-colors hover:text-navy-deep ${
+                className={buttonClasses(
                   productsOpen || location.pathname.startsWith('/products') || location.pathname.startsWith('/category')
-                    ? 'text-navy-deep'
-                    : 'text-navy-sub'
-                }`}
+                )}
               >
                 Categories
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${productsOpen ? 'rotate-180' : ''}`}>
@@ -99,7 +111,7 @@ export default function DesktopNavigation() {
             </div>
 
             {mainNavLinks.filter(l => l.to !== '/').map((link) => (
-              <Link key={link.label} to={link.to} className={`px-3 py-2 text-sm font-medium rounded-button transition-colors hover:text-navy-deep ${location.pathname === link.to ? 'text-navy-deep' : 'text-navy-sub'}`}>
+              <Link key={link.label} to={link.to} className={`nav-link ${navLinkClasses(location.pathname === link.to)}`}>
                 {link.label}
               </Link>
             ))}
@@ -128,7 +140,7 @@ export default function DesktopNavigation() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </Link>
 
-            <Link to="/contact" className="btn-primary ml-2">
+            <Link to="/contact" className="btn-primary ml-2 nav-cta">
               Inquiry
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
             </Link>
@@ -136,7 +148,7 @@ export default function DesktopNavigation() {
         </div>
       </header>
 
-      <header className={`md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled ? 'border-border-blue shadow-md' : 'border-transparent shadow-sm'}`}>
+      <header className={`md:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${scrolled ? 'border-navy-deep/25 shadow-lg' : 'border-transparent shadow-sm'}`}>
         <div className="container flex items-center justify-between h-[64px]">
           <BrandLogo small />
           <button onClick={() => setMobileNavOpen(!mobileNavOpen)} className="w-10 h-10 rounded-button flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors" aria-label="Toggle menu">

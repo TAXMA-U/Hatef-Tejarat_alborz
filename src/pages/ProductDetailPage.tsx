@@ -6,6 +6,7 @@ import BlockRenderer from '@/components/product/BlockRenderer';
 import VariantSelector from '@/components/product/VariantSelector';
 import Lightbox from '@/components/common/Lightbox';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
+import { Reveal } from '@/components/common/Reveal';
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -90,25 +91,27 @@ export default function ProductDetailPage() {
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel pipes" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/40" />
           <div className="relative container h-full flex items-center">
-            <div>
-              <Breadcrumbs
-                variant="dark"
-                items={[
-                  { label: 'Home', to: '/' },
-                  { label: 'Products', to: '/products' },
-                  ...productDetail.categoryPath.map((cat, i) => ({
-                    label: cat,
-                    to: i < productDetail.categoryPath.length - 1 ? `/category/${cat.toLowerCase().replace(/\s+/g, '-')}` : undefined,
-                  })),
-                ]}
-              />
-              <h1 className="font-serif text-xl md:text-2xl lg:text-3xl text-white font-medium mt-2">
-                {productDetail.name}
-              </h1>
-              <p className="text-white/70 text-xs md:text-sm mt-1 max-w-lg">
-                {productDetail.shortDescription}
-              </p>
-            </div>
+              <div>
+                <Breadcrumbs
+                  variant="dark"
+                  items={[
+                    { label: 'Home', to: '/' },
+                    { label: 'Products', to: '/products' },
+                    ...productDetail.categoryPath.map((cat, i) => ({
+                      label: cat,
+                      to: i < productDetail.categoryPath.length - 1 ? `/category/${cat.toLowerCase().replace(/\s+/g, '-')}` : undefined,
+                    })),
+                  ]}
+                />
+                <Reveal variant="fade-up" delay={100} duration={700}>
+                  <h1 className="font-serif text-xl md:text-2xl lg:text-3xl text-white font-medium mt-2">
+                    {productDetail.name}
+                  </h1>
+                  <p className="text-white/70 text-xs md:text-sm mt-1 max-w-lg">
+                    {productDetail.shortDescription}
+                  </p>
+                </Reveal>
+              </div>
           </div>
         </div>
       </section>
@@ -129,141 +132,145 @@ export default function ProductDetailPage() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             <div className="lg:col-span-7">
-              <div className="relative w-full h-full min-h-[320px] sm:min-h-[440px] rounded-card overflow-hidden border border-border-blue bg-navy-darkest">
-                <img
-                  src={selectedVariant?.images?.[0] || productDetail.heroImage}
-                  alt={selectedVariant ? `${productDetail.name} - ${selectedVariant.name}` : productDetail.name}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="eager"
-                />
-                {productDetail.inStock && (
-                  <div className="absolute top-3 left-3">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-status/90 backdrop-blur-sm rounded-full text-[10px] font-semibold text-white uppercase tracking-wider">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      In Stock
-                    </span>
-                  </div>
-                )}
-                <button
-                  onClick={() => setLightboxOpen(true)}
-                  className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-navy-deep transition-all duration-300"
-                  aria-label="Enlarge image"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    <line x1="11" y1="8" x2="11" y2="14" />
-                    <line x1="8" y1="11" x2="14" y2="11" />
-                  </svg>
-                </button>
-                {selectedVariant?.images && selectedVariant.images.length > 1 && (
-                  <div className="absolute bottom-3 left-3 flex gap-2">
-                    {selectedVariant.images.slice(1, 4).map((src, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setLightboxOpen(true)}
-                        className="w-12 h-12 rounded-lg overflow-hidden border border-white/30 hover:border-white transition-colors"
-                      >
-                        <img src={src} alt={`Thumbnail ${i + 2}`} className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Reveal variant="fade-up" delay={100} duration={800}>
+                <div className="relative w-full h-full min-h-[320px] sm:min-h-[440px] rounded-card overflow-hidden border border-border-blue bg-navy-darkest">
+                  <img
+                    src={selectedVariant?.images?.[0] || productDetail.heroImage}
+                    alt={selectedVariant ? `${productDetail.name} - ${selectedVariant.name}` : productDetail.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  {productDetail.inStock && (
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-status/90 backdrop-blur-sm rounded-full text-[10px] font-semibold text-white uppercase tracking-wider">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        In Stock
+                      </span>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => setLightboxOpen(true)}
+                    className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-navy-deep transition-all duration-300"
+                    aria-label="Enlarge image"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </button>
+                  {selectedVariant?.images && selectedVariant.images.length > 1 && (
+                    <div className="absolute bottom-3 left-3 flex gap-2">
+                      {selectedVariant.images.slice(1, 4).map((src, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setLightboxOpen(true)}
+                          className="w-12 h-12 rounded-lg overflow-hidden border border-white/30 hover:border-white transition-colors"
+                        >
+                          <img src={src} alt={`Thumbnail ${i + 2}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-5 flex flex-col">
-              <div className="mb-4">
-                <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">
-                  {productDetail.name}
-                </h2>
-                <div className="flex flex-wrap items-center gap-2 mb-3">
-                  <span className="inline-block px-2.5 py-0.5 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">
-                    {productDetail.materialFamily}
-                  </span>
-                  <span className="inline-block px-2.5 py-0.5 bg-pale-blue-gray text-navy-sub text-[10px] font-medium rounded-full">
-                    {productDetail.productType}
-                  </span>
-                  {productDetail.productCode && (
-                    <span className="text-[10px] text-navy-sub uppercase tracking-wider">
-                      ID: {productDetail.productCode}
+              <Reveal variant="fade-up" delay={200} duration={800}>
+                <div className="mb-4">
+                  <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">
+                    {productDetail.name}
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="inline-block px-2.5 py-0.5 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">
+                      {productDetail.materialFamily}
                     </span>
-                  )}
-                </div>
-                <p className="text-slate-gray text-sm leading-relaxed">
-                  {productDetail.description || productDetail.shortDescription}
-                </p>
-              </div>
-
-              {productDetail.variants && productDetail.variants.length > 0 && (
-                <VariantSelector
-                  variants={productDetail.variants}
-                  selectedVariant={selectedVariant}
-                  onSelect={handleVariantSelect}
-                />
-              )}
-
-              {highlightItems.length > 0 ? (
-                <div className="card p-4 mb-4">
-                  <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
-                    <div className="w-1 h-4 bg-navy-deep rounded-full" />
-                    Key Highlights
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
-                    {highlightItems.slice(0, 4).map((item, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <span className="w-4 h-4 rounded-full bg-navy-deep flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        </span>
-                        <p className="text-[11px] text-navy-deep leading-tight">{item.title}</p>
-                      </div>
-                    ))}
+                    <span className="inline-block px-2.5 py-0.5 bg-pale-blue-gray text-navy-sub text-[10px] font-medium rounded-full">
+                      {productDetail.productType}
+                    </span>
+                    {productDetail.productCode && (
+                      <span className="text-[10px] text-navy-sub uppercase tracking-wider">
+                        ID: {productDetail.productCode}
+                      </span>
+                    )}
                   </div>
+                  <p className="text-slate-gray text-sm leading-relaxed">
+                    {productDetail.description || productDetail.shortDescription}
+                  </p>
                 </div>
-              ) : specItems.length > 0 ? (
-                <div className="card p-4 mb-4">
-                  <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
-                    <div className="w-1 h-4 bg-navy-deep rounded-full" />
-                    Key Specifications
-                  </h3>
-                  <div className="grid grid-cols-1 gap-x-4">
-                    {specItems.slice(0, 6).map((item, i) => (
-                      <div key={i} className="flex justify-between items-center py-1.5 border-b border-border-blue/60 last:border-0">
-                        <span className="text-xs text-navy-sub">{item.label}</span>
-                        <span className="text-sm font-medium text-navy-deep">
-                          {item.value} {item.unit && <span className="text-[10px] text-navy-sub">({item.unit})</span>}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
 
-              <div className="card p-4 mb-4">
-                <div className="grid grid-cols-2 gap-3">
-                  {quickFacts.map((fact) => (
-                    <div key={fact.label}>
-                      <span className="text-[10px] text-navy-sub uppercase tracking-wider">{fact.label}</span>
-                      <p className="text-sm font-medium text-navy-deep mt-0.5">{fact.value}</p>
+                {productDetail.variants && productDetail.variants.length > 0 && (
+                  <VariantSelector
+                    variants={productDetail.variants}
+                    selectedVariant={selectedVariant}
+                    onSelect={handleVariantSelect}
+                  />
+                )}
+
+                {highlightItems.length > 0 ? (
+                  <div className="card p-4 mb-4">
+                    <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
+                      <div className="w-1 h-4 bg-navy-deep rounded-full" />
+                      Key Highlights
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                      {highlightItems.slice(0, 4).map((item, i) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <span className="w-4 h-4 rounded-full bg-navy-deep flex items-center justify-center shrink-0 mt-0.5">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                          <p className="text-[11px] text-navy-deep leading-tight">{item.title}</p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                ) : specItems.length > 0 ? (
+                  <div className="card p-4 mb-4">
+                    <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider mb-3">
+                      <div className="w-1 h-4 bg-navy-deep rounded-full" />
+                      Key Specifications
+                    </h3>
+                    <div className="grid grid-cols-1 gap-x-4">
+                      {specItems.slice(0, 6).map((item, i) => (
+                        <div key={i} className="flex justify-between items-center py-1.5 border-b border-border-blue/60 last:border-0">
+                          <span className="text-xs text-navy-sub">{item.label}</span>
+                          <span className="text-sm font-medium text-navy-deep">
+                            {item.value} {item.unit && <span className="text-[10px] text-navy-sub">({item.unit})</span>}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
-              <div className="mt-auto pt-2">
-                <button
-                  onClick={handleInquire}
-                  className="btn-primary w-full"
-                >
-                  {productDetail.ctaText || 'INQUIRE FOR SPECIFICATIONS'}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </button>
-              </div>
+                <div className="card p-4 mb-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    {quickFacts.map((fact) => (
+                      <div key={fact.label}>
+                        <span className="text-[10px] text-navy-sub uppercase tracking-wider">{fact.label}</span>
+                        <p className="text-sm font-medium text-navy-deep mt-0.5">{fact.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-2">
+                  <button
+                    onClick={handleInquire}
+                    className="btn-primary w-full"
+                  >
+                    {productDetail.ctaText || 'INQUIRE FOR SPECIFICATIONS'}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </button>
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>
@@ -369,63 +376,65 @@ export default function ProductDetailPage() {
       {relatedProducts.length > 0 && (
         <section className="pb-12 md:pb-16">
           <div className="container">
-            <div className="mb-6">
-              <span className="section-badge mb-2">R&D RECOMMENDATIONS</span>
-              <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">Comparative Alloys</h2>
-              <p className="text-slate-gray text-sm mb-2">Explore similar grades and alloys within the same category for your engineering needs.</p>
-              <span className="inline-block px-2.5 py-1 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">{relatedProducts.length} Products Found</span>
-            </div>
-            <div className="relative">
-              <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 snap-x touch-pan-x related-scroll">
-                {relatedProducts.map((product) => (
-                  <div key={product.id} className="snap-start shrink-0 w-[45vw] max-w-[200px] md:w-[240px] lg:w-[280px]">
-                    <Link to={`/products/${product.slug}`} className="group block rounded-card border border-border-blue bg-white hover:border-navy-deep hover:shadow-md transition-all duration-300 overflow-hidden">
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                      </div>
-                      <div className="p-3">
-                        <span className="inline-block px-2 py-0.5 bg-navy-light text-navy-deep text-[9px] font-semibold uppercase tracking-wider rounded-full mb-1.5">Related Grade</span>
-                        <h3 className="font-serif text-sm md:text-base text-navy-deep group-hover:text-navy-mid transition-colors">{product.name}</h3>
-                        <p className="text-slate-gray text-[10px] mt-0.5 line-clamp-1">{product.shortDescription}</p>
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-navy-deep mt-2">
-                          VIEW SPECS
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                          </svg>
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+            <Reveal variant="fade-up" delay={100} duration={700}>
+              <div className="mb-6">
+                <span className="section-badge mb-2">R&D RECOMMENDATIONS</span>
+                <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">Comparative Alloys</h2>
+                <p className="text-slate-gray text-sm mb-2">Explore similar grades and alloys within the same category for your engineering needs.</p>
+                <span className="inline-block px-2.5 py-1 bg-navy-light text-navy-deep text-[10px] font-semibold uppercase tracking-wider rounded-full">{relatedProducts.length} Products Found</span>
               </div>
-              <div className="flex justify-end gap-2 mt-2 md:hidden">
-                <button
-                  onClick={() => {
-                    const el = document.querySelector('.related-scroll');
-                    if (el) el.scrollBy({ left: -200, behavior: 'smooth' });
-                  }}
-                  className="w-8 h-8 rounded-full border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors"
-                  aria-label="Scroll left"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => {
-                    const el = document.querySelector('.related-scroll');
-                    if (el) el.scrollBy({ left: 200, behavior: 'smooth' });
-                  }}
-                  className="w-8 h-8 rounded-full border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors"
-                  aria-label="Scroll right"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
+              <div className="relative">
+                <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 snap-x touch-pan-x related-scroll">
+                  {relatedProducts.map((product) => (
+                    <div key={product.id} className="snap-start shrink-0 w-[45vw] max-w-[200px] md:w-[240px] lg:w-[280px]">
+                      <Link to={`/products/${product.slug}`} className="group block rounded-card border border-border-blue bg-white hover:border-navy-deep hover:shadow-md transition-all duration-300 overflow-hidden">
+                        <div className="aspect-[4/3] overflow-hidden">
+                          <img src={product.heroImage} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                        </div>
+                        <div className="p-3">
+                          <span className="inline-block px-2 py-0.5 bg-navy-light text-navy-deep text-[9px] font-semibold uppercase tracking-wider rounded-full mb-1.5">Related Grade</span>
+                          <h3 className="font-serif text-sm md:text-base text-navy-deep group-hover:text-navy-mid transition-colors">{product.name}</h3>
+                          <p className="text-slate-gray text-[10px] mt-0.5 line-clamp-1">{product.shortDescription}</p>
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-navy-deep mt-2">
+                            VIEW SPECS
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
+                              <line x1="5" y1="12" x2="19" y2="12" />
+                              <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                          </span>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-end gap-2 mt-2 md:hidden">
+                  <button
+                    onClick={() => {
+                      const el = document.querySelector('.related-scroll');
+                      if (el) el.scrollBy({ left: -200, behavior: 'smooth' });
+                    }}
+                    className="w-8 h-8 rounded-full border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors"
+                    aria-label="Scroll left"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const el = document.querySelector('.related-scroll');
+                      if (el) el.scrollBy({ left: 200, behavior: 'smooth' });
+                    }}
+                    className="w-8 h-8 rounded-full border border-border-blue flex items-center justify-center text-navy-deep hover:bg-navy-light transition-colors"
+                    aria-label="Scroll right"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       )}

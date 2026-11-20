@@ -6,6 +6,7 @@ import { categories } from '@/data/categories';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import SectionBadge from '@/components/common/SectionBadge';
 import ProductCardSkeleton from '@/components/common/ProductCardSkeleton';
+import { Reveal } from '@/components/common/Reveal';
 
 type CatalogContext = {
   title: string;
@@ -187,11 +188,13 @@ export default function ProductCatalogPage() {
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/30" />
           <div className="relative container h-full flex items-center">
-            <div className="max-w-lg">
-              <Breadcrumbs variant="dark" items={[{ label: 'Home', to: '/' }, { label: 'Products', to: undefined }]} />
-              <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white font-medium mt-2.5">{config.title}</h1>
-              <p className="text-white/60 text-sm mt-1.5 max-w-md">{config.description}</p>
-            </div>
+            <Reveal variant="fade-up" delay={100} duration={700}>
+              <div className="max-w-lg">
+                <Breadcrumbs variant="dark" items={[{ label: 'Home', to: '/' }, { label: 'Products', to: undefined }]} />
+                <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white font-medium mt-2.5">{config.title}</h1>
+                <p className="text-white/60 text-sm mt-1.5 max-w-md">{config.description}</p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -217,33 +220,35 @@ export default function ProductCatalogPage() {
             </aside>
 
             <div className="flex-1 min-w-0">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-                <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-3 py-2 border border-border-blue rounded-button text-sm text-navy-deep hover:bg-navy-light transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                      <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                      <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                      <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                    </svg>
-                    Filters
-                  </button>
-                  <div className="relative">
-                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'relevance' | 'name' | 'newest')} className="appearance-none pl-9 pr-8 py-2 border border-border-blue rounded-button text-sm text-navy-deep bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent">
-                      <option value="relevance">Sort By: Relevance</option>
-                      <option value="name">Sort By: Name</option>
-                      <option value="newest">Sort By: Newest</option>
-                    </select>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
+              <Reveal variant="fade-up" delay={150} duration={700}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                  <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-3 py-2 border border-border-blue rounded-button text-sm text-navy-deep hover:bg-navy-light transition-colors">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                        <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                        <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                      </svg>
+                      Filters
+                    </button>
+                    <div className="relative">
+                      <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'relevance' | 'name' | 'newest')} className="appearance-none pl-9 pr-8 py-2 border border-border-blue rounded-button text-sm text-navy-deep bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent">
+                        <option value="relevance">Sort By: Relevance</option>
+                        <option value="name">Sort By: Name</option>
+                        <option value="newest">Sort By: Newest</option>
+                      </select>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Reveal>
 
               <div className="lg:hidden mb-5">
                 <div className="relative">
@@ -267,11 +272,13 @@ export default function ProductCatalogPage() {
                   </div>
                 ) : (
                   <>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                      {visibleProducts.map((product) => (
-                        <ExploreProductCard key={product.id} product={product} />
-                      ))}
-                    </div>
+                    <Reveal variant="fade-up" delay={100} duration={700}>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        {visibleProducts.map((product) => (
+                          <ExploreProductCard key={product.id} product={product} />
+                        ))}
+                      </div>
+                    </Reveal>
                     {hasMore && !isLoadingMore && (
                       <div ref={loadMoreRef} className="my-8 flex justify-center">
                         <div className="flex items-center gap-2 animate-pulse">

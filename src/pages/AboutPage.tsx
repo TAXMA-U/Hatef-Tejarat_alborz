@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import SectionBadge from '@/components/common/SectionBadge';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
+import { Reveal } from '@/components/common/Reveal';
 import { siteContent } from '@/data/siteContent';
 
 const aboutStats = [
@@ -63,9 +64,11 @@ export default function AboutPage() {
                   { label: 'About Us', to: undefined },
                 ]}
               />
-              <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white font-medium mt-2.5">
-                About Hatef Tejarat Alborz
-              </h1>
+              <Reveal variant="fade-up" delay={100} duration={700}>
+                <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white font-medium mt-2.5">
+                  About Hatef Tejarat Alborz
+                </h1>
+              </Reveal>
             </div>
           </div>
         </div>
@@ -75,39 +78,53 @@ export default function AboutPage() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-6">
-              <div className="aspect-[4/3] rounded-card overflow-hidden border border-border-blue">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`}
-                  alt="Steel factory operations"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <Reveal variant="fade-up" delay={100} duration={800}>
+                <div className="aspect-[4/3] rounded-card overflow-hidden border border-border-blue">
+                  <img
+                    src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`}
+                    alt="Steel factory operations"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </Reveal>
             </div>
             <div className="lg:col-span-6">
-              <SectionBadge className="mb-3">ABOUT US</SectionBadge>
-              <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-4">
-                Leading Steel & Alloy Supplier
-              </h2>
-              <p className="text-slate-gray text-sm md:text-base leading-relaxed mb-4">
-                {siteContent.brand.description}
-              </p>
-              <p className="text-slate-gray text-sm leading-relaxed mb-6">
-                We are located in Tehran Province, Shemiranat County, Central District, Tajrish City, Hekmat, Dr. Ali Shariati Street, Shahid Mohammad Taghi Rafat Street, No. 7, 5th Floor, Northern Unit. Our goal is to offer the best trading services and products to our valued customers. Relying on the experience and expertise of our team, we have achieved a special position in the metals market and are always striving to innovate and continuously improve to satisfy our customers.
-              </p>
-              <p className="text-slate-gray text-sm leading-relaxed mb-6">
-                Our team consists of specialists and experienced individuals in various fields of commerce who are dedicated to providing the best services to our customers. Each member of our team possesses unique knowledge and skills in the field of metals, and through collaboration and coordination, we aim to achieve the common goals of the company. We believe in team values and cooperation, and we are always striving to create a dynamic and friendly environment to achieve the best results.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Import & Export', 'Distribution', 'Quality Assurance', 'Global Supply'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-navy-light text-navy-deep text-xs font-medium rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <Reveal variant="fade-up" delay={220} duration={700}>
+                <SectionBadge className="mb-3">ABOUT US</SectionBadge>
+              </Reveal>
+              <Reveal variant="fade-up" delay={280} duration={700}>
+                <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-4">
+                  Leading Steel & Alloy Supplier
+                </h2>
+              </Reveal>
+              <Reveal variant="fade-up" delay={340} duration={700}>
+                <p className="text-slate-gray text-sm md:text-base leading-relaxed mb-4">
+                  {siteContent.brand.description}
+                </p>
+              </Reveal>
+              <Reveal variant="fade-up" delay={400} duration={700}>
+                <p className="text-slate-gray text-sm leading-relaxed mb-6">
+                  We are located in Tehran Province, Shemiranat County, Central District, Tajrish City, Hekmat, Dr. Ali Shariati Street, Shahid Mohammad Taghi Rafat Street, No. 7, 5th Floor, Northern Unit. Our goal is to offer the best trading services and products to our valued customers. Relying on the experience and expertise of our team, we have achieved a special position in the metals market and are always striving to innovate and continuously improve to satisfy our customers.
+                </p>
+              </Reveal>
+              <Reveal variant="fade-up" delay={460} duration={700}>
+                <p className="text-slate-gray text-sm leading-relaxed mb-6">
+                  Our team consists of specialists and experienced individuals in various fields of commerce who are dedicated to providing the best services to our customers. Each member of our team possesses unique knowledge and skills in the field of metals, and through collaboration and coordination, we aim to achieve the common goals of the company. We believe in team values and cooperation, and we are always striving to create a dynamic and friendly environment to achieve the best results.
+                </p>
+              </Reveal>
+              <Reveal variant="fade-up" delay={520} duration={700}>
+                <div className="flex flex-wrap gap-2">
+                  {['Import & Export', 'Distribution', 'Quality Assurance', 'Global Supply'].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-navy-light text-navy-deep text-xs font-medium rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>
@@ -115,8 +132,9 @@ export default function AboutPage() {
 
       <section className="py-8 md:py-12 bg-white">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0">
-            {aboutStats.map((stat, i) => (
+          <Reveal variant="fade-up" delay={100} duration={700}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0">
+              {aboutStats.map((stat, i) => (
               <div
                 key={i}
                 className={`flex flex-col items-center text-center py-4 ${i > 0 ? 'md:border-l md:border-border-blue' : ''}`}
@@ -143,41 +161,46 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="py-12 md:py-20">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            <div className="card p-6 md:p-8">
-              <div className="w-12 h-12 rounded-lg bg-navy-light flex items-center justify-center mb-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
+            <Reveal variant="fade-up" delay={100} duration={700}>
+              <div className="card p-6 md:p-8">
+                <div className="w-12 h-12 rounded-lg bg-navy-light flex items-center justify-center mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                </div>
+                <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-3">
+                  Our Mission
+                </h2>
+                <p className="text-slate-gray text-sm leading-relaxed">
+                  To provide high-quality steel and alloy products with precision engineering, competitive pricing, and reliable global supply chain solutions for industrial clients worldwide.
+                </p>
               </div>
-              <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-3">
-                Our Mission
-              </h2>
-              <p className="text-slate-gray text-sm leading-relaxed">
-                To provide high-quality steel and alloy products with precision engineering, competitive pricing, and reliable global supply chain solutions for industrial clients worldwide.
-              </p>
-            </div>
-            <div className="card p-6 md:p-8">
-              <div className="w-12 h-12 rounded-lg bg-navy-light flex items-center justify-center mb-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
+            </Reveal>
+            <Reveal variant="fade-up" delay={200} duration={700}>
+              <div className="card p-6 md:p-8">
+                <div className="w-12 h-12 rounded-lg bg-navy-light flex items-center justify-center mb-4">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </div>
+                <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-3">
+                  Our Vision
+                </h2>
+                <p className="text-slate-gray text-sm leading-relaxed">
+                  To become the most trusted and preferred steel and alloy supplier in the Middle East and beyond, recognized for quality, reliability, and technical excellence.
+                </p>
               </div>
-              <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-3">
-                Our Vision
-              </h2>
-              <p className="text-slate-gray text-sm leading-relaxed">
-                To become the most trusted and preferred steel and alloy supplier in the Middle East and beyond, recognized for quality, reliability, and technical excellence.
-              </p>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -185,68 +208,73 @@ export default function AboutPage() {
       <section className="py-12 md:py-20 bg-white">
         <div className="container">
           <div className="text-center mb-10">
-            <SectionBadge className="mb-3">OUR VALUES</SectionBadge>
-            <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-3">
-              Why Choose Us
-            </h2>
-            <p className="text-slate-gray text-sm md:text-base max-w-2xl mx-auto">
-              We combine technical expertise with reliable supply chain management to deliver exceptional value to our clients.
-            </p>
+            <Reveal variant="fade-up" delay={100} duration={700}>
+              <SectionBadge className="mb-3">OUR VALUES</SectionBadge>
+              <h2 className="font-serif text-3xl md:text-4xl text-navy-deep mb-3">
+                Why Choose Us
+              </h2>
+              <p className="text-slate-gray text-sm md:text-base max-w-2xl mx-auto">
+                We combine technical expertise with reliable supply chain management to deliver exceptional value to our clients.
+              </p>
+            </Reveal>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-            {values.map((value) => (
-              <div
-                key={value.title}
-                className="card p-5 md:p-6 card-hover"
-              >
-                <div className="w-11 h-11 rounded-lg bg-navy-light flex items-center justify-center text-xl mb-3">
-                  {value.icon}
+            {values.map((value, i) => (
+              <Reveal key={value.title} variant="fade-up" delay={140 + i * 110} duration={700}>
+                <div
+                  className="card p-5 md:p-6 card-hover"
+                >
+                  <div className="w-11 h-11 rounded-lg bg-navy-light flex items-center justify-center text-xl mb-3">
+                    {value.icon}
+                  </div>
+                  <h3 className="font-serif text-lg md:text-xl text-navy-deep mb-2">
+                    {value.title}
+                  </h3>
+                  <p className="text-slate-gray text-sm leading-relaxed">
+                    {value.description}
+                  </p>
                 </div>
-                <h3 className="font-serif text-lg md:text-xl text-navy-deep mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-slate-gray text-sm leading-relaxed">
-                  {value.description}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <section className="py-12 md:py-16">
-        <div className="container">
-          <div className="navy-gradient rounded-[20px] p-8 md:p-12 text-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <svg className="w-full h-full" aria-hidden="true">
-                <defs>
-                  <pattern id="cta-dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                    <circle cx="1" cy="1" r="0.5" fill="white" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#cta-dots)" />
-              </svg>
-            </div>
-            <div className="relative z-10">
-              <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-3">
-                Ready to Partner With Us?
-              </h2>
-              <p className="text-white/60 text-sm md:text-base mb-6 max-w-lg mx-auto">
-                Contact our team to discuss your steel and alloy requirements. We provide customized solutions for industrial applications.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-navy-deep rounded-button text-sm font-semibold hover:bg-navy-light transition-colors"
-              >
-                Contact Our Team
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </Link>
-            </div>
+          <div className="container">
+            <Reveal variant="fade-up" delay={150} duration={800}>
+              <div className="navy-gradient rounded-[20px] p-8 md:p-12 text-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5 pointer-events-none">
+                  <svg className="w-full h-full" aria-hidden="true">
+                    <defs>
+                      <pattern id="cta-dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                        <circle cx="1" cy="1" r="0.5" fill="white" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#cta-dots)" />
+                  </svg>
+                </div>
+                <div className="relative z-10">
+                  <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-3">
+                    Ready to Partner With Us?
+                  </h2>
+                  <p className="text-white/60 text-sm md:text-base mb-6 max-w-lg mx-auto">
+                    Contact our team to discuss your steel and alloy requirements. We provide customized solutions for industrial applications.
+                  </p>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-navy-deep rounded-button text-sm font-semibold hover:bg-navy-light transition-colors"
+                  >
+                    Contact Our Team
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
           </div>
-        </div>
       </section>
     </div>
   );
