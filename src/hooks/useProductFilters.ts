@@ -14,7 +14,6 @@ type FilterState = {
 export function useProductFilters(
   products: Product[],
   initialFilters?: { category?: string; sub?: string; subsub?: string; industry?: string },
-  rootRef?: React.RefObject<HTMLDivElement | null> | null,
 ) {
   const [state, setState] = useState<FilterState>(() => {
     const initial: FilterState = {
@@ -170,14 +169,14 @@ export function useProductFilters(
           loadMore();
         }
       },
-      { threshold: 0.1, rootMargin: '100px', root: rootRef?.current ?? undefined }
+      { threshold: 0.1, rootMargin: '100px' }
     );
     if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
     return () => {
       if (observerRef.current) observerRef.current.disconnect();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore, rootRef]);
+    }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
 
   const visibleProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;

@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
   return (
     <div className="relative min-h-screen">
       <section className="relative w-full overflow-hidden">
-        <div className="relative h-[640px] md:h-[720px] lg:h-[800px]">
+        <div className="relative h-[160px] md:h-[180px]">
           <img
             src={productDetail.heroImage}
             alt={productDetail.name}
@@ -108,6 +108,21 @@ export default function ProductDetailPage() {
                 {productDetail.shortDescription}
               </p>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-4 md:py-6">
+        <div className="container">
+          <div className="flex justify-center">
+            <div className="w-full max-w-[600px] aspect-square rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
+              <img
+                src={productDetail.heroImage}
+                alt={productDetail.name}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </section>

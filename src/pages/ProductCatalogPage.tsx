@@ -166,8 +166,6 @@ export default function ProductCatalogPage() {
   const config = catalogConfigs[slug || ''] ?? catalogConfigs[''];
   const [filterOpen, setFilterOpen] = useState(false);
 
-  const productsContainerRef = useRef<HTMLDivElement>(null);
-
   const {
     search, setSearch,
     selectedMaterials, selectedWorkCategories, selectedCertifications,
@@ -184,11 +182,10 @@ export default function ProductCatalogPage() {
   } = useProductFilters(
     products.filter((p) => p.hasImage),
     { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' },
-    productsContainerRef,
   );
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px] lg:h-[240px]">
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
@@ -207,7 +204,7 @@ export default function ProductCatalogPage() {
 
       <div className="mx-4 md:mx-6 mt-4 md:mt-6 mb-4 md:mb-6">
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
-          <aside className="hidden lg:block lg:w-[260px] shrink-0">
+          <aside className="hidden lg:block lg:w-[260px] shrink-0 sticky top-20">
           <FilterPanel
             selectedMaterials={selectedMaterials}
             selectedWorkCategories={selectedWorkCategories}
@@ -222,7 +219,7 @@ export default function ProductCatalogPage() {
           />
         </aside>
 
-          <div ref={productsContainerRef} className="flex-1 min-w-0 bg-transparent p-4 md:p-6 min-h-[60vh]">
+          <div className="flex-1 min-w-0 bg-transparent p-4 md:p-6">
           <Reveal variant="fade-up" delay={150} duration={700}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
                 <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
@@ -459,7 +456,7 @@ function FilterPanel({
   };
 
   return (
-    <div className="card p-4 max-h-[80vh] overflow-y-auto">
+    <div className="card p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">

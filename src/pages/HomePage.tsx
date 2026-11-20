@@ -218,9 +218,11 @@ export default function HomePage() {
               productCount={aluminumProducts.length}
               viewAll="/category/aluminum"
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-8">
               {aluminumProducts.map((product) => (
-                <ProductShowcaseCard key={product.id} product={product} />
+                <div key={product.id} className="snap-start shrink-0">
+                  <ProductShowcaseCard key={product.id} product={product} />
+                </div>
               ))}
             </div>
           </Reveal>
