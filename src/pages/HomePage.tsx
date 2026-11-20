@@ -8,9 +8,9 @@ import type { Product } from '@/data/products';
 import { siteContent } from '@/data/siteContent';
 
 export default function HomePage() {
-  const steelProducts = getProductsByCategory('steel').slice(0, 6);
-  const aluminumProducts = getProductsByCategory('aluminum').slice(0, 4);
-  const copperProducts = getProductsByCategory('copper').slice(0, 3);
+  const steelProducts = getProductsByCategory('steel').filter((p) => p.hasImage).slice(0, 6);
+  const aluminumProducts = getProductsByCategory('aluminum').filter((p) => p.hasImage).slice(0, 4);
+  const copperProducts = getProductsByCategory('copper').filter((p) => p.hasImage).slice(0, 3);
 
   const scrollRef1 = useRef<HTMLDivElement>(null);
   const scrollRef2 = useRef<HTMLDivElement>(null);
@@ -220,7 +220,7 @@ export default function HomePage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
               {aluminumProducts.map((product) => (
-                <ProductListCard key={product.id} product={product} />
+                <ProductShowcaseCard key={product.id} product={product} />
               ))}
             </div>
           </Reveal>
@@ -344,31 +344,6 @@ function ProductShowcaseCard({ product }: { product: Product }) {
             </svg>
           </div>
         </div>
-      </div>
-    </Link>
-  );
-}
-
-function ProductListCard({ product }: { product: Product }) {
-  const badge = product.materialFamily || product.productType || '';
-  const [imageLoaded, setImageLoaded] = useState(false);
-  return (
-    <Link to={`/products/${product.slug}`} className="group flex items-center gap-3 p-3 rounded-card border border-border-blue bg-white hover:border-navy-deep hover:shadow-md transition-all duration-300">
-      <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0 relative">
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-border-blue animate-pulse rounded-lg" />
-        )}
-        <img src={product.heroImage} alt={product.name} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`} loading="lazy" onLoad={() => setImageLoaded(true)} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <span className="inline-block px-2 py-0.5 bg-navy-light text-navy-deep text-[9px] font-semibold uppercase tracking-wider rounded-full mb-1">{badge}</span>
-        <h3 className="font-serif text-sm md:text-base text-navy-deep font-medium group-hover:text-navy-mid transition-colors">{product.name}</h3>
-        <p className="text-slate-gray text-[10px] line-clamp-1 mt-0.5">{product.shortDescription}</p>
-      </div>
-      <div className="w-7 h-7 rounded-full bg-navy-light flex items-center justify-center shrink-0 group-hover:bg-navy-deep group-hover:text-white transition-all duration-300">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-        </svg>
       </div>
     </Link>
   );

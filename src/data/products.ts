@@ -15,6 +15,18 @@ const IMAGE_MAP: Record<string, string> = {
   'hexagonal-wire-mesh': 'Hexagonal_Wire_Mesh.jpg',
   'chicken-wire-mesh': 'Chicken_Wire_Mesh.jpg',
   'barbed-wire-family': 'Barbed_Wire.jpg',
+  'aluminum-sheet-5052': 'Aluminum_5052.jpg',
+  'aluminum-sheet-6061': 'Aluminum_6061.jpg',
+  'aluminum-coil': 'Aluminum_Coll.jpg',
+  'aluminum-sheet': 'Aluminum_Sheet.jpg',
+  'carbon-steel-angle-bar': 'Carbon_Steel_Angel_Bar.jpg',
+  'carbon-steel-checkered-plate': 'Carbon_Steel_Checkered_plate.jpg',
+  'cold-rolled-carbon-steel-sheet': 'Cold_Rolled_Carbon_Steel_Sheet.jpg',
+  'linear-barbed-wire': 'Linear_Barbed_Wire.jpg',
+  'linear-razor-wire': 'Linear_Razor_Wire.jpg',
+  'rolled-razor-wire': 'Rolled_Razor_Wire.jpg',
+  'stainless-steel-seamless-pipe': 'Stain_Steel_Seamless_Pipe.jpg',
+  'industrial-steel-product': 'photo_2026-11-21_00-04-59 (4).jpg',
 };
 
 const resolveProductImage = (slug: string): string => {
@@ -975,6 +987,865 @@ export const products: ProductDetail[] = [
       },
     ],
     relatedProductIds: ['hta-galvanized-wire'],
+  },
+  {
+    id: 'hta-aluminum-sheet-5052',
+    slug: 'aluminum-sheet-5052',
+    name: 'Aluminum Sheet 5052',
+    shortDescription: 'Marine-grade aluminum sheet 5052 with excellent corrosion resistance and weldability.',
+    materialFamily: 'Aluminum',
+    categoryPath: ['Metals', 'Aluminum', 'Aluminum Semi-Finished Products', 'Sheets & Plates'],
+    categoryIds: ['aluminum-sheets'],
+    productType: 'Sheet',
+    productCode: 'HTA-AL-5052-001',
+    heroImage: resolveProductImage('aluminum-sheet-5052'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Aluminum sheet 5052 is a marine-grade aluminum-magnesium alloy known for excellent corrosion resistance, especially in saltwater environments. It offers good weldability, moderate strength, and excellent formability, making it ideal for marine, transportation, and architectural applications.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Corrosion Resistance', description: 'Superior resistance to saltwater and marine environments' },
+            { title: 'Weldability', description: 'Excellent weldability using standard welding methods' },
+            { title: 'Formability', description: 'Good formability for bending and shaping operations' },
+            { title: 'Medium Strength', description: 'Moderate strength suitable for structural and non-structural uses' },
+            { title: 'Non-Heat-Treatable', description: 'Strengthened through cold working rather than heat treatment' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Marine', description: 'Boat hulls, marine fittings, and seawater equipment' },
+            { title: 'Transportation', description: 'Truck bodies, trailers, and fuel tanks' },
+            { title: 'Architecture', description: 'Building facades, roofing, and decorative panels' },
+            { title: 'Chemical Equipment', description: 'Tanks and containers for chemical processing' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Alloy', value: '5052 (Al-Mg)', unit: '' },
+            { label: 'Temper', value: 'H32, H34, H36, H38', unit: '' },
+            { label: 'Thickness', value: '0.5 – 20.0', unit: 'mm' },
+            { label: 'Width', value: '1000 – 1500', unit: 'mm' },
+            { label: 'Length', value: '2000 – 6000', unit: 'mm' },
+            { label: 'Tensile Strength', value: '210 – 260', unit: 'MPa' },
+            { label: 'Yield Strength', value: '130 – 180', unit: 'MPa' },
+            { label: 'Elongation', value: '12 – 18', unit: '%' },
+          ]
+        }
+      },
+      {
+        id: 'chemical', type: 'chemicalAnalysis', title: 'Chemical Analysis', order: 5,
+        content: {
+          availability: 'available',
+          basis: 'heat-analysis',
+          analysisId: 'Analysis ID #AL-5052-001',
+          columns: [
+            { key: 'element', label: 'Element' },
+            { key: 'symbol', label: 'Symbol' },
+            { key: 'value', label: 'Composition', unit: '%' }
+          ],
+          rows: [
+            { element: 'Aluminum', symbol: 'Al', value: 'Balance' },
+            { element: 'Magnesium', symbol: 'Mg', value: '2.2 – 2.8' },
+            { element: 'Chromium', symbol: 'Cr', value: '0.15 – 0.35' },
+            { element: 'Iron', symbol: 'Fe', value: '0.40 max' },
+            { element: 'Silicon', symbol: 'Si', value: '0.25 max' },
+            { element: 'Copper', symbol: 'Cu', value: '0.10 max' },
+            { element: 'Manganese', symbol: 'Mn', value: '0.10 max' },
+            { element: 'Zinc', symbol: 'Zn', value: '0.10 max' },
+            { element: 'Titanium', symbol: 'Ti', value: '0.10 max' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 6,
+        content: { paragraphs: ['Sheets packed in wooden crates with waterproof paper and plastic film interleaving. Secured with steel straps for safe transport.'] }
+      },
+    ],
+    relatedProductIds: ['hta-aluminum-sheet-6061', 'hta-aluminum-sheet'],
+  },
+  {
+    id: 'hta-aluminum-sheet-6061',
+    slug: 'aluminum-sheet-6061',
+    name: 'Aluminum Sheet 6061',
+    shortDescription: 'Structural-grade aluminum sheet 6061 with high strength and good corrosion resistance.',
+    materialFamily: 'Aluminum',
+    categoryPath: ['Metals', 'Aluminum', 'Aluminum Semi-Finished Products', 'Sheets & Plates'],
+    categoryIds: ['aluminum-sheets'],
+    productType: 'Sheet',
+    productCode: 'HTA-AL-6061-001',
+    heroImage: resolveProductImage('aluminum-sheet-6061'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Aluminum sheet 6061 is a heat-treatable aluminum-magnesium-silicon alloy offering high strength, good corrosion resistance, and excellent machinability. It is one of the most versatile aluminum alloys for structural, automotive, and general engineering applications.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'High Strength', description: 'Heat-treatable alloy with good mechanical properties' },
+            { title: 'Corrosion Resistance', description: 'Good resistance to atmospheric and chemical corrosion' },
+            { title: 'Machinability', description: 'Excellent machinability in T6 temper' },
+            { title: 'Weldability', description: 'Good weldability with standard techniques' },
+            { title: 'Heat Treatable', description: 'Strength can be increased through heat treatment' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Structural', description: 'Frames, brackets, and structural components' },
+            { title: 'Automotive', description: 'Vehicle parts and automotive components' },
+            { title: 'Aerospace', description: 'Aircraft parts and aerospace structures' },
+            { title: 'General Engineering', description: 'Machinery parts and engineering components' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Alloy', value: '6061 (Al-Mg-Si)', unit: '' },
+            { label: 'Temper', value: 'T4, T6, T651', unit: '' },
+            { label: 'Thickness', value: '0.5 – 25.0', unit: 'mm' },
+            { label: 'Width', value: '1000 – 1524', unit: 'mm' },
+            { label: 'Length', value: '2000 – 6000', unit: 'mm' },
+            { label: 'Tensile Strength (T6)', value: '290 – 310', unit: 'MPa' },
+            { label: 'Yield Strength (T6)', value: '240 – 275', unit: 'MPa' },
+            { label: 'Elongation (T6)', value: '8 – 12', unit: '%' },
+          ]
+        }
+      },
+      {
+        id: 'chemical', type: 'chemicalAnalysis', title: 'Chemical Analysis', order: 5,
+        content: {
+          availability: 'available',
+          basis: 'heat-analysis',
+          analysisId: 'Analysis ID #AL-6061-001',
+          columns: [
+            { key: 'element', label: 'Element' },
+            { key: 'symbol', label: 'Symbol' },
+            { key: 'value', label: 'Composition', unit: '%' }
+          ],
+          rows: [
+            { element: 'Aluminum', symbol: 'Al', value: 'Balance' },
+            { element: 'Magnesium', symbol: 'Mg', value: '0.8 – 1.2' },
+            { element: 'Silicon', symbol: 'Si', value: '0.4 – 0.8' },
+            { element: 'Copper', symbol: 'Cu', value: '0.15 – 0.40' },
+            { element: 'Chromium', symbol: 'Cr', value: '0.04 – 0.35' },
+            { element: 'Iron', symbol: 'Fe', value: '0.7 max' },
+            { element: 'Manganese', symbol: 'Mn', value: '0.15 max' },
+            { element: 'Zinc', symbol: 'Zn', value: '0.25 max' },
+            { element: 'Titanium', symbol: 'Ti', value: '0.15 max' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 6,
+        content: { paragraphs: ['Sheets packed in wooden cases with protective wrapping. Strap-secured for secure handling and shipping.'] }
+      },
+    ],
+    relatedProductIds: ['hta-aluminum-sheet-5052', 'hta-aluminum-sheet'],
+  },
+  {
+    id: 'hta-aluminum-coil',
+    slug: 'aluminum-coil',
+    name: 'Aluminum Coil',
+    shortDescription: 'Rolled aluminum coil in various alloys for continuous processing and manufacturing.',
+    materialFamily: 'Aluminum',
+    categoryPath: ['Metals', 'Aluminum', 'Aluminum Semi-Finished Products', 'Coils'],
+    categoryIds: ['aluminum-coils'],
+    productType: 'Coil',
+    productCode: 'HTA-AL-COIL-001',
+    heroImage: resolveProductImage('aluminum-coil'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Aluminum coil is a continuous rolled sheet wound into a coil, available in various alloys including 1000, 3000, 5000, and 8000 series. Used in continuous manufacturing processes for building materials, packaging, and automotive components.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Continuous Supply', description: 'Long continuous lengths for uninterrupted production' },
+            { title: 'Multiple Alloys', description: 'Available in 1000, 3000, 5000, and 8000 series alloys' },
+            { title: 'Surface Finish', description: 'Mill finish, coated, or painted options available' },
+            { title: 'Lightweight', description: 'Low weight with high strength-to-weight ratio' },
+            { title: 'Recyclable', description: 'Fully recyclable with minimal environmental impact' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Building Materials', description: 'Roofing, cladding, and facade panels' },
+            { title: 'Packaging', description: 'Food packaging, foil, and containers' },
+            { title: 'Automotive', description: 'Heat exchangers and automotive trim' },
+            { title: 'Electrical', description: 'Transformer windings and busbars' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Alloy Series', value: '1000, 3000, 5000, 8000', unit: '' },
+            { label: 'Thickness', value: '0.2 – 4.0', unit: 'mm' },
+            { label: 'Width', value: '500 – 1600', unit: 'mm' },
+            { label: 'Coil ID', value: '300 – 600', unit: 'mm' },
+            { label: 'Coil OD', value: 'Up to 2500', unit: 'mm' },
+            { label: 'Coil Weight', value: 'Up to 5000', unit: 'kg' },
+            { label: 'Temper', value: 'O, H12, H14, H16, H18, H22, H24', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'chemical', type: 'chemicalAnalysis', title: 'Chemical Analysis', order: 5,
+        content: {
+          availability: 'upon_request',
+          basis: 'heat-analysis',
+          analysisId: 'Analysis ID #AL-COIL-001',
+          columns: [
+            { key: 'element', label: 'Element' },
+            { key: 'symbol', label: 'Symbol' },
+            { key: 'value', label: 'Composition', unit: '%' }
+          ],
+          rows: [
+            { element: 'Aluminum', symbol: 'Al', value: 'Balance' },
+            { element: 'Varies by alloy', symbol: 'Varies', value: 'See mill certificate' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 6,
+        content: { paragraphs: ['Coils wrapped in waterproof paper and plastic film, secured with steel straps, palletized with wooden supports for safe handling.'] }
+      },
+    ],
+    relatedProductIds: ['hta-aluminum-sheet-5052', 'hta-aluminum-sheet-6061'],
+  },
+  {
+    id: 'hta-aluminum-sheet',
+    slug: 'aluminum-sheet',
+    name: 'Aluminum Sheet',
+    shortDescription: 'General-purpose aluminum sheet in various alloys and tempers for fabrication and manufacturing.',
+    materialFamily: 'Aluminum',
+    categoryPath: ['Metals', 'Aluminum', 'Aluminum Semi-Finished Products', 'Sheets & Plates'],
+    categoryIds: ['aluminum-sheets'],
+    productType: 'Sheet',
+    productCode: 'HTA-AL-SHEET-001',
+    heroImage: resolveProductImage('aluminum-sheet'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['General-purpose aluminum sheet available in multiple alloys and tempers. Suitable for fabrication, stamping, forming, and general manufacturing where lightweight and corrosion-resistant material is required.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Versatile', description: 'Available in multiple alloys and tempers' },
+            { title: 'Lightweight', description: 'Low density with good strength-to-weight ratio' },
+            { title: 'Corrosion Resistant', description: 'Natural oxide layer provides atmospheric corrosion resistance' },
+            { title: 'Formable', description: 'Good formability for stamping and bending' },
+            { title: 'Conductive', description: 'Good thermal and electrical conductivity' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Fabrication', description: 'General sheet metal fabrication and forming' },
+            { title: 'Signage', description: 'Signs, nameplates, and display panels' },
+            { title: 'Appliances', description: 'Home appliance panels and enclosures' },
+            { title: 'HVAC', description: 'Air conditioning and ventilation components' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Alloy', value: '1100, 3003, 5005, 5052, 6061', unit: '' },
+            { label: 'Temper', value: 'O, H12, H14, H16, H18, H22, H24, T4, T6', unit: '' },
+            { label: 'Thickness', value: '0.3 – 30.0', unit: 'mm' },
+            { label: 'Width', value: '500 – 1524', unit: 'mm' },
+            { label: 'Length', value: '1000 – 6000', unit: 'mm' },
+            { label: 'Surface', value: 'Mill finish, brushed, or anodized', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'chemical', type: 'chemicalAnalysis', title: 'Chemical Analysis', order: 5,
+        content: {
+          availability: 'upon_request',
+          basis: 'heat-analysis',
+          analysisId: 'Analysis ID #AL-SHEET-001',
+          columns: [
+            { key: 'element', label: 'Element' },
+            { key: 'symbol', label: 'Symbol' },
+            { key: 'value', label: 'Composition', unit: '%' }
+          ],
+          rows: [
+            { element: 'Aluminum', symbol: 'Al', value: 'Balance' },
+            { element: 'Varies by alloy', symbol: 'Varies', value: 'See mill certificate' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 6,
+        content: { paragraphs: ['Sheets packed with paper interleaving in wooden crates, secured with steel bands for safe transport.'] }
+      },
+    ],
+    relatedProductIds: ['hta-aluminum-sheet-5052', 'hta-aluminum-sheet-6061', 'hta-aluminum-coil'],
+  },
+  {
+    id: 'hta-carbon-steel-angle-bar',
+    slug: 'carbon-steel-angle-bar',
+    name: 'Carbon Steel Angle Bar',
+    shortDescription: 'L-shaped carbon steel angle bar for structural support, framing, and construction applications.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Long Steel Products', 'Angles & Channels'],
+    categoryIds: ['angles'],
+    productType: 'Angle',
+    productCode: 'HTA-CS-ANGLE-001',
+    heroImage: resolveProductImage('carbon-steel-angle-bar'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Carbon steel angle bar is an L-shaped structural steel section with two legs at 90 degrees to each other. Available in equal and unequal leg configurations, used for structural support, framing, brackets, and construction reinforcement.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Structural Strength', description: 'High strength-to-weight ratio for load-bearing applications' },
+            { title: 'Equal & Unequal Legs', description: 'Available in equal-leg and unequal-leg configurations' },
+            { title: 'Easy Fabrication', description: 'Can be cut, drilled, welded, and bolted easily' },
+            { title: 'Cost Effective', description: 'Economical structural section for general construction' },
+            { title: 'Standard Lengths', description: 'Available in standard lengths of 6, 9, 12 meters' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Construction', description: 'Building frames, supports, and brackets' },
+            { title: 'Manufacturing', description: 'Machine frames and equipment supports' },
+            { title: 'Infrastructure', description: 'Bridge components and infrastructure projects' },
+            { title: 'Furniture', description: 'Metal furniture frames and shelving' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Standard', value: 'ASTM A36, GB/T 706, JIS G3192', unit: '' },
+            { label: 'Grade', value: 'SS400, A36, S235JR', unit: '' },
+            { label: 'Leg Size', value: '20×20 – 200×200', unit: 'mm' },
+            { label: 'Thickness', value: '3 – 20', unit: 'mm' },
+            { label: 'Length', value: '6000 – 12000', unit: 'mm' },
+            { label: 'Surface', value: 'Hot rolled, black, or galvanized', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Bundles secured with steel strips, packed with waterproof paper. Shipped by truck or container.'] }
+      },
+    ],
+    relatedProductIds: ['hta-cold-rolled-carbon-steel-sheet', 'hta-stainless-steel-seamless-pipe'],
+  },
+  {
+    id: 'hta-carbon-steel-checkered-plate',
+    slug: 'carbon-steel-checkered-plate',
+    name: 'Carbon Steel Checkered Plate',
+    shortDescription: 'Diamond-pattern carbon steel checkered plate for anti-slip flooring and industrial platforms.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Flat Steel Products', 'Checkered Plates'],
+    categoryIds: ['checkered-plates'],
+    productType: 'Plate',
+    productCode: 'HTA-CS-CHECKER-001',
+    heroImage: resolveProductImage('carbon-steel-checkered-plate'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Carbon steel checkered plate features a raised diamond pattern on one side that provides anti-slip surface. Used for flooring, stair treads, platforms, ramps, and industrial walkways where slip resistance is required.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Anti-Slip Surface', description: 'Raised diamond pattern provides excellent slip resistance' },
+            { title: 'High Strength', description: 'Durable carbon steel construction for heavy loads' },
+            { title: 'Wear Resistant', description: 'Resists wear from foot traffic and equipment' },
+            { title: 'Easy Installation', description: 'Can be bolted or welded to supporting structure' },
+            { title: 'Versatile', description: 'Suitable for indoor and outdoor applications' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Flooring', description: 'Factory floors, workshop flooring, and walkways' },
+            { title: 'Stair Treads', description: 'Anti-slip stair treads and steps' },
+            { title: 'Platforms', description: 'Industrial platforms and mezzanine floors' },
+            { title: 'Transportation', description: 'Truck beds, trailer floors, and ramps' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Standard', value: 'ASTM A786, GB/T 3271, JIS G3144', unit: '' },
+            { label: 'Grade', value: 'SS400, A36, S235JR', unit: '' },
+            { label: 'Thickness', value: '2.0 – 12.0', unit: 'mm' },
+            { label: 'Width', value: '1000 – 2000', unit: 'mm' },
+            { label: 'Length', value: '2000 – 8000', unit: 'mm' },
+            { label: 'Pattern', value: 'Diamond (checkered)', unit: '' },
+            { label: 'Surface', value: 'Hot rolled, black, or galvanized', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Plates stacked and secured with steel bands, wrapped in waterproof paper. Wooden pallet packaging available on request.'] }
+      },
+    ],
+    relatedProductIds: ['hta-cold-rolled-carbon-steel-sheet', 'hta-carbon-steel-angle-bar'],
+  },
+  {
+    id: 'hta-cold-rolled-carbon-steel-sheet',
+    slug: 'cold-rolled-carbon-steel-sheet',
+    name: 'Cold Rolled Carbon Steel Sheet',
+    shortDescription: 'Cold-rolled carbon steel sheet with smooth surface finish and precise dimensional accuracy.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Flat Steel Products', 'Cold-Rolled Sheets & Coils'],
+    categoryIds: ['cold-rolled'],
+    productType: 'Sheet',
+    productCode: 'HTA-CS-CR-001',
+    heroImage: resolveProductImage('cold-rolled-carbon-steel-sheet'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Cold rolled carbon steel sheet is produced by rolling hot-rolled steel at room temperature, resulting in a smooth surface finish, precise thickness tolerance, and improved mechanical properties. Ideal for applications requiring good surface quality and dimensional accuracy.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Smooth Surface', description: 'Smooth, clean surface suitable for painting and coating' },
+            { title: 'Precise Dimensions', description: 'Tight thickness and width tolerances' },
+            { title: 'Improved Strength', description: 'Higher strength and hardness than hot-rolled sheet' },
+            { title: 'Formability', description: 'Good formability for stamping and drawing operations' },
+            { title: 'Paint Ready', description: 'Surface ready for painting, powder coating, or plating' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Automotive', description: 'Automotive body panels and components' },
+            { title: 'Appliances', description: 'Home appliance panels and enclosures' },
+            { title: 'Furniture', description: 'Office furniture and metal furniture' },
+            { title: 'Electrical', description: 'Electrical enclosures and cabinets' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Standard', value: 'ASTM A1008, GB/T 5213, JIS G3141', unit: '' },
+            { label: 'Grade', value: 'SPCC, SPCD, SPCE, DC01', unit: '' },
+            { label: 'Thickness', value: '0.2 – 4.0', unit: 'mm' },
+            { label: 'Width', value: '600 – 1500', unit: 'mm' },
+            { label: 'Length', value: '1000 – 6000', unit: 'mm' },
+            { label: 'Surface', value: 'Cold rolled, matte or bright finish', unit: '' },
+            { label: 'Temper', value: 'Hard, quarter-hard, half-hard, soft', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Sheets packed with anti-rust paper and plastic film interleaving, secured with steel straps on wooden pallets.'] }
+      },
+    ],
+    relatedProductIds: ['hta-carbon-steel-checkered-plate', 'hta-carbon-steel-angle-bar'],
+  },
+  {
+    id: 'hta-linear-barbed-wire',
+    slug: 'linear-barbed-wire',
+    name: 'Linear Barbed Wire',
+    shortDescription: 'Linear barbed wire with sharp barbs at regular intervals for security fencing and perimeter protection.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Barbed & Razor Wire', 'Barbed Wire', 'Linear Barbed Wire'],
+    categoryIds: ['linear-barbed'],
+    productType: 'Wire',
+    productCode: 'HTA-BW-LINEAR-001',
+    heroImage: resolveProductImage('linear-barbed-wire'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Linear barbed wire consists of a central steel wire with sharp barbs twisted at regular intervals along its length. Used for security fencing, perimeter protection, agricultural fencing, and livestock control where a visible deterrent is required.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Security Deterrent', description: 'Sharp barbs provide effective intrusion deterrent' },
+            { title: 'Durable', description: 'Galvanized steel construction resists rust and weathering' },
+            { title: 'Easy Installation', description: 'Can be strung on posts or attached to existing fencing' },
+            { title: 'Cost Effective', description: 'Economical security solution for large perimeters' },
+            { title: 'Low Maintenance', description: 'Minimal maintenance required after installation' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Agriculture', description: 'Livestock fencing and pasture boundaries' },
+            { title: 'Security', description: 'Perimeter security for industrial and commercial properties' },
+            { title: 'Prisons', description: 'Correctional facility perimeter fencing' },
+            { title: 'Military', description: 'Military base boundary and training area fencing' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Core Wire', value: 'Galvanized steel Ø 2.5 – 3.5', unit: 'mm' },
+            { label: 'Barb Wire', value: 'Galvanized steel Ø 1.5 – 2.0', unit: 'mm' },
+            { label: 'Barb Spacing', value: '75 – 150', unit: 'mm' },
+            { label: 'Barb Type', value: '2-point or 4-point', unit: '' },
+            { label: 'Coating', value: 'Hot-dip galvanized or PVC coated', unit: '' },
+            { label: 'Coil Length', value: '250 – 500', unit: 'm' },
+            { label: 'Coil Weight', value: '15 – 35', unit: 'kg' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Coils wound tightly and secured with wire ties, wrapped in waterproof paper and plastic film.'] }
+      },
+    ],
+    relatedProductIds: ['hta-linear-razor-wire', 'hta-rolled-razor-wire'],
+  },
+  {
+    id: 'hta-linear-razor-wire',
+    slug: 'linear-razor-wire',
+    name: 'Linear Razor Wire',
+    shortDescription: 'Linear razor wire with sharp razor blades for high-security fencing and perimeter protection.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Barbed & Razor Wire', 'Razor Wire', 'Linear Razor Wire'],
+    categoryIds: ['linear-razor'],
+    productType: 'Wire',
+    productCode: 'HTA-RW-LINEAR-001',
+    heroImage: resolveProductImage('linear-razor-wire'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Linear razor wire features sharp razor blades formed from steel strip, clipped or locked to a central core wire at regular intervals. Provides high-level security deterrent for prisons, military installations, industrial facilities, and high-security perimeters.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'High Security', description: 'Sharp razor blades provide maximum intrusion deterrent' },
+            { title: 'Sharp Blades', description: 'Precision-formed razor blades with cutting edges' },
+            { title: 'Galvanized', description: 'Hot-dip galvanized for weather resistance' },
+            { title: 'High Tensile', description: 'High-tensile steel core resists cutting and bending' },
+            { title: 'Visible Deterrent', description: 'Clear visual warning to deter unauthorized access' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Prisons', description: 'Correctional facility and detention center perimeters' },
+            { title: 'Military', description: 'Military bases and secure installations' },
+            { title: 'Industrial', description: 'Industrial plant and warehouse perimeters' },
+            { title: 'Government', description: 'Government buildings and sensitive facilities' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Blade Type', value: 'BTO-10, BTO-22, BTO-30', unit: '' },
+            { label: 'Core Wire', value: 'Galvanized steel Ø 2.5 – 3.5', unit: 'mm' },
+            { label: 'Blade Width', value: '15 – 30', unit: 'mm' },
+            { label: 'Blade Spacing', value: '100 – 150', unit: 'mm' },
+            { label: 'Coating', value: 'Hot-dip galvanized', unit: '' },
+            { label: 'Coil Length', value: '250 – 500', unit: 'm' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Coils wrapped in protective material, secured with straps, packed in wooden crates or on pallets. Handle with protective gloves.'] }
+      },
+    ],
+    relatedProductIds: ['hta-linear-barbed-wire', 'hta-rolled-razor-wire'],
+  },
+  {
+    id: 'hta-rolled-razor-wire',
+    slug: 'rolled-razor-wire',
+    name: 'Rolled Razor Wire',
+    shortDescription: 'Rolled razor wire (concertina) in expandable coils for high-security fencing applications.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Barbed & Razor Wire', 'Razor Wire', 'Rolled Razor Wire'],
+    categoryIds: ['rolled-razor'],
+    productType: 'Wire',
+    productCode: 'HTA-RW-ROLLED-001',
+    heroImage: resolveProductImage('rolled-razor-wire'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Rolled razor wire (concertina wire) consists of razor wire welded or clipped to vertical support wires in coiled form. Expands to form a concertina barrier that provides high-level security for perimeters, borders, and restricted areas.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Expandable', description: 'Concertina design expands to form continuous barrier' },
+            { title: 'High Security', description: 'Maximum deterrent for high-security installations' },
+            { title: 'Rapid Deployment', description: 'Quick installation and deployment in field conditions' },
+            { title: 'Galvanized', description: 'Hot-dip galvanized for corrosion resistance' },
+            { title: 'Compact Storage', description: 'Coils store and transport compactly when collapsed' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Border Security', description: 'Border and boundary security installations' },
+            { title: 'Prisons', description: 'High-security prison perimeters and yards' },
+            { title: 'Military', description: 'Military bases and combat zone perimeters' },
+            { title: 'Critical Infrastructure', description: 'Power plants, refineries, and critical facilities' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Coil Diameter', value: '450 – 700', unit: 'mm' },
+            { label: 'Expanded Length', value: '8 – 15', unit: 'm per coil' },
+            { label: 'Blade Type', value: 'BTO-22, BTO-30, CBT-65', unit: '' },
+            { label: 'Core Wire', value: 'Galvanized steel Ø 2.5 – 3.5', unit: 'mm' },
+            { label: 'Coating', value: 'Hot-dip galvanized', unit: '' },
+            { label: 'Weight per Coil', value: '18 – 35', unit: 'kg' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Coils collapsed and secured with wire ties, wrapped in protective material, packed in wooden crates for safe transport. Handle with protective gloves.'] }
+      },
+    ],
+    relatedProductIds: ['hta-linear-barbed-wire', 'hta-linear-razor-wire'],
+  },
+  {
+    id: 'hta-stainless-steel-seamless-pipe',
+    slug: 'stainless-steel-seamless-pipe',
+    name: 'Stainless Steel Seamless Pipe',
+    shortDescription: 'Seamless stainless steel pipe for high-pressure, corrosive, and high-temperature applications.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Alloy & Specialty Steels', 'Stainless Steel', 'Stainless Pipes & Tubes'],
+    categoryIds: ['ss-pipes'],
+    productType: 'Pipe',
+    productCode: 'HTA-SS-SEAMLESS-001',
+    heroImage: resolveProductImage('stainless-steel-seamless-pipe'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Stainless steel seamless pipe is manufactured without a weld seam, providing uniform strength and excellent resistance to pressure, corrosion, and high temperatures. Used in oil & gas, chemical processing, food & beverage, and pharmaceutical industries.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Seamless Construction', description: 'No weld seam for uniform strength and reliability' },
+            { title: 'Corrosion Resistant', description: 'Excellent resistance to chemicals, acids, and saltwater' },
+            { title: 'High Pressure Rating', description: 'Suitable for high-pressure fluid and gas transport' },
+            { title: 'Temperature Resistant', description: 'Maintains strength at elevated temperatures' },
+            { title: 'Hygienic', description: 'Smooth interior suitable for food and pharmaceutical applications' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Oil & Gas', description: 'Oil and gas pipelines and processing equipment' },
+            { title: 'Chemical', description: 'Chemical processing and petrochemical plants' },
+            { title: 'Food & Beverage', description: 'Food processing and beverage production lines' },
+            { title: 'Pharmaceutical', description: 'Pharmaceutical manufacturing equipment' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Standard', value: 'ASTM A312, ASTM A790, GB/T 14975', unit: '' },
+            { label: 'Grade', value: '304, 304L, 316, 316L, 321', unit: '' },
+            { label: 'Outer Diameter', value: '6 – 325', unit: 'mm' },
+            { label: 'Wall Thickness', value: '1.0 – 20.0', unit: 'mm' },
+            { label: 'Length', value: '6000 – 12000', unit: 'mm' },
+            { label: 'Finish', value: 'Pickled, annealed, or polished', unit: '' },
+            { label: 'End Type', value: 'Plain end, beveled, or threaded', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'chemical', type: 'chemicalAnalysis', title: 'Chemical Analysis', order: 5,
+        content: {
+          availability: 'available',
+          basis: 'heat-analysis',
+          analysisId: 'Analysis ID #SS-SEAMLESS-001',
+          columns: [
+            { key: 'element', label: 'Element' },
+            { key: 'symbol', label: 'Symbol' },
+            { key: 'value', label: 'Composition', unit: '%' }
+          ],
+          rows: [
+            { element: 'Grade 304 – Carbon', symbol: 'C', value: '0.07 max' },
+            { element: 'Grade 304 – Chromium', symbol: 'Cr', value: '18.0 – 20.0' },
+            { element: 'Grade 304 – Nickel', symbol: 'Ni', value: '8.0 – 10.5' },
+            { element: 'Grade 304 – Manganese', symbol: 'Mn', value: '2.0 max' },
+            { element: 'Grade 304 – Silicon', symbol: 'Si', value: '1.0 max' },
+            { element: 'Grade 316 – Carbon', symbol: 'C', value: '0.08 max' },
+            { element: 'Grade 316 – Chromium', symbol: 'Cr', value: '16.0 – 18.0' },
+            { element: 'Grade 316 – Nickel', symbol: 'Ni', value: '10.0 – 14.0' },
+            { element: 'Grade 316 – Molybdenum', symbol: 'Mo', value: '2.0 – 3.0' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 6,
+        content: { paragraphs: ['Pipes bundled with steel straps, ends protected with plastic caps. Wooden crate or pallet packaging for safe ocean or land transport.'] }
+      },
+    ],
+    relatedProductIds: ['hta-carbon-steel-angle-bar', 'hta-stainless-steel-seamless-pipe'],
+  },
+  {
+    id: 'hta-industrial-steel-product',
+    slug: 'industrial-steel-product',
+    name: 'Industrial Steel Product',
+    shortDescription: 'Industrial steel product for general manufacturing, fabrication, and construction applications.',
+    materialFamily: 'Iron & Steel',
+    categoryPath: ['Metals', 'Iron & Steel', 'Flat Steel Products', 'Hot-Rolled Sheets & Coils'],
+    categoryIds: ['hot-rolled'],
+    productType: 'Sheet',
+    productCode: 'HTA-IND-STEEL-001',
+    heroImage: resolveProductImage('industrial-steel-product'),
+    hasImage: true,
+    inStock: true,
+    ctaText: 'Inquire About This Product',
+    contentBlocks: [
+      {
+        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
+        content: { paragraphs: ['Industrial steel product suitable for general manufacturing, fabrication, construction, and structural applications. Available in various grades and dimensions to meet project requirements.'] }
+      },
+      {
+        id: 'highlights', type: 'highlights', title: 'Product Highlights', order: 2,
+        content: {
+          items: [
+            { title: 'Versatile', description: 'Suitable for multiple industrial applications' },
+            { title: 'Structural', description: 'Good structural properties for load-bearing uses' },
+            { title: 'Fabrication Ready', description: 'Can be cut, welded, drilled, and formed' },
+            { title: 'Cost Effective', description: 'Economical solution for industrial projects' },
+            { title: 'Available', description: 'Readily available in various sizes and grades' },
+          ]
+        }
+      },
+      {
+        id: 'applications', type: 'applications', title: 'Applications', order: 3,
+        content: {
+          items: [
+            { title: 'Manufacturing', description: 'General manufacturing and fabrication projects' },
+            { title: 'Construction', description: 'Building construction and structural frameworks' },
+            { title: 'Infrastructure', description: 'Infrastructure and public works projects' },
+            { title: 'Equipment', description: 'Industrial equipment and machinery frames' },
+          ]
+        }
+      },
+      {
+        id: 'specs', type: 'technicalSpecifications', title: 'Technical Specifications', order: 4,
+        content: {
+          items: [
+            { label: 'Standard', value: 'ASTM A36, GB/T 700, JIS G3101', unit: '' },
+            { label: 'Grade', value: 'SS400, A36, Q235', unit: '' },
+            { label: 'Thickness', value: '1.6 – 50.0', unit: 'mm' },
+            { label: 'Width', value: '900 – 2000', unit: 'mm' },
+            { label: 'Length', value: '2000 – 12000', unit: 'mm' },
+            { label: 'Surface', value: 'Hot rolled, black, or pickled', unit: '' },
+          ]
+        }
+      },
+      {
+        id: 'packaging', type: 'packagingAndDelivery', title: 'Packaging', order: 5,
+        content: { paragraphs: ['Sheets or plates packed with waterproof paper, secured with steel bands, on wooden pallets for safe transport.'] }
+      },
+    ],
+    relatedProductIds: ['hta-carbon-steel-angle-bar', 'hta-cold-rolled-carbon-steel-sheet'],
   },
 ];
 

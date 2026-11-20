@@ -69,7 +69,7 @@ export default function DesktopNavigation() {
     `nav-link px-3 py-2 text-sm font-medium rounded-button transition-colors ${isActive ? 'text-navy-deep active' : 'text-navy-sub'}`;
 
   const navLinkUnderline = (isActive: boolean) =>
-    `relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-green-status after:transition-transform after:origin-center after:scale-x-0 ${isActive ? 'after:scale-x-100' : 'hover:after:scale-x-100'}`;
+    `relative after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-navy-deep after:transition-transform after:origin-center after:scale-x-0 ${isActive ? 'after:scale-x-100' : 'hover:after:scale-x-100'}`;
 
   const buttonClasses = (isActive: boolean) =>
     `flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-button transition-colors ${isActive ? 'text-navy-deep' : 'text-navy-sub'}`;

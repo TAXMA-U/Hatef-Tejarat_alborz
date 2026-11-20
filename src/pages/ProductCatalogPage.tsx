@@ -222,7 +222,7 @@ export default function ProductCatalogPage() {
           />
         </aside>
 
-          <div ref={productsContainerRef} className="flex-1 min-w-0 bg-white rounded-panel shadow-lg p-4 md:p-6 overflow-y-auto h-[calc(100vh-320px)]">
+          <div ref={productsContainerRef} className="flex-1 min-w-0 bg-transparent p-4 md:p-6 min-h-[60vh]">
           <Reveal variant="fade-up" delay={150} duration={700}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
                 <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
@@ -367,9 +367,99 @@ function FilterPanel({
     { id: 'EN', label: 'EN' },
     { id: 'DIN', label: 'DIN' },
   ];
+  const [expandedCats, setExpandedCats] = useState<Set<string>>(new Set());
+
+  const toggleCat = (id: string) => {
+    setExpandedCats((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const isCatExpanded = (id: string) => expandedCats.has(id);
+
+  const renderCategoryTree = (cat: any, level: number) => {
+    const hasChildren = cat.children && cat.children.length > 0;
+    const catCount = products.filter((p) => p.materialFamily.toLowerCase().includes(cat.name.toLowerCase()) || p.categoryPath.join(' ').toLowerCase().includes(cat.name.toLowerCase())).length;
+    const isChecked = selectedMaterials.includes(cat.name);
+    const pad = level * 16;
+
+    return (
+      <div key={cat.id} className="mb-0.5">
+        <div className="flex items-center justify-between pl-2 py-1.5 rounded-lg hover:bg-navy-light/50 cursor-pointer group">
+          <div className={`flex items-center gap-2 ml-${level > 0 ? 2 : 0}`}>
+            {hasChildren && (
+              <button onClick={() => toggleCat(cat.id)} className="w-3 h-3 flex items-center justify-center shrink-0">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${isCatExpanded(cat.id) ? 'rotate-90' : ''}`}>
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+            )}
+            {!hasChildren && <div className="w-3 h-3 shrink-0" />}
+            <input type="checkbox" checked={isChecked} onChange={() => toggleMaterial(cat.name)} className="w-3.5 h-3.5 rounded border-border-blue text-navy-deep focus:ring-2 focus:ring-navy-deep" />
+            <span className={`text-xs ${isChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray group-hover:text-navy-deep'}`}>{cat.name}</span>
+          </div>
+          <span className="text-[9px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{catCount}</span>
+        </div>
+        {hasChildren && isCatExpanded(cat.id) && (
+          <div className={`ml-${pad + 4} border-l border-border-blue space-y-0.5`}>
+            {cat.children.map((child: any) => {
+              const childHasChildren = child.children && child.children.length > 0;
+              const childCount = products.filter((p) => p.categoryPath.join(' ').toLowerCase().includes(child.name.toLowerCase())).length;
+              const isChildChecked = selectedMaterials.includes(child.name);
+              const childPad = pad + 16;
+
+              return (
+                <div key={child.id}>
+                  <div className="flex items-center justify-between pl-2 py-1 rounded hover:bg-navy-light/30 cursor-pointer group">
+                    <div className={`flex items-center gap-2 ml-${childHasChildren ? 2 : 0}`}>
+                      {childHasChildren && (
+                        <button onClick={() => toggleCat(child.id)} className="w-3 h-3 flex items-center justify-center shrink-0">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${isCatExpanded(child.id) ? 'rotate-90' : ''}`}>
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                      )}
+                      {!childHasChildren && <div className="w-3 h-3 shrink-0" />}
+                      <input type="checkbox" checked={isChildChecked} onChange={() => toggleMaterial(child.name)} className="w-3 h-3 rounded border-border-blue text-navy-deep focus:ring-2 focus:ring-navy-deep" />
+                      <span className={`text-[11px] ${isChildChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray group-hover:text-navy-deep'}`}>{child.name}</span>
+                    </div>
+                    <span className="text-[8px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{childCount}</span>
+                  </div>
+                  {childHasChildren && isCatExpanded(child.id) && (
+                    <div className={`ml-${childPad + 4} border-l border-border-blue space-y-0.5`}>
+                      {child.children.map((subChild: any) => {
+                        const subChildCount = products.filter((p) => p.categoryPath.join(' ').toLowerCase().includes(subChild.name.toLowerCase())).length;
+                        const isSubChildChecked = selectedMaterials.includes(subChild.name);
+                        return (
+                          <label key={subChild.id} className="flex items-center justify-between px-2 py-0.5 rounded hover:bg-navy-light/20 cursor-pointer ml-1">
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="checkbox"
+                                checked={isSubChildChecked}
+                                onChange={() => toggleMaterial(subChild.name)}
+                                className="w-2.5 h-2.5 rounded border-border-blue text-navy-deep focus:ring-1 focus:ring-navy-deep"
+                              />
+                              <span className={`text-[10px] ${isSubChildChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray'}`}>{subChild.name}</span>
+                            </div>
+                            <span className="text-[8px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{subChildCount}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
-    <div className="card p-4">
+    <div className="card p-4 max-h-[80vh] overflow-y-auto">
       <div className="flex items-center justify-between mb-3">
         <h3 className="flex items-center gap-2 text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
@@ -390,67 +480,9 @@ function FilterPanel({
         </svg>
       </div>
 
-      <FilterAccordion title="Material Base" icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>}>
-        <div className="space-y-0.5">
-          {categories.map((cat) => {
-            const hasChildren = cat.children && cat.children.length > 0;
-            const catCount = products.filter((p) => p.materialFamily.toLowerCase().includes(cat.name.toLowerCase()) || p.categoryPath.join(' ').toLowerCase().includes(cat.name.toLowerCase())).length;
-            const isChecked = selectedMaterials.includes(cat.name);
-            return (
-              <div key={cat.id}>
-                <div className="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-navy-light/50 cursor-pointer group">
-                  <div className="flex items-center gap-2">
-                    <input type="checkbox" checked={isChecked} onChange={() => toggleMaterial(cat.name)} className="w-3.5 h-3.5 rounded border-border-blue text-navy-deep focus:ring-2 focus:ring-navy-deep" />
-                    <span className={`text-xs ${isChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray group-hover:text-navy-deep'}`}>{cat.name}</span>
-                  </div>
-                  <span className="text-[9px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{catCount}</span>
-                </div>
-                {hasChildren && (
-                  <div className="ml-6 border-l border-border-blue">
-                    {cat.children!.map((child) => {
-                      const childCount = products.filter((p) => p.categoryPath.join(' ').toLowerCase().includes(child.name.toLowerCase())).length;
-                      const isChildChecked = selectedMaterials.includes(child.name);
-                      return (
-                        <div key={child.id}>
-                          <label className="flex items-center justify-between px-2 py-1 rounded hover:bg-navy-light/30 cursor-pointer group ml-1">
-                            <div className="flex items-center gap-2">
-                              <input type="checkbox" checked={isChildChecked} onChange={() => toggleMaterial(child.name)} className="w-3 h-3 rounded border-border-blue text-navy-deep focus:ring-2 focus:ring-navy-deep" />
-                              <span className={`text-[11px] ${isChildChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray group-hover:text-navy-deep'}`}>{child.name}</span>
-                            </div>
-                            <span className="text-[8px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{childCount}</span>
-                          </label>
-                          {child.children && child.children.length > 0 && (
-                            <div className="ml-4 border-l border-border-blue">
-                              {child.children.map((subChild) => {
-                                const subChildCount = products.filter((p) => p.categoryPath.join(' ').toLowerCase().includes(subChild.name.toLowerCase())).length;
-                                const isSubChildChecked = selectedMaterials.includes(subChild.name);
-                                return (
-                                  <label key={subChild.id} className="flex items-center justify-between px-2 py-0.5 rounded hover:bg-navy-light/20 cursor-pointer ml-1">
-                                    <div className="flex items-center gap-1.5">
-                                      <input
-                                        type="checkbox"
-                                        checked={isSubChildChecked}
-                                        onChange={() => toggleMaterial(subChild.name)}
-                                        className="w-2.5 h-2.5 rounded border-border-blue text-navy-deep focus:ring-1 focus:ring-navy-deep"
-                                      />
-                                      <span className={`text-[10px] ${isSubChildChecked ? 'font-semibold text-navy-deep' : 'text-slate-gray'}`}>{subChild.name}</span>
-                                    </div>
-                                    <span className="text-[8px] text-navy-sub bg-navy-light/50 px-1 py-0.5 rounded">{subChildCount}</span>
-                                  </label>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </FilterAccordion>
+      <div className="space-y-1">
+        {categories.map((cat) => renderCategoryTree(cat, 0))}
+      </div>
 
       <FilterAccordion title="Work Categories" icon={<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" /></svg>} defaultOpen={false}>
         <div className="space-y-1.5">
