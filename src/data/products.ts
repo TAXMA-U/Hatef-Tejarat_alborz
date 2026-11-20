@@ -4,6 +4,59 @@ export type Product = ProductDetail;
 
 const defaultImage = `${import.meta.env.BASE_URL}images/products/a.png`;
 
+const IMAGE_MAP: Record<string, string> = {
+  'copper-busbar': 'Copper_Busbar.jpg',
+  'copper-strip': 'Copper_Strip.jpg',
+  'copper-wire': 'Copper_Wire.jpg',
+  'copper-rod': 'Copper_Rod.jpg',
+  'aluminum-ingot-iralco': 'Aluminum_Ingot.jpg',
+  'pvc-coated-galvanized-wire': 'Galvanized_Wire_With_PVC_Coation.jpg',
+  'hexagonal-wire-mesh': 'Hexagonal_Wire_Mesh.jpg',
+  'chicken-wire-mesh': 'Chicken_Wire_Mesh.jpg',
+  'barbed-wire-family': 'Barbed_Wire.jpg',
+};
+
+const AVAILABLE_IMAGES = [
+  'Aluminum_5052.jpg',
+  'Aluminum_6061.jpg',
+  'Aluminum_Coll.jpg',
+  'Aluminum_Ingot.jpg',
+  'Aluminum_Sheet.jpg',
+  'Barbed_Wire.jpg',
+  'Carbon_Steel_Angel_Bar.jpg',
+  'Carbon_Steel_Checkered_plate.jpg',
+  'Chicken_Wire_Mesh.jpg',
+  'Cold_Rolled_Carbon_Steel_Sheet.jpg',
+  'Copper_Busbar.jpg',
+  'Copper_Rod.jpg',
+  'Copper_Strip.jpg',
+  'Copper_Wire.jpg',
+  'CopperـBars.jpg',
+  'Galvanized_Wire_With_PVC_Coation.jpg',
+  'Hexagonal_Wire_Mesh.jpg',
+  'Linear_Barbed_Wire.jpg',
+  'Linear_Razor_Wire.jpg',
+  'Rolled_Razor_Wire.jpg',
+  'Stain_Steel_Seamless_Pipe.jpg',
+];
+
+const normalize = (s: string) =>
+  s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+const resolveProductImage = (slug: string, name: string): string => {
+  if (IMAGE_MAP[slug]) {
+    return `${import.meta.env.BASE_URL}images/products/${IMAGE_MAP[slug]}`;
+  }
+  const target = normalize(name);
+  for (const file of AVAILABLE_IMAGES) {
+    const fileName = normalize(file.replace(/\.(jpg|png|jpeg)$/i, ''));
+    if (fileName === target || fileName.includes(target) || target.includes(fileName)) {
+      return `${import.meta.env.BASE_URL}images/products/${file}`;
+    }
+  }
+  return defaultImage;
+};
+
 export const products: ProductDetail[] = [
   {
     id: 'hta-copper-busbar',
@@ -16,7 +69,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-busbars'],
     productType: 'Busbar',
     productCode: 'HTA-CB-001',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-busbar', 'Copper Busbar'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -79,7 +132,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-strips'],
     productType: 'Strip',
     productCode: 'HTA-CS-002',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-strip', 'Copper Strip'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -115,7 +168,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-wires'],
     productType: 'Wire',
     productCode: 'HTA-CW-003',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-wire', 'Copper Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -177,7 +230,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-bars'],
     productType: 'Bar',
     productCode: 'HTA-CB-004',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-bars', 'Copper Bars'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -224,7 +277,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-rods'],
     productType: 'Rod',
     productCode: 'HTA-CR-005',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-rod', 'Copper Rod'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -260,7 +313,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-c-h-clamps'],
     productType: 'Clamp',
     productCode: 'HTA-CC-006',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-clamps', 'Copper C & H Clamps'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -311,7 +364,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['copper-special-sections'],
     productType: 'Section',
     productCode: 'HTA-CSS-007',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('copper-special-sections', 'Copper Special Sections'),
     inStock: false,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -341,7 +394,7 @@ export const products: ProductDetail[] = [
     brandOrOrigin: 'IRALCO',
     manufacturer: 'Iran Aluminium Company',
     countryOfOrigin: 'Iran',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('aluminum-ingot-iralco', 'Aluminium Ingot – IRALCO Origin'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -410,7 +463,7 @@ export const products: ProductDetail[] = [
     categoryIds: ['iron-wire'],
     productType: 'Wire',
     productCode: 'HTA-IW-009',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('iron-wire', 'Iron Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -469,7 +522,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Heat-Treated Wire', 'Annealed Wire'],
     categoryIds: ['annealed-wire'],
     productType: 'Wire',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('annealed-wire', 'Annealed Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -522,7 +575,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Coated Wire', 'Galvanized Wire'],
     categoryIds: ['galvanized-wire'],
     productType: 'Wire',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('galvanized-wire', 'Galvanized Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -582,7 +635,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Coated Wire', 'Galvanized Wire', 'PVC-Coated Galvanized Wire'],
     categoryIds: ['pvc-galvanized'],
     productType: 'Wire',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('pvc-coated-galvanized-wire', 'Galvanized Wire with PVC Coating'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -630,7 +683,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Reinforcement Wire', 'Ribbed Wire'],
     categoryIds: ['ribbed-wire'],
     productType: 'Wire',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('ribbed-wire', 'Ribbed Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -676,7 +729,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Woven Mesh', 'Hexagonal Wire Mesh'],
     categoryIds: ['hexagonal-mesh'],
     productType: 'Mesh',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('hexagonal-wire-mesh', 'Hexagonal Wire Mesh'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -730,7 +783,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Woven Mesh', 'Gabion Mesh / Gabion'],
     categoryIds: ['gabion'],
     productType: 'Mesh',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('gabion', 'Gabion'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -779,7 +832,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Woven Mesh', 'Chicken Wire Mesh'],
     categoryIds: ['chicken-mesh'],
     productType: 'Mesh',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('chicken-wire-mesh', 'Chicken Wire Mesh'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -826,7 +879,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Welded / Fabricated Mesh', 'Wire Mesh'],
     categoryIds: ['wire-mesh-product'],
     productType: 'Mesh',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('wire-mesh', 'Wire Mesh'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [
@@ -865,7 +918,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Barbed & Razor Wire'],
     categoryIds: ['barbed-wire'],
     productType: 'Fencing',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('barbed-wire-family', 'Barbed Wire Family'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     variants: [
@@ -899,7 +952,7 @@ export const products: ProductDetail[] = [
     categoryPath: ['Metals', 'Iron & Steel', 'Cable Protection', 'ARMOR Wire'],
     categoryIds: ['armor-wire'],
     productType: 'Cable',
-    heroImage: defaultImage,
+    heroImage: resolveProductImage('armor-wire', 'ARMOR Wire'),
     inStock: true,
     ctaText: 'Inquire About This Product',
     contentBlocks: [

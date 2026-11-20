@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect, type RefObject } from 'react';
 import type { Product } from '@/data/products';
 import { findCategoryBySlug } from '@/data/categories';
 
@@ -11,7 +11,11 @@ type FilterState = {
   selectedCertifications: string[];
 };
 
-export function useProductFilters(products: Product[], initialFilters?: { category?: string; sub?: string; subsub?: string; industry?: string }) {
+export function useProductFilters(
+  products: Product[],
+  initialFilters?: { category?: string; sub?: string; subsub?: string; industry?: string },
+  rootRef?: React.RefObject<HTMLDivElement | null> | null,
+) {
   const [state, setState] = useState<FilterState>(() => {
     const initial: FilterState = {
       search: '',
@@ -166,14 +170,14 @@ export function useProductFilters(products: Product[], initialFilters?: { catego
           loadMore();
         }
       },
-      { threshold: 0.1, rootMargin: '100px' }
+      { threshold: 0.1, rootMargin: '100px', root: rootRef?.current ?? undefined }
     );
     if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
     return () => {
       if (observerRef.current) observerRef.current.disconnect();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
+  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore, rootRef]);
 
   const visibleProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;

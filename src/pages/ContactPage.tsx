@@ -24,11 +24,7 @@ type FormState = {
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
-const MATERIAL_CATEGORIES = [
-  'Copper',
-  'Aluminum',
-  'Iron & Steel',
-] as const;
+const MATERIAL_CATEGORIES = ['Copper', 'Aluminum', 'Iron & Steel'] as const;
 
 const PRODUCT_GRADES = [
   'Busbar',
@@ -64,38 +60,25 @@ const INCOTERMS = ['EXW', 'FCA', 'FOB', 'CFR', 'CIF', 'DAP', 'DDP'] as const;
 
 const COUNTRIES = ['Iran', 'United Arab Emirates', 'Other'] as const;
 
-const OFFICES = [
-  {
-    country: 'Iran',
-    title: 'Head Office — Tehran',
-    company: 'Hatef Tejarat Alborz',
-    address: [
-      'No 7, 5th Floor, Northern Unit',
-      'Dr. Ali Shariati Street',
-      'Shahid Mohammad Taghi Rafat Street',
-      'Hekmat, Tajrish City',
-      'Shemiranat County, Tehran Province, Iran',
-    ],
-    postalCode: '1917643133',
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Tehran,+Shemiranat,+Tajrish,+Hekmat,+Dr.+Ali+Shariati+Street,+Iran',
-    phones: ['+98 912 323 8106'],
-    emails: ['trading@hateftejaratalborz.info', 'hatef.tejarat.alborz@gmail.com'],
-  },
-  {
-    country: 'United Arab Emirates',
-    title: 'UAE Office — Dubai',
-    company: 'Hatef Tejarat Alborz',
-    address: [
-      'Dubai Silicon Oasis',
-      'Dubai Digital Park',
-      'Dubai, United Arab Emirates',
-    ],
-    postalCode: '',
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dubai+Silicon+Oasis,+Dubai+Digital+Park,+Dubai,+UAE',
-    phones: [],
-    emails: [],
-  },
-] as const;
+const fieldToLabel = (field: keyof FormState): string => {
+  const labels: Record<keyof FormState, string> = {
+    fullName: 'Full Name',
+    companyName: 'Company Name',
+    email: 'Email Address',
+    phone: 'Phone / WhatsApp',
+    country: 'Country',
+    materialCategory: 'Material Category',
+    productGrade: 'Product / Grade',
+    requestType: 'Request Type',
+    quantity: 'Quantity',
+    quantityUnit: 'Quantity Unit',
+    destination: 'Destination / Delivery Location',
+    incoterms: 'Trade Terms (Incoterms)',
+    message: 'Message / Additional Specifications',
+    consent: 'Consent',
+  };
+  return labels[field];
+};
 
 export default function ContactPage() {
   const location = useLocation();
@@ -143,8 +126,7 @@ export default function ContactPage() {
     ];
     for (const field of required) {
       const value = form[field];
-      const isEmpty =
-        typeof value === 'string' ? !value.trim() : !value;
+      const isEmpty = typeof value === 'string' ? !value.trim() : !value;
       if (isEmpty) {
         newErrors[field] = `${fieldToLabel(field)} is required`;
       }
@@ -160,26 +142,6 @@ export default function ContactPage() {
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const fieldToLabel = (field: keyof FormState): string => {
-    const labels: Record<keyof FormState, string> = {
-      fullName: 'Full Name',
-      companyName: 'Company Name',
-      email: 'Email Address',
-      phone: 'Phone / WhatsApp',
-      country: 'Country',
-      materialCategory: 'Material Category',
-      productGrade: 'Product / Grade',
-      requestType: 'Request Type',
-      quantity: 'Quantity',
-      quantityUnit: 'Quantity Unit',
-      destination: 'Destination / Delivery Location',
-      incoterms: 'Trade Terms (Incoterms)',
-      message: 'Message / Additional Specifications',
-      consent: 'Consent',
-    };
-    return labels[field];
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -264,7 +226,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Inquiry Form */}
+      {/* Inquiry Form + Quick Contact side by side */}
       <section id="inquiry" className="py-10 md:py-16">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
@@ -283,90 +245,18 @@ export default function ContactPage() {
                 <form ref={formRef} onSubmit={handleSubmit} noValidate className="card p-4 md:p-6 space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
-                      {
-                        name: 'fullName',
-                        label: 'Full Name',
-                        type: 'text',
-                        placeholder: 'John Doe',
-                        required: true,
-                      },
-                      {
-                        name: 'companyName',
-                        label: 'Company Name',
-                        type: 'text',
-                        placeholder: 'ABC Trading LLC',
-                        required: false,
-                      },
-                      {
-                        name: 'email',
-                        label: 'Email Address',
-                        type: 'email',
-                        placeholder: 'john@example.com',
-                        required: true,
-                      },
-                      {
-                        name: 'phone',
-                        label: 'Phone / WhatsApp',
-                        type: 'tel',
-                        placeholder: '+98 21 1234 5678',
-                        required: true,
-                      },
-                      {
-                        name: 'country',
-                        label: 'Country',
-                        type: 'select',
-                        options: COUNTRIES,
-                        required: true,
-                      },
-                      {
-                        name: 'materialCategory',
-                        label: 'Material Category',
-                        type: 'select',
-                        options: MATERIAL_CATEGORIES,
-                        required: true,
-                      },
-                      {
-                        name: 'productGrade',
-                        label: 'Product / Grade',
-                        type: 'select',
-                        options: PRODUCT_GRADES,
-                        required: true,
-                      },
-                      {
-                        name: 'requestType',
-                        label: 'Request Type',
-                        type: 'select',
-                        options: REQUEST_TYPES,
-                        required: true,
-                      },
-                      {
-                        name: 'quantity',
-                        label: 'Quantity',
-                        type: 'text',
-                        placeholder: 'e.g. 25',
-                        required: true,
-                      },
-                      {
-                        name: 'quantityUnit',
-                        label: 'Quantity Unit',
-                        type: 'select',
-                        options: QUANTITY_UNITS,
-                        required: true,
-                      },
-                      {
-                        name: 'destination',
-                        label: 'Destination / Delivery Location',
-                        type: 'text',
-                        placeholder: 'Jebel Ali Port, Dubai',
-                        required: true,
-                      },
-                      {
-                        name: 'incoterms',
-                        label: 'Trade Terms (Incoterms)',
-                        type: 'select',
-                        options: INCOTERMS,
-                        required: true,
-                      },
+                      { name: 'fullName', label: 'Full Name', type: 'text', placeholder: 'John Doe', required: true },
+                      { name: 'companyName', label: 'Company Name', type: 'text', placeholder: 'ABC Trading LLC', required: false },
+                      { name: 'email', label: 'Email Address', type: 'email', placeholder: 'john@example.com', required: true },
+                      { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', placeholder: '+98 21 1234 5678', required: true },
+                      { name: 'country', label: 'Country', type: 'select', options: COUNTRIES, required: true },
+                      { name: 'materialCategory', label: 'Material Category', type: 'select', options: MATERIAL_CATEGORIES, required: true },
+                      { name: 'productGrade', label: 'Product / Grade', type: 'select', options: PRODUCT_GRADES, required: true },
+                      { name: 'requestType', label: 'Request Type', type: 'select', options: REQUEST_TYPES, required: true },
+                      { name: 'quantity', label: 'Quantity', type: 'text', placeholder: 'e.g. 25', required: true },
+                      { name: 'quantityUnit', label: 'Quantity Unit', type: 'select', options: QUANTITY_UNITS, required: true },
+                      { name: 'destination', label: 'Destination / Delivery Location', type: 'text', placeholder: 'Jebel Ali Port, Dubai', required: true },
+                      { name: 'incoterms', label: 'Trade Terms (Incoterms)', type: 'select', options: INCOTERMS, required: true },
                     ].map((field) => (
                       <div key={field.name} className="flex flex-col gap-1.5">
                         <label className="block text-xs font-sans font-semibold text-navy-deep uppercase tracking-wider">
@@ -489,46 +379,44 @@ export default function ContactPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <Reveal variant="fade-up" delay={220} duration={700}>
-                <div className="sticky top-[92px]">
-                  <div className="card p-5 md:p-6 h-full">
-                    <h3 className="font-serif text-xl md:text-2xl text-navy-deep mb-4">Quick Contact</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                        </svg>
-                        <div>
-                          <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Phone / WhatsApp</span>
-                          <a href="tel:+989123238106" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                            +98 912 323 8106
-                          </a>
-                          <a href="https://wa.me/989123238106" target="_blank" rel="noopener noreferrer" className="text-[10px] text-green-status hover:underline mt-0.5 block">
-                            Chat on WhatsApp
-                          </a>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                        </svg>
-                        <div>
-                          <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Email</span>
-                          <a href="mailto:trading@hateftejaratalborz.info" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                            trading@hateftejaratalborz.info
-                          </a>
-                          <a href="mailto:hatef.tejarat.alborz@gmail.com" className="text-[10px] text-navy-sub hover:text-navy-deep transition-colors mt-0.5 block">
-                            hatef.tejarat.alborz@gmail.com
-                          </a>
-                        </div>
+              <Reveal variant="fade-up" delay={100} duration={700}>
+                <div className="card p-5 md:p-6 h-full flex flex-col">
+                  <h3 className="font-serif text-xl md:text-2xl text-navy-deep mb-4">Quick Contact</h3>
+                  <div className="space-y-4 flex-grow">
+                    <div className="flex items-start gap-3">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                      <div>
+                        <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Phone / WhatsApp</span>
+                        <a href="tel:+989123238106" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
+                          +98 912 323 8106
+                        </a>
+                        <a href="https://wa.me/989123238106" target="_blank" rel="noopener noreferrer" className="text-[10px] text-green-status hover:underline mt-0.5 block">
+                          Chat on WhatsApp
+                        </a>
                       </div>
                     </div>
-                    <div className="mt-5 pt-4 border-t border-border-blue">
-                      <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-2">Office</span>
-                      <p className="text-sm text-slate-gray leading-relaxed">
-                        Tehran Province, Shemiranat County, Tajrish City, Hekmat, Dr. Ali Shariati Street, Shahid Mohammad Taghi Rafat Street, No. 7, 5th Floor, Northern Unit
-                      </p>
+                    <div className="flex items-start gap-3">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+                      </svg>
+                      <div>
+                        <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Email</span>
+                        <a href="mailto:trading@hateftejaratalborz.info" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
+                          trading@hateftejaratalborz.info
+                        </a>
+                        <a href="mailto:hatef.tejarat.alborz@gmail.com" className="text-[10px] text-navy-sub hover:text-navy-deep transition-colors mt-0.5 block">
+                          hatef.tejarat.alborz@gmail.com
+                        </a>
+                      </div>
                     </div>
+                  </div>
+                  <div className="mt-auto pt-4 border-t border-border-blue">
+                    <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-2">Office</span>
+                    <p className="text-sm text-slate-gray leading-relaxed">
+                      Tehran Province, Shemiranat County, Tajrish City, Hekmat, Dr. Ali Shariati Street, Shahid Mohammad Taghi Rafat Street, No. 7, 5th Floor, Northern Unit
+                    </p>
                   </div>
                 </div>
               </Reveal>
@@ -602,65 +490,71 @@ export default function ContactPage() {
           <div className="text-center mb-10">
             <Reveal variant="fade-up" delay={100} duration={700}>
               <SectionBadge className="mb-3">LOCATIONS</SectionBadge>
-              <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-3">Our Offices</h2>
+              <h2 className="font-serif text-2xl md:text-3xl text-navy-deep mb-2">Our Offices</h2>
               <p className="text-slate-gray text-sm max-w-2xl mx-auto">
-                Visit or contact us at our offices in Iran and the United Arab Emirates.
+                Visit or contact us at our offices.
               </p>
             </Reveal>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {OFFICES.map((office) => (
-              <Reveal key={office.country} variant="fade-up" delay={180} duration={700}>
-                <div className="card p-5 md:p-6 h-full flex flex-col">
-                  <div className="flex items-start gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                      </svg>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-sans font-semibold text-green-status uppercase tracking-wider block mb-0.5">
-                        {office.country}
-                      </span>
-                      <h3 className="font-serif text-lg text-navy-deep mb-0.5">{office.title}</h3>
-                      {office.company && (
-                        <span className="text-[10px] text-navy-sub uppercase tracking-wider block mb-1">{office.company}</span>
-                      )}
-                    </div>
+            <Reveal variant="fade-up" delay={180} duration={700}>
+              <div className="card p-5 md:p-6 h-full flex flex-col">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-navy-light flex items-center justify-center shrink-0">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                    </svg>
                   </div>
-
-                  <div className="space-y-2 mb-5 flex-grow">
-                    {office.address.map((line, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
-                        <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
-                        {line}
-                      </div>
-                    ))}
-                    {office.postalCode && (
-                      <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
-                        <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
-                        <span className="font-medium text-navy-deep">Postal Code:</span> {office.postalCode}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-auto pt-4 border-t border-border-blue">
-                    <a
-                      href={office.mapUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-4 py-2 border border-navy-deep rounded-button text-sm font-medium text-navy-deep hover:bg-navy-deep hover:text-white transition-colors"
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                      </svg>
-                      View on Map
-                    </a>
+                  <div>
+                    <span className="text-[10px] font-sans font-semibold text-green-status uppercase tracking-wider block mb-0.5">Iran</span>
+                    <h3 className="font-serif text-lg text-navy-deep mb-0.5">Head Office — Tehran</h3>
+                    <span className="text-[10px] text-navy-sub uppercase tracking-wider block mb-1">Hatef Tejarat Alborz</span>
                   </div>
                 </div>
-              </Reveal>
-            ))}
+
+                <div className="space-y-2 mb-5 flex-grow">
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    No 7, 5th Floor, Northern Unit
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    Dr. Ali Shariati Street
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    Shahid Mohammad Taghi Rafat Street
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    Hekmat, Tajrish City
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    Shemiranat County, Tehran Province, Iran
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-slate-gray leading-relaxed">
+                    <span className="shrink-0 mt-0.5 text-navy-sub">·</span>
+                    <span className="font-medium text-navy-deep">Postal Code:</span> 1917643133
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-border-blue">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Tehran,+Shemiranat,+Tajrish,+Hekmat,+Dr.+Ali+Shariati+Street,+Iran"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 border border-navy-deep rounded-button text-sm font-medium text-navy-deep hover:bg-navy-deep hover:text-white transition-colors"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+                    </svg>
+                    View on Map
+                  </a>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -675,96 +569,41 @@ export default function ContactPage() {
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[
-              {
-                country: 'United Arab Emirates',
-                title: 'UAE Office — Dubai',
-                phones: [],
-                emails: [],
-              },
-              {
-                country: 'Iran',
-                title: 'Iran Office — Tehran',
-                phones: ['+98-21-88660856', '+98-21-88660857'],
-                mobiles: ['+98 9127956301', '+98 9126206415'],
-                emails: ['trading@hateftejaratalborz.info', 'hatef.tejarat.alborz@gmail.com'],
-              },
-            ].map((office) => (
-              <Reveal key={office.country} variant="fade-up" delay={180} duration={700}>
-                <div className="card p-5 md:p-6 h-full">
-                  <h3 className="font-serif text-xl md:text-2xl text-navy-deep mb-4">{office.title}</h3>
-                  <div className="space-y-4">
-                    {office.phones && office.phones.length > 0 && (
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-navy-light flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Phone / WhatsApp</span>
-                          {office.phones.map((p) => (
-                            <a key={p} href={`tel:${p.replace(/\s/g, '')}`} className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                              {p}
-                            </a>
-                          ))}
-                        </div>
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
+            <Reveal variant="fade-up" delay={180} duration={700}>
+              <div className="card p-5 md:p-6 h-full">
+                <h3 className="font-serif text-xl md:text-2xl text-navy-deep mb-4">Iran Office — Tehran</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-navy-light flex items-center justify-center shrink-0 mt-0.5">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Phone / WhatsApp / SMS</span>
+                      <a href="tel:+989123238106" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
+                        +98 912 323 8106
+                      </a>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5 text-navy-deep">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+                      </svg>
+                      <div>
+                        <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Email</span>
+                        <a href="mailto:trading@hateftejaratalborz.info" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
+                          trading@hateftejaratalborz.info
+                        </a>
+                        <a href="mailto:hatef.tejarat.alborz@gmail.com" className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors mt-1">
+                          hatef.tejarat.alborz@gmail.com
+                        </a>
                       </div>
-                    )}
-                    {office.mobiles && office.mobiles.length > 0 && (
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-navy-light flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Mobile</span>
-                          {office.mobiles.map((m) => (
-                            <a key={m} href={`tel:${m.replace(/\s/g, '')}`} className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                              {m}
-                            </a>
-                          ))}
-                          {office.country === 'United Arab Emirates' && (
-                            <>
-                              {office.mobiles.map((m) => (
-                                <a
-                                  key={`wa-${m}`}
-                                  href={`https://wa.me/${m.replace(/\s|-/g, '')}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-[10px] text-green-status hover:underline mt-0.5 block"
-                                >
-                                  Chat on WhatsApp
-                                </a>
-                              ))}
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    {office.emails && office.emails.length > 0 && (
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-navy-light flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-navy-deep">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                          </svg>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-sans font-semibold text-navy-sub uppercase tracking-wider block mb-0.5">Email</span>
-                          {office.emails.map((em) => (
-                            <a key={em} href={`mailto:${em}`} className="block text-sm font-medium text-navy-deep hover:text-navy-mid transition-colors">
-                              {em}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </Reveal>
-            ))}
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

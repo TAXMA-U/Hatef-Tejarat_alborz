@@ -166,6 +166,22 @@ export default function ProductCatalogPage() {
   const config = catalogConfigs[slug || ''] ?? catalogConfigs[''];
   const [filterOpen, setFilterOpen] = useState(false);
 
+  const heroRef = useRef<HTMLDivElement>(null);
+  const productsContainerRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const update = () => {
+      const hero = heroRef.current;
+      const vh = window.innerHeight;
+      const heroH = hero ? hero.offsetHeight : 240;
+      setContentHeight(Math.max(300, vh - heroH - 16));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   const {
     search, setSearch,
     selectedMaterials, selectedWorkCategories, selectedCertifications,
@@ -179,11 +195,15 @@ export default function ProductCatalogPage() {
     clearAllFilters,
     resultCount,
     loadMoreRef,
-  } = useProductFilters(products, { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' });
+  } = useProductFilters(
+    products,
+    { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' },
+    productsContainerRef,
+  );
 
   return (
-    <div className="relative min-h-screen">
-      <section className="relative w-full overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden">
+      <section ref={heroRef} className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px] lg:h-[240px]">
           <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/30" />
@@ -199,100 +219,96 @@ export default function ProductCatalogPage() {
         </div>
       </section>
 
-      <section className="py-6 md:py-10">
-        <div className="container">
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
-            <aside className="hidden lg:block lg:fixed lg:top-[92px] lg:left-0 lg:w-[260px] shrink-0 z-20 overflow-y-auto lg:max-h-[calc(100vh-92px)]">
-              <FilterPanel
-                selectedMaterials={selectedMaterials}
-                selectedWorkCategories={selectedWorkCategories}
-                selectedCertifications={selectedCertifications}
-                toggleMaterial={toggleMaterial}
-                toggleWorkCategory={toggleWorkCategory}
-                toggleCertification={toggleCertification}
-                clearAllFilters={clearAllFilters}
-                hasActiveFilters={hasActiveFilters}
-                search={search}
-                setSearch={setSearch}
-              />
-            </aside>
+      <div className="flex flex-col lg:flex-row gap-5 lg:gap-7" style={{ height: contentHeight ?? 'calc(100vh - 240px)', overflow: 'hidden' }}>
+        <aside className="hidden lg:block lg:fixed lg:left-0 lg:top-[240px] lg:w-[260px] shrink-0 z-20 lg:h-full overflow-y-auto pb-8">
+          <FilterPanel
+            selectedMaterials={selectedMaterials}
+            selectedWorkCategories={selectedWorkCategories}
+            selectedCertifications={selectedCertifications}
+            toggleMaterial={toggleMaterial}
+            toggleWorkCategory={toggleWorkCategory}
+            toggleCertification={toggleCertification}
+            clearAllFilters={clearAllFilters}
+            hasActiveFilters={hasActiveFilters}
+            search={search}
+            setSearch={setSearch}
+          />
+        </aside>
 
-            <div className="flex-1 min-w-0 lg:pl-[280px]">
-              <Reveal variant="fade-up" delay={150} duration={700}>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-                  <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => setFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-3 py-2 border border-border-blue rounded-button text-sm text-navy-deep hover:bg-navy-light transition-colors">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
-                        <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
-                        <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
-                      </svg>
-                      Filters
-                    </button>
-                    <div className="relative">
-                      <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'relevance' | 'name' | 'newest')} className="appearance-none pl-9 pr-8 py-2 border border-border-blue rounded-button text-sm text-navy-deep bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent">
-                        <option value="relevance">Sort By: Relevance</option>
-                        <option value="name">Sort By: Name</option>
-                        <option value="newest">Sort By: Newest</option>
-                      </select>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-
-              <div className="lg:hidden mb-5">
+        <div ref={productsContainerRef} className="flex-1 min-w-0 lg:pl-[280px] overflow-y-auto h-full">
+          <Reveal variant="fade-up" delay={150} duration={700}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-3 py-2 border border-border-blue rounded-button text-sm text-navy-deep hover:bg-navy-light transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                    <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                    <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                  </svg>
+                  Filters
+                </button>
                 <div className="relative">
-                  <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search products..." className="w-full px-4 py-2.5 pr-10 bg-white border border-border-blue rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent" />
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-sub">
-                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'relevance' | 'name' | 'newest')} className="appearance-none pl-9 pr-8 py-2 border border-border-blue rounded-button text-sm text-navy-deep bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent">
+                    <option value="relevance">Sort By: Relevance</option>
+                    <option value="name">Sort By: Name</option>
+                    <option value="newest">Sort By: Newest</option>
+                  </select>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-navy-sub pointer-events-none">
+                    <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </div>
               </div>
+            </div>
+          </Reveal>
 
-{visibleProducts.length === 0 ? (
-                  <div className="text-center py-16">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-light flex items-center justify-center">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-navy-sub">
-                        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-                      </svg>
-                    </div>
-                    <h3 className="font-serif text-xl text-navy-deep mb-2">No products found</h3>
-                    <p className="text-slate-gray text-sm mb-4">Try adjusting your filters or search terms.</p>
-                    <button onClick={clearAllFilters} className="btn-primary">Clear Filters</button>
-                  </div>
-                ) : (
-                  <>
-                    <Reveal variant="fade-up" delay={100} duration={700}>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                        {visibleProducts.map((product) => (
-                          <ExploreProductCard key={product.id} product={product} />
-                        ))}
-                      </div>
-                    </Reveal>
-                    {hasMore && !isLoadingMore && (
-                      <div ref={loadMoreRef} className="my-8 flex justify-center">
-                        <div className="flex items-center gap-2 animate-pulse">
-                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
-                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
-                          <div className="w-3 h-3 rounded-full bg-border-blue"></div>
-                          <span className="text-xs text-slate-gray">Loading more products...</span>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
+          <div className="lg:hidden mb-5">
+            <div className="relative">
+              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search products..." className="w-full px-4 py-2.5 pr-10 bg-white border border-border-blue rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-navy-deep focus:border-transparent" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-sub">
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
             </div>
           </div>
+
+          {visibleProducts.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-light flex items-center justify-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-navy-sub">
+                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <h3 className="font-serif text-xl text-navy-deep mb-2">No products found</h3>
+              <p className="text-slate-gray text-sm mb-4">Try adjusting your filters or search terms.</p>
+              <button onClick={clearAllFilters} className="btn-primary">Clear Filters</button>
+            </div>
+          ) : (
+            <>
+              <Reveal variant="fade-up" delay={100} duration={700}>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {visibleProducts.map((product) => (
+                    <ExploreProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </Reveal>
+              {hasMore && !isLoadingMore && (
+                <div ref={loadMoreRef} className="my-8 flex justify-center">
+                  <div className="flex items-center gap-2 animate-pulse">
+                    <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                    <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                    <div className="w-3 h-3 rounded-full bg-border-blue"></div>
+                    <span className="text-xs text-slate-gray">Loading more products...</span>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
-      </section>
+      </div>
 
       {/* ===== MOBILE FILTER DRAWER ===== */}
       {filterOpen && (
