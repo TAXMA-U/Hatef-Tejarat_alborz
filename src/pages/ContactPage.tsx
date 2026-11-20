@@ -107,7 +107,7 @@ export default function ContactPage() {
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px]">
           <img
-            src="/images/hero-factory.jpg"
+            src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`}
             alt="Contact Hatef Tejarat Alborz"
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"

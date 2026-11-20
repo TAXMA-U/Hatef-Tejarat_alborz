@@ -2,7 +2,7 @@ import type { ProductDetail } from '@/data/contentBlocks';
 
 export type Product = ProductDetail;
 
-const defaultImage = '/images/products/a.png';
+const defaultImage = `${import.meta.env.BASE_URL}images/products/a.png`;
 
 export const products: ProductDetail[] = [
   // ===== COPPER PRODUCTS =====

@@ -15,8 +15,8 @@ export const sampleProduct: ProductDetail = {
   manufacturer: 'Aurubis',
   countryOfOrigin: 'Germany',
   productCode: 'CW-8MM-001',
-  heroImage: '/images/products/a.png',
-  gallery: ['/images/products/a.png', '/images/products/b.png', '/images/products/c.png'],
+  heroImage: `${import.meta.env.BASE_URL}images/products/a.png`,
+  gallery: [`${import.meta.env.BASE_URL}images/products/a.png`, `${import.meta.env.BASE_URL}images/products/b.png`, `${import.meta.env.BASE_URL}images/products/c.png`],
   inStock: true,
   ctaText: 'Inquire About This Product',
   ctaInquiryType: 'specifications',
@@ -169,9 +169,9 @@ export const sampleProduct: ProductDetail = {
       order: 10,
       content: {
         images: [
-          { src: '/images/products/a.png', caption: 'Copper Wire - Main View' },
-          { src: '/images/products/b.png', caption: 'Copper Wire - Detail' },
-          { src: '/images/products/c.png', caption: 'Copper Wire - Cross Section' }
+          { src: `${import.meta.env.BASE_URL}images/products/a.png`, caption: 'Copper Wire - Main View' },
+          { src: `${import.meta.env.BASE_URL}images/products/b.png`, caption: 'Copper Wire - Detail' },
+          { src: `${import.meta.env.BASE_URL}images/products/c.png`, caption: 'Copper Wire - Cross Section' }
         ]
       }
     },

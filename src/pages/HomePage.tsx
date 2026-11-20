@@ -41,7 +41,7 @@ export default function HomePage() {
       {/* ===== HERO ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[640px] md:h-[520px] lg:h-[560px]">
-          <img src="/images/hero-factory.jpg" alt="Steel factory with large rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+          <img   src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with large rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/20" />
           <div className="relative container h-full flex items-center pb-48 md:pb-24">
             <div className="max-w-xl lg:max-w-lg">
@@ -140,7 +140,7 @@ export default function HomePage() {
       <section className="py-8 md:py-12">
         <div className="container">
           <div className="relative h-[220px] md:h-[240px] rounded-[20px] overflow-hidden">
-            <img src="/images/catalog-banner.jpg" alt="Steel rolls catalog banner" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <img   src={`${import.meta.env.BASE_URL}images/catalog-banner.jpg`} alt="Steel rolls catalog banner" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/80 to-transparent" />
             <div className="relative h-full flex items-center px-6 md:px-10">
               <div>
@@ -187,7 +187,7 @@ export default function HomePage() {
           <CategorySlider
             title="Steel Products"
             description="High-strength steel and stainless steel alloys for structural and industrial use."
-            image="/images/products/Steel_product.png"
+            image={`${import.meta.env.BASE_URL}images/products/Steel_product.png`}
             badge="STEEL"
             productCount={steelProducts.length}
             viewAll="/category/steel"
@@ -233,7 +233,7 @@ export default function HomePage() {
           <CategorySlider
             title="Aluminum Products"
             description="Lightweight, corrosion-resistant aluminum alloys for aerospace, automotive, and construction applications."
-            image="/images/products/Aluminumـproduct.png"
+            image={`${import.meta.env.BASE_URL}images/products/Aluminumـproduct.png`}
             badge="ALUMINUM"
             productCount={aluminumProducts.length}
             viewAll="/category/aluminum"

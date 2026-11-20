@@ -164,7 +164,7 @@ export default function ProductCatalogPage() {
       {/* ===== HERO BANNER ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[220px] lg:h-[240px]">
-          <img src="/images/hero-factory.jpg" alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+          <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel factory with rolls" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/30" />
           <div className="relative container h-full flex items-center">
             <div className="max-w-lg">
@@ -364,10 +364,10 @@ function FilterPanel({
   setSearch: (s: string) => void;
 }) {
   const workCategories = [
-    { id: 'Aerospace Components', label: 'Aerospace Components', image: '/images/industries/a.png' },
-    { id: 'Construction Materials', label: 'Construction Materials', image: '/images/industries/b.png' },
-    { id: 'Electrical Infrastructure', label: 'Electrical Infrastructure', image: '/images/industries/c.png' },
-    { id: 'Marine Equipment', label: 'Marine Equipment', image: '/images/industries/d.png' },
+    { id: 'Aerospace Components', label: 'Aerospace Components', image: `${import.meta.env.BASE_URL}images/industries/a.png` },
+    { id: 'Construction Materials', label: 'Construction Materials', image: `${import.meta.env.BASE_URL}images/industries/b.png` },
+    { id: 'Electrical Infrastructure', label: 'Electrical Infrastructure', image: `${import.meta.env.BASE_URL}images/industries/c.png` },
+    { id: 'Marine Equipment', label: 'Marine Equipment', image: `${import.meta.env.BASE_URL}images/industries/d.png` },
   ];
   const certifications = [
     { id: 'ISO 9001', label: 'ISO 9001' },

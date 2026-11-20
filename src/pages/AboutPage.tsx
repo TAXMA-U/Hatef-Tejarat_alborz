@@ -50,7 +50,7 @@ export default function AboutPage() {
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[200px] md:h-[240px]">
           <img
-            src="/images/hero-factory.jpg"
+            src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`}
             alt="Steel factory"
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
@@ -80,7 +80,7 @@ export default function AboutPage() {
             <div className="lg:col-span-6">
               <div className="aspect-[4/3] rounded-card overflow-hidden border border-border-blue">
                 <img
-                  src="/images/hero-factory.jpg"
+                  src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`}
                   alt="Steel factory operations"
                   className="w-full h-full object-cover"
                   loading="lazy"

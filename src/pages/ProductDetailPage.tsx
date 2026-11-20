@@ -88,7 +88,7 @@ export default function ProductDetailPage() {
       {/* ===== HERO BANNER ===== */}
       <section className="relative w-full overflow-hidden">
         <div className="relative h-[160px] md:h-[180px]">
-          <img src="/images/hero-factory.jpg" alt="Steel pipes" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+          <img src={`${import.meta.env.BASE_URL}images/hero-factory.jpg`} alt="Steel pipes" className="absolute inset-0 w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest via-navy-darkest/85 to-navy-darkest/40" />
           <div className="relative container h-full flex items-center">
             <div>
