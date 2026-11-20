@@ -201,7 +201,7 @@ export default function ProductCatalogPage() {
         <div className="container">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
             <aside className="hidden lg:block w-[260px] shrink-0">
-              <div className="sticky top-[88px]">
+              <div className="sticky top-[88px] max-h-[calc(100vh-104px)] overflow-y-auto">
                 <FilterPanel
                   selectedMaterials={selectedMaterials}
                   selectedWorkCategories={selectedWorkCategories}
