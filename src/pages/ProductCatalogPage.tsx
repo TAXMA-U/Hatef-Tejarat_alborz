@@ -202,24 +202,22 @@ export default function ProductCatalogPage() {
       <section className="py-6 md:py-10">
         <div className="container">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-7">
-            <aside className="hidden lg:block w-[260px] shrink-0">
-              <div className="sticky top-[88px]">
-                <FilterPanel
-                  selectedMaterials={selectedMaterials}
-                  selectedWorkCategories={selectedWorkCategories}
-                  selectedCertifications={selectedCertifications}
-                  toggleMaterial={toggleMaterial}
-                  toggleWorkCategory={toggleWorkCategory}
-                  toggleCertification={toggleCertification}
-                  clearAllFilters={clearAllFilters}
-                  hasActiveFilters={hasActiveFilters}
-                  search={search}
-                  setSearch={setSearch}
-                />
-              </div>
+            <aside className="hidden lg:block lg:fixed lg:top-[92px] lg:left-0 lg:w-[260px] shrink-0 z-20 overflow-y-auto lg:max-h-[calc(100vh-92px)]">
+              <FilterPanel
+                selectedMaterials={selectedMaterials}
+                selectedWorkCategories={selectedWorkCategories}
+                selectedCertifications={selectedCertifications}
+                toggleMaterial={toggleMaterial}
+                toggleWorkCategory={toggleWorkCategory}
+                toggleCertification={toggleCertification}
+                clearAllFilters={clearAllFilters}
+                hasActiveFilters={hasActiveFilters}
+                search={search}
+                setSearch={setSearch}
+              />
             </aside>
 
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 lg:pl-[280px]">
               <Reveal variant="fade-up" delay={150} duration={700}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
                   <p className="text-sm text-slate-gray">Showing <span className="font-semibold text-navy-deep">{resultCount}</span> Products</p>
