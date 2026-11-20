@@ -169,7 +169,7 @@ export function useProductFilters(
           loadMore();
         }
       },
-      { threshold: 0.1, rootMargin: '100px' }
+      { threshold: 0.1, rootMargin: '300px' }
     );
     if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
     return () => {
