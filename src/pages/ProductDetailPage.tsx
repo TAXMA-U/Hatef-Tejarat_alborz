@@ -80,15 +80,23 @@ export default function ProductDetailPage() {
   return (
     <div className="relative min-h-screen">
       <section className="relative w-full overflow-hidden">
-        <div className="relative h-[320px] md:h-[380px] lg:h-[440px]">
+        <div className="relative h-[230px] md:h-[250px]">
           <img
             src={productDetail.heroImage}
             alt={productDetail.name}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy-darkest/80 via-navy-darkest/40 to-transparent" />
-          <div className="relative container h-full flex items-start pt-6 md:pt-8 lg:pt-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest/80 via-navy-darkest/40 to-navy-darkest/0" />
+          <div className="relative container h-full flex flex-col justify-between gap-4 pl-6 md:pl-8 lg:pl-10 pt-4 md:pt-6 pb-4">
+            <div className="flex flex-col gap-1.5">
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium mt-0 mb-1 text-left">
+                {productDetail.name}
+              </h1>
+              <p className="text-white/70 text-sm md:text-base text-left max-w-lg leading-relaxed">
+                {productDetail.shortDescription}
+              </p>
+            </div>
             <Breadcrumbs
               variant="dark"
               items={[
@@ -100,14 +108,6 @@ export default function ProductDetailPage() {
                 })),
               ]}
             />
-            <Reveal variant="fade-up" delay={100} duration={800}>
-              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium mt-2 mb-2 text-left">
-                {productDetail.name}
-              </h1>
-              <p className="text-white/70 text-sm md:text-base text-left max-w-lg">
-                {productDetail.shortDescription}
-              </p>
-            </Reveal>
           </div>
         </div>
       </section>
