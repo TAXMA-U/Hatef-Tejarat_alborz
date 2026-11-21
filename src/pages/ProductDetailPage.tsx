@@ -87,16 +87,16 @@ export default function ProductDetailPage() {
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest/80 via-navy-darkest/40 to-navy-darkest/0" />
-          <div className="relative container h-full flex flex-col justify-between pl-6 md:pl-8 lg:pl-16 pt-8 md:pt-8 pb-6">
-            <div className="flex flex-col gap-3">
-              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium text-left">
-                {productDetail.name}
-              </h1>
-              <p className="text-white/70 text-sm md:text-base text-left max-w-lg leading-relaxed">
-                {productDetail.shortDescription}
-              </p>
-            </div>
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(5, 25, 55, 0.72) 0%, rgba(5, 25, 55, 0.62) 20%, rgba(5, 25, 55, 0.38) 35%, rgba(5, 25, 55, 0.16) 45%, rgba(5, 25, 55, 0.00) 53%, rgba(5, 25, 55, 0.00) 100%)' }} />
+          <div className="absolute top-[30px] left-[60px] flex flex-col gap-3 max-w-[600px]">
+            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium text-left">
+              {productDetail.name}
+            </h1>
+            <p className="text-white/70 text-sm md:text-base text-left max-w-lg leading-relaxed">
+              {productDetail.shortDescription}
+            </p>
+          </div>
+          <div className="absolute bottom-[22px] left-[60px]">
             <Breadcrumbs
               variant="dark"
               items={[
