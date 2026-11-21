@@ -764,57 +764,7 @@ export const products: ProductDetail[] = [
         content: { message: 'Mesh specifications require manual verification from catalog images.', variant: 'warning' }
       },
     ],
-    relatedProductIds: ['hta-chicken-mesh', 'hta-gabion'],
-  },
-  {
-    id: 'hta-gabion',
-    slug: 'gabion',
-    name: 'Gabion',
-    shortDescription: 'Wire mesh gabion for retaining structures, erosion control, and landscaping.',
-    materialFamily: 'Iron & Steel',
-    categoryPath: ['Metals', 'Iron & Steel', 'Wire Mesh & Fencing', 'Woven Mesh', 'Gabion Mesh / Gabion'],
-    categoryIds: ['gabion'],
-    productType: 'Mesh',
-    heroImage: resolveProductImage('gabion'),
-    hasImage: false,
-    inStock: true,
-    ctaText: 'Inquire About This Product',
-    contentBlocks: [
-      {
-        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
-        content: {
-          paragraphs: [
-            'Wire mesh structure filled with stones, gravel, or other materials.',
-            'Applications: Retaining structures, retaining walls, erosion control, decorative applications.',
-            'Made from galvanized steel wire.',
-            'Thicker wire than Hexagonal Wire Mesh with 3-twist connections.',
-            'High flexibility and durability; withstands water flow and stone pressure.',
-            'Applications: Road construction, dam construction, environmental projects.',
-            'Rust and corrosion resistant; mesh structure absorbs and distributes forces.'
-          ]
-        }
-      },
-      {
-        id: 'weight', type: 'weightTable', title: 'Weight by Width', order: 2,
-        content: {
-          columns: [
-            { key: 'width', label: 'Width', unit: 'm' },
-            { key: 'weight', label: 'Weight', unit: 'kg' },
-          ],
-          rows: [
-            { width: '3', weight: '208' },
-            { width: '2', weight: '153' },
-            { width: '1.5', weight: '108' },
-            { width: '1', weight: '76' },
-          ]
-        }
-      },
-      {
-        id: 'notice', type: 'notice', title: '', order: 3,
-        content: { message: 'Weight based on wire diameter 3mm and length 40m. Also available in 20m length.', variant: 'info' }
-      },
-    ],
-    relatedProductIds: ['hta-hexagonal-mesh', 'hta-chicken-mesh'],
+    relatedProductIds: ['hta-chicken-mesh', ],
   },
   {
     id: 'hta-chicken-mesh',
@@ -862,7 +812,7 @@ export const products: ProductDetail[] = [
         content: { message: 'Specifications require manual verification from catalog images.', variant: 'warning' }
       },
     ],
-    relatedProductIds: ['hta-hexagonal-mesh', 'hta-gabion'],
+    relatedProductIds: ['hta-hexagonal-mesh'],
   },
   {
     id: 'hta-wire-mesh',

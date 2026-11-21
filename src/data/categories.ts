@@ -126,7 +126,6 @@ export const categories: Category[] = [
                 children: [
                   { id: 'hexagonal-mesh', name: 'Hexagonal Wire Mesh', slug: 'hexagonal-mesh', parentId: 'mesh-woven', level: 5, sortOrder: 1, status: 'active' },
                   { id: 'chicken-mesh', name: 'Chicken Wire Mesh', slug: 'chicken-mesh', parentId: 'mesh-woven', level: 5, sortOrder: 2, status: 'active' },
-                  { id: 'gabion', name: 'Gabion Mesh / Gabion', slug: 'gabion', parentId: 'mesh-woven', level: 5, sortOrder: 3, status: 'active' },
                 ],
               },
               {
