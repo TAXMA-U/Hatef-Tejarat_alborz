@@ -88,7 +88,7 @@ export default function ProductDetailPage() {
             loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-darkest/80 via-navy-darkest/40 to-navy-darkest/0" />
-          <div className="relative container h-full flex flex-col gap-8 pl-6 md:pl-8 lg:pl-10 pt-14 md:pt-16 pb-6">
+          <div className="relative container h-full flex flex-col justify-between pl-6 md:pl-8 lg:pl-16 pt-8 md:pt-8 pb-6">
             <div className="flex flex-col gap-3">
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium text-left">
                 {productDetail.name}
