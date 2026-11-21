@@ -555,73 +555,12 @@ export const products: ProductDetail[] = [
     relatedProductIds: ['hta-iron-wire', 'hta-ribbed-wire'],
   },
   {
-    id: 'hta-galvanized-wire',
-    slug: 'galvanized-wire',
-    name: 'Galvanized Wire',
-    shortDescription: 'Steel wire with zinc coating for corrosion resistance in construction and industrial applications.',
-    materialFamily: 'Iron & Steel',
-    categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Coated Wire', 'Galvanized Wire'],
-    categoryIds: ['galvanized-wire'],
-    productType: 'Wire',
-    heroImage: resolveProductImage('galvanized-wire'),
-    hasImage: false,
-    inStock: true,
-    ctaText: 'Inquire About This Product',
-    variants: [
-      { id: 'gw-hotdip', name: 'Hot-Dip Galvanized', sku: 'GW-HD', attributes: { 'Coating Method': 'Hot-Dip' } },
-      { id: 'gw-electro', name: 'Electro-Galvanized', sku: 'GW-EG', attributes: { 'Coating Method': 'Electro' } },
-    ],
-    contentBlocks: [
-      {
-        id: 'overview', type: 'richText', title: 'Product Overview', order: 1,
-        content: {
-          paragraphs: [
-            'Steel wire with zinc coating for corrosion resistance.',
-            'Two production methods: Hot-Dip Galvanized and Electro-Galvanized.',
-            'Hot-Dip: Cleaned wire immersed in molten zinc with small aluminum percentage.',
-            'Electro-Galvanized: Electrolytic coating with thinner zinc layer.',
-            'Applications: Construction, Agriculture, Horticulture, Poultry Farming, Meshes, Barbed Wire, Scaffolding, Plastering.',
-            'Available as coil or straightened length.'
-          ]
-        }
-      },
-      {
-        id: 'specs', type: 'technicalSpecifications', title: 'General Specifications', order: 2,
-        content: {
-          items: [
-            { label: 'Grades', value: 'SAE1006, SAE1008, SAE1010, 3SP, Rst34', unit: '' },
-            { label: 'Coating Types', value: 'Hot-Dip, Electro', unit: '' },
-          ]
-        }
-      },
-      {
-        id: 'coating-weight', type: 'weightTable', title: 'Coating Weight', order: 3,
-        content: {
-          columns: [
-            { key: 'diameter', label: 'Wire Diameter', unit: 'mm' },
-            { key: 'coating', label: 'Coating Weight', unit: 'g/m²' },
-            { key: 'class', label: 'Class' },
-          ],
-          rows: [
-            { diameter: 'Pending', coating: 'Pending Review', class: 'A' },
-            { diameter: 'Pending', coating: 'Pending Review', class: 'B' },
-          ]
-        }
-      },
-      {
-        id: 'notice', type: 'notice', title: '', order: 4,
-        content: { message: 'Coating weight values require manual verification from catalog images.', variant: 'warning' }
-      },
-    ],
-    relatedProductIds: ['hta-pvc-galvanized', 'hta-iron-wire'],
-  },
-  {
     id: 'hta-pvc-galvanized',
     slug: 'pvc-coated-galvanized-wire',
     name: 'Galvanized Wire with PVC Coating',
     shortDescription: 'Galvanized wire with PVC coating for enhanced corrosion resistance.',
     materialFamily: 'Iron & Steel',
-    categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Coated Wire', 'Galvanized Wire', 'PVC-Coated Galvanized Wire'],
+    categoryPath: ['Metals', 'Iron & Steel', 'Steel Wire Products', 'Coated Wire', 'PVC-Coated Galvanized Wire'],
     categoryIds: ['pvc-galvanized'],
     productType: 'Wire',
     heroImage: resolveProductImage('pvc-coated-galvanized-wire'),

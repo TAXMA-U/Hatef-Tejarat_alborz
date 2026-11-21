@@ -395,9 +395,9 @@ html {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(10, 15, 26, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(26, 35, 50, 0.35);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -420,12 +420,21 @@ html {
 
 .preloader-wordmark {
   font-family: var(--font-serif);
-  font-size: 2.25rem;
+  font-size: clamp(0.875rem, 4vw, 2.25rem);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.18em;
   color: #3B82F6;
   text-transform: uppercase;
   filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+  white-space: nowrap;
+}
+
+/* Mobile font size reduction */
+@media (max-width: 640px) {
+  .preloader-wordmark {
+    font-size: 0.875rem;
+    letter-spacing: 0.12em;
+  }
 }
 
 /* Skip button removed - not needed */
@@ -577,6 +586,93 @@ html {
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s infinite;
   border-radius: 0.5rem;
+}
+
+/* ============================================================
+   MOBILE PRODUCT HERO — premium industrial (below lg only)
+   ============================================================ */
+
+.product-hero-mobile {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(120% 65% at 88% -5%, rgba(28, 95, 168, 0.32) 0%, rgba(28, 95, 168, 0) 58%),
+    radial-gradient(85% 55% at -10% 105%, rgba(217, 130, 75, 0.12) 0%, rgba(217, 130, 75, 0) 60%),
+    linear-gradient(165deg, #061A3A 0%, #00132E 54%, #061A3A 100%);
+}
+
+.ph-factory-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/hero-factory.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.09;
+  filter: blur(5px) saturate(0.7);
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.ph-copper-shape {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.ph-copper-shape-a {
+  width: 360px;
+  height: 360px;
+  top: -110px;
+  right: -170px;
+  border: 2px solid rgba(217, 130, 75, 0.3);
+}
+
+.ph-copper-shape-b {
+  width: 250px;
+  height: 250px;
+  top: -40px;
+  right: -110px;
+  border: 1.5px solid rgba(243, 154, 99, 0.2);
+}
+
+.ph-product-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.375rem, 11.5vw, 3.625rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ph-product-description {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, calc(10px + 1.2vw), 17px);
+  line-height: 1.6;
+  color: #d3dceb;
+  max-width: 95%;
+}
+
+.ph-image-frame {
+  position: relative;
+  border-radius: 24px;
+  border: 6px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 22px 48px -14px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  aspect-ratio: 1 / 1;
+}
+
+.ph-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ============================================================

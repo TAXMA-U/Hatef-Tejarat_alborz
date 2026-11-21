@@ -6,6 +6,7 @@ import BlockRenderer from '@/components/product/BlockRenderer';
 import VariantSelector from '@/components/product/VariantSelector';
 import Lightbox from '@/components/common/Lightbox';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
+import MobileBreadcrumbs from '@/components/common/MobileBreadcrumbs';
 import { Reveal } from '@/components/common/Reveal';
 
 export default function ProductDetailPage() {
@@ -79,7 +80,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="relative min-h-screen">
-      <section className="relative w-full overflow-hidden">
+      <section className="relative hidden w-full overflow-hidden lg:block">
         <div className="relative h-[230px] md:h-[250px]">
           <img
             src={productDetail.heroImage}
@@ -112,11 +113,76 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
+      {/* Mobile Hero — premium industrial presentation (below lg only) */}
+      <section className="product-hero-mobile lg:hidden">
+        <div aria-hidden="true" className="ph-factory-bg" />
+        <div aria-hidden="true" className="ph-copper-shape ph-copper-shape-a" />
+        <div aria-hidden="true" className="ph-copper-shape ph-copper-shape-b" />
+
+        <div className="relative z-10 mx-auto w-full max-w-[680px] px-5 pb-9 pt-5">
+          <MobileBreadcrumbs
+            items={[
+              { label: 'Home', to: '/' },
+              { label: 'Products', to: '/products' },
+              ...productDetail.categoryPath.map((cat) => ({
+                label: cat,
+                to: `/category/${cat.toLowerCase().replace(/\s+/g, '-')}`,
+              })),
+              { label: productDetail.name },
+            ]}
+          />
+
+          <h1 className="ph-product-title mt-8">{productDetail.name}</h1>
+
+          <p className="ph-product-description mt-3">{productDetail.shortDescription}</p>
+
+          <div className="ph-image-frame mt-6">
+            <img
+              src={selectedVariant?.images?.[0] || productDetail.heroImage}
+              alt={selectedVariant ? `${productDetail.name} - ${selectedVariant.name}` : productDetail.name}
+              loading="eager"
+            />
+            {productDetail.inStock && (
+              <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-green-status/90 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                In Stock
+              </span>
+            )}
+            <button
+              onClick={() => setLightboxOpen(true)}
+              aria-label="Enlarge image"
+              className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-navy-deep"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="11" y1="8" x2="11" y2="14" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+            </button>
+            {selectedVariant?.images && selectedVariant.images.length > 1 && (
+              <div className="absolute bottom-3 left-3 flex gap-2">
+                {selectedVariant.images.slice(1, 4).map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightboxOpen(true)}
+                    aria-label={`View image ${i + 2}`}
+                    className="h-11 w-11 overflow-hidden rounded-lg border border-white/40 transition-colors hover:border-white"
+                  >
+                    <img src={src} alt={`Thumbnail ${i + 2}`} className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Product Hero - Two Column: Image Left (~58%), Info Right (~42%) */}
       <section className="py-8 md:py-12">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-            <div className="lg:col-span-7">
+            <div className="hidden lg:col-span-7 lg:block">
               <Reveal variant="fade-up" delay={100} duration={800}>
                 <div className="relative w-full aspect-[2.4/1] min-h-[200px] sm:min-h-[260px] md:min-h-[320px] lg:min-h-[365px] rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
                   <img
