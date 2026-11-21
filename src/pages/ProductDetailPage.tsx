@@ -80,15 +80,15 @@ export default function ProductDetailPage() {
   return (
     <div className="relative min-h-screen">
       <section className="relative w-full overflow-hidden">
-        <div className="relative h-[640px] md:h-[720px] lg:h-[800px]">
+        <div className="relative h-[320px] md:h-[380px] lg:h-[440px]">
           <img
             src={productDetail.heroImage}
             alt={productDetail.name}
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-darkest via-transparent to-transparent" />
-          <div className="relative container h-full flex items-end pb-20 md:pb-24 lg:pb-32">
+          <div className="absolute inset-0 bg-gradient-to-b from-navy-darkest/80 via-navy-darkest/40 to-transparent" />
+          <div className="relative container h-full flex items-start pt-6 md:pt-8 lg:pt-10">
             <Breadcrumbs
               variant="dark"
               items={[
@@ -101,10 +101,10 @@ export default function ProductDetailPage() {
               ]}
             />
             <Reveal variant="fade-up" delay={100} duration={800}>
-              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium mt-2 mb-2">
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-medium mt-2 mb-2 text-left">
                 {productDetail.name}
               </h1>
-              <p className="text-white/70 text-sm md:text-base max-w-lg">
+              <p className="text-white/70 text-sm md:text-base text-left max-w-lg">
                 {productDetail.shortDescription}
               </p>
             </Reveal>
