@@ -64,7 +64,7 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
     return () => { if (ref.current) observer.disconnect(); };
   }, []);
 
-  const sizeClass = 'aspect-[4/5]';
+  const sizeClass = 'md:aspect-[4/5]';
 
   return (
     <div ref={ref} className={`transition-all duration-500 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} ${sizeClass}`}>
@@ -82,15 +82,15 @@ function ExploreProductCard({ product }: { product: typeof products[number] }) {
                 onLoad={() => setImageLoaded(true)}
               />
             <div className="absolute top-2 left-2 z-10">
-              <span className="inline-block px-2 py-0.5 bg-white/90 backdrop-blur-sm border border-white/30 rounded-full text-[8px] font-semibold text-navy-deep uppercase tracking-wider">{badge}</span>
+              <span className="inline-block px-2.5 py-1 bg-white/90 backdrop-blur-sm border border-white/30 rounded-full text-[10px] font-semibold text-navy-deep uppercase tracking-wider">{badge}</span>
             </div>
           </div>
-          <div className="p-4">
-            <h3 className="font-serif text-base font-medium text-navy-deep mb-1.5 line-clamp-1">{product.name}</h3>
-            <p className="text-slate-gray text-xs line-clamp-2 mb-3">{product.shortDescription}</p>
-            <button className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-border-blue rounded-button text-xs font-semibold text-navy-deep hover:bg-navy-light hover:border-navy-deep transition-colors">
+          <div className="p-5">
+            <h3 className="font-serif text-lg font-medium text-navy-deep mb-2 leading-tight">{product.name}</h3>
+            <p className="text-slate-gray text-sm line-clamp-2 mb-4">{product.shortDescription}</p>
+            <button className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-border-blue rounded-button text-sm font-semibold text-navy-deep hover:bg-navy-light hover:border-navy-deep transition-colors">
               View Details
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
@@ -274,7 +274,7 @@ export default function ProductCatalogPage() {
           ) : (
             <>
               <Reveal variant="fade-up" delay={100} duration={700}>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {visibleProducts.map((product) => (
                     <ExploreProductCard key={product.id} product={product} />
                   ))}
