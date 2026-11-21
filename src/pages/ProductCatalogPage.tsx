@@ -179,6 +179,7 @@ export default function ProductCatalogPage() {
     clearAllFilters,
     resultCount,
     loadMoreRef,
+    loadMore,
   } = useProductFilters(
     products.filter((p) => p.hasImage),
     { category: filterCategory, sub: filterSub, subsub: filterSubSub, industry: '' },
@@ -280,13 +281,20 @@ export default function ProductCatalogPage() {
                 </div>
               </Reveal>
               {hasMore && !isLoadingMore && (
-                <div ref={loadMoreRef} className="my-8 flex justify-center">
+                <div ref={loadMoreRef} className="my-8 flex justify-center min-h-[48px]">
                   <div className="flex items-center gap-2 animate-pulse">
                     <div className="w-3 h-3 rounded-full bg-border-blue"></div>
                     <div className="w-3 h-3 rounded-full bg-border-blue"></div>
                     <div className="w-3 h-3 rounded-full bg-border-blue"></div>
                     <span className="text-xs text-slate-gray">Loading more products...</span>
                   </div>
+                </div>
+              )}
+              {hasMore && !isLoadingMore && (
+                <div className="mt-6 flex justify-center">
+                  <button onClick={loadMore} className="btn-primary text-sm px-8 py-3">
+                    Load More Products
+                  </button>
                 </div>
               )}
             </>

@@ -169,14 +169,14 @@ export function useProductFilters(
           loadMore();
         }
       },
-      { threshold: 0.1, rootMargin: '300px' }
+      { threshold: 0.1, rootMargin: '200px' }
     );
     if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
     return () => {
       if (observerRef.current) observerRef.current.disconnect();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-    }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
+  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
 
   const visibleProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;
@@ -206,5 +206,6 @@ export function useProductFilters(
     clearAllFilters,
     resultCount: filteredProducts.length,
     loadMoreRef,
+    loadMore,
   };
 }
