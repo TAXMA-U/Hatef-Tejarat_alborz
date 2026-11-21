@@ -118,7 +118,7 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             <div className="lg:col-span-7">
               <Reveal variant="fade-up" delay={100} duration={800}>
-                <div className="relative w-full aspect-square min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[640px] rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
+                <div className="relative w-full aspect-[2.4/1] min-h-[200px] sm:min-h-[260px] md:min-h-[320px] lg:min-h-[365px] rounded-card overflow-hidden border border-border-blue bg-white shadow-sm">
                   <img
                     src={selectedVariant?.images?.[0] || productDetail.heroImage}
                     alt={selectedVariant ? `${productDetail.name} - ${selectedVariant.name}` : productDetail.name}
