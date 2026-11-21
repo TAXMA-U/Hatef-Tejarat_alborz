@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
           </div>
           <div className="absolute bottom-[22px] left-[60px]">
             <Breadcrumbs
-              variant="dark"
+              variant="glass"
               items={[
                 { label: 'Home', to: '/' },
                 { label: 'Products', to: '/products' },

@@ -137,7 +137,10 @@ function ChemicalAnalysisBlock({ block }: BlockRendererProps) {
   };
   if (!content.availability || content.availability === 'not_provided' || content.availability === 'not_applicable') return null;
 
-  if (content.availability === 'upon_request') {
+  const hasTableData = content.columns && content.columns.length > 0 && content.rows && content.rows.length > 0;
+
+  // Show the "upon request" prompt only when there is NO table data.
+  if (!hasTableData && content.availability === 'upon_request') {
     return (
       <section className="mb-6">
         <BlockTitle title={block.title} />
@@ -164,7 +167,8 @@ function ChemicalAnalysisBlock({ block }: BlockRendererProps) {
     );
   }
 
-  if (!content.columns || !content.rows || content.rows.length === 0) return null;
+  // No table data at all → nothing to render.
+  if (!hasTableData) return null;
 
   return (
     <section className="mb-6">

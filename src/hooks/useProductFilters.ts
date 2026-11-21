@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, useEffect, type RefObject } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { Product } from '@/data/products';
 import { findCategoryBySlug } from '@/data/categories';
 
@@ -45,16 +45,9 @@ export function useProductFilters(
   });
 
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
-  const [visibleCount, setVisibleCount] = useState(12);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const ITEMS_PER_LOAD = 12;
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const setSearch = useCallback((query: string) => {
     setState((prev) => ({ ...prev, search: query }));
-    setVisibleCount(12);
   }, []);
 
   const toggleMaterial = useCallback((material: string) => {
@@ -64,7 +57,6 @@ export function useProductFilters(
         : [...prev.selectedMaterials, material];
       return { ...prev, selectedMaterials: next };
     });
-    setVisibleCount(12);
   }, []);
 
   const toggleWorkCategory = useCallback((category: string) => {
@@ -74,7 +66,6 @@ export function useProductFilters(
         : [...prev.selectedWorkCategories, category];
       return { ...prev, selectedWorkCategories: next };
     });
-    setVisibleCount(12);
   }, []);
 
   const toggleCertification = useCallback((cert: string) => {
@@ -84,12 +75,10 @@ export function useProductFilters(
         : [...prev.selectedCertifications, cert];
       return { ...prev, selectedCertifications: next };
     });
-    setVisibleCount(12);
   }, []);
 
   const clearAllFilters = useCallback(() => {
     setState({ search: '', selectedMaterials: [], selectedWorkCategories: [], selectedCertifications: [] });
-    setVisibleCount(12);
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -151,42 +140,13 @@ export function useProductFilters(
     return result;
   }, [products, state, sortBy]);
 
-  const loadMore = useCallback(() => {
-    if (isLoadingMore) return;
-    setIsLoadingMore(true);
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
-      setIsLoadingMore(false);
-    }, 400);
-  }, [isLoadingMore]);
-
-  useEffect(() => {
-    if (observerRef.current) observerRef.current.disconnect();
-    observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && visibleCount < filteredProducts.length && !isLoadingMore) {
-          loadMore();
-        }
-      },
-      { threshold: 0.1, rootMargin: '200px' }
-    );
-    if (loadMoreRef.current) observerRef.current.observe(loadMoreRef.current);
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect();
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [visibleCount, filteredProducts.length, isLoadingMore, loadMore]);
-
-  const visibleProducts = filteredProducts.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredProducts.length;
-
   const hasActiveFilters =
     state.selectedMaterials.length > 0 ||
     state.selectedWorkCategories.length > 0 ||
     state.selectedCertifications.length > 0 ||
     state.search.trim().length > 0;
 
+  // All filtered products are shown at once — no pagination (22 products total).
   return {
     search: state.search,
     setSearch,
@@ -198,14 +158,14 @@ export function useProductFilters(
     toggleCertification,
     sortBy,
     setSortBy,
-    visibleProducts,
+    visibleProducts: filteredProducts,
     filteredProducts,
-    hasMore,
-    isLoadingMore,
+    hasMore: false,
+    isLoadingMore: false,
     hasActiveFilters,
     clearAllFilters,
     resultCount: filteredProducts.length,
-    loadMoreRef,
-    loadMore,
+    loadMoreRef: { current: null },
+    loadMore: () => {},
   };
 }
